@@ -267,7 +267,8 @@ function cambiaGiorno(numero){
 
 
 function salvaCorsa(){
-    alert("SALVA PREMUTO");
+   
+alert("SALVA PREMUTO");
 
 
     let corsa = {
