@@ -7,11 +7,11 @@ body {
 
     margin: 0;
 
-    font-family: "Montserrat", Arial, sans-serif;
-
     background: #f4f4f4;
 
     color: #222;
+
+    font-family: "Montserrat", Arial, sans-serif;
 
 }
 
@@ -19,26 +19,26 @@ body {
 
 
 
-/* =========================
+/* ======================
    PRIMO ACCESSO
-========================= */
+====================== */
 
 
 .setup-page {
 
     position: fixed;
 
-    inset: 0;
+    inset:0;
 
-    background: white;
+    background:white;
 
-    display: flex;
+    display:flex;
 
-    align-items: center;
+    justify-content:center;
 
-    justify-content: center;
+    align-items:center;
 
-    z-index: 1000;
+    z-index:1000;
 
 }
 
@@ -46,11 +46,11 @@ body {
 
 .setup-box {
 
-    width: 90%;
+    width:90%;
 
-    max-width: 350px;
+    max-width:330px;
 
-    text-align: center;
+    text-align:center;
 
 }
 
@@ -58,11 +58,9 @@ body {
 
 .setup-logo {
 
-    width: 65px;
+    width:60px;
 
-    height: auto;
-
-    margin-bottom: 25px;
+    margin-bottom:20px;
 
 }
 
@@ -70,9 +68,9 @@ body {
 
 .setup-box h1 {
 
-    font-size: 22px;
+    font-size:22px;
 
-    margin-bottom: 10px;
+    margin-bottom:8px;
 
 }
 
@@ -80,16 +78,13 @@ body {
 
 .setup-box p {
 
-    color: #777;
+    color:#777;
 
-    font-size: 14px;
+    font-size:14px;
 
-    margin-bottom: 25px;
+    margin-bottom:20px;
 
 }
-
-
-
 
 
 
@@ -99,38 +94,33 @@ input,
 textarea {
 
 
-    width: 100%;
+    width:100%;
 
-    padding: 13px;
+    padding:13px;
 
-    border-radius: 10px;
+    border-radius:10px;
 
-    border: 1px solid #ddd;
+    border:1px solid #ddd;
 
-    font-family: inherit;
+    font-family:inherit;
 
-    font-size: 14px;
+    font-size:14px;
 
-    background:white;
+    outline:none;
 
 
 }
-
 
 
 
 
 button {
 
-
-    font-family: inherit;
+    font-family:inherit;
 
     cursor:pointer;
 
-
 }
-
-
 
 
 
@@ -139,9 +129,9 @@ button {
 .setup-box button {
 
 
-    margin-top:15px;
-
     width:100%;
+
+    margin-top:15px;
 
     padding:14px;
 
@@ -166,15 +156,15 @@ button {
 
 
 
-/* =========================
+/* ======================
    HEADER
-========================= */
+====================== */
 
 
 .app-header {
 
 
-    height:65px;
+    height:62px;
 
     background:white;
 
@@ -188,7 +178,6 @@ button {
 
 
 }
-
 
 
 
@@ -227,8 +216,6 @@ button {
 
     color:#777;
 
-    margin-top:2px;
-
 
 }
 
@@ -236,13 +223,6 @@ button {
 
 
 
-
-
-
-
-/* =========================
-   PAGINE
-========================= */
 
 
 #appContainer {
@@ -250,10 +230,18 @@ button {
 
     display:none;
 
-
 }
 
 
+
+
+
+
+
+
+/* ======================
+   PAGINE
+====================== */
 
 
 .container {
@@ -274,9 +262,7 @@ button {
 
     display:none;
 
-
 }
-
 
 
 
@@ -287,7 +273,6 @@ button {
 
 
 }
-
 
 
 
@@ -309,7 +294,7 @@ h2 {
 
     font-size:16px;
 
-    margin-top:25px;
+    margin:25px 0 12px;
 
 
 }
@@ -322,9 +307,9 @@ h2 {
 
 
 
-/* =========================
+/* ======================
    CARD
-========================= */
+====================== */
 
 
 .card {
@@ -338,8 +323,7 @@ h2 {
 
     margin-bottom:15px;
 
-
-    box-shadow:0 3px 12px rgba(0,0,0,0.05);
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
 
 
 }
@@ -356,17 +340,16 @@ h2 {
 
 
 
-
 .highlight-box {
 
 
-    background:#fff8f1;
+    background:#fff7ef;
+
+    border:1px solid #f1d3b7;
 
     border-radius:14px;
 
     padding:16px;
-
-    border:1px solid #f0d4ba;
 
     margin-bottom:20px;
 
@@ -375,17 +358,16 @@ h2 {
 
 
 
-
 .section-title {
 
 
     font-size:11px;
 
-    font-weight:700;
-
     color:#e87517;
 
-    letter-spacing:.6px;
+    font-weight:700;
+
+    letter-spacing:.5px;
 
     margin-bottom:10px;
 
@@ -394,11 +376,10 @@ h2 {
 
 
 
-
 .time {
 
 
-    font-size:24px;
+    font-size:25px;
 
     font-weight:700;
 
@@ -426,10 +407,77 @@ h2 {
 
 
 
+/* ======================
+   GIORNI
+====================== */
 
-/* =========================
+
+.day-selector {
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:8px 12px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+
+
+}
+
+
+
+.day-selector button {
+
+
+    width:38px;
+
+    height:38px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:#e87517;
+
+    color:white;
+
+    font-size:22px;
+
+
+}
+
+
+
+#giornoSelezionato {
+
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+
+
+
+
+
+
+
+
+/* ======================
    FORM
-========================= */
+====================== */
 
 
 .form-section {
@@ -437,15 +485,14 @@ h2 {
 
     background:white;
 
-    padding:16px;
-
     border-radius:14px;
+
+    padding:16px;
 
     margin-bottom:15px;
 
 
 }
-
 
 
 
@@ -458,7 +505,6 @@ h2 {
 
 
 }
-
 
 
 
@@ -491,24 +537,20 @@ textarea {
 
 
 
-
-
-
-
 .save {
 
 
     width:100%;
 
-    background:#e87517;
-
-    color:white;
+    padding:15px;
 
     border:0;
 
-    padding:15px;
-
     border-radius:12px;
+
+    background:#e87517;
+
+    color:white;
 
     font-weight:700;
 
@@ -524,10 +566,9 @@ textarea {
 
 
 
-
-/* =========================
+/* ======================
    CORSE
-========================= */
+====================== */
 
 
 .trip {
@@ -597,11 +638,11 @@ textarea {
 
     flex:1;
 
+    border:0;
+
     padding:10px;
 
     border-radius:8px;
-
-    border:0;
 
     background:#e87517;
 
@@ -627,10 +668,9 @@ textarea {
 
 
 
-
-/* =========================
+/* ======================
    MENU BASSO
-========================= */
+====================== */
 
 
 .bottom-nav {
@@ -656,17 +696,20 @@ textarea {
 
     align-items:center;
 
+    z-index:100;
+
 
 }
+
 
 
 
 .nav-item {
 
 
-    border:0;
-
     background:none;
+
+    border:0;
 
     font-size:12px;
 
@@ -689,13 +732,12 @@ textarea {
 
 
 
-
 .nav-item.add {
 
 
-    font-size:22px;
-
     color:#e87517;
+
+    font-size:22px;
 
 
 }
