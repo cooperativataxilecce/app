@@ -22,7 +22,7 @@
 
 <img src="logo.png" alt="Cooperativa Taxi Lecce">
 
-<div class="driver-name">
+<div class="driver-name" id="driverName">
 Tassista Cristian
 </div>
 
@@ -30,7 +30,9 @@ Tassista Cristian
 
 
 
+
 <main class="container">
+
 
 
 <!-- HOME -->
@@ -39,6 +41,7 @@ Tassista Cristian
 
 
 <h1>Home</h1>
+
 
 
 <div class="card next-card">
@@ -50,43 +53,16 @@ Prossima corsa
 
 
 <div class="time">
-08:30
+Nessuna corsa
 </div>
 
 
 <div class="info">
-Mario Rossi
-</div>
-
-
-<div class="info">
-Telefono:
-3331234567
-</div>
-
-
-<div class="info">
-Partenza:
-<br>
-Via Roma 10, Lecce
-</div>
-
-
-<div class="info">
-Arrivo:
-<br>
-Aeroporto Brindisi
-</div>
-
-
-<div class="info">
-Passeggeri:
-3
+Aggiungi una nuova corsa per visualizzarla qui
 </div>
 
 
 </div>
-
 
 
 
@@ -98,17 +74,14 @@ Corsa successiva
 </div>
 
 
-14:00
-
-<br>
-
-Lecce - Stazione Ferroviaria
+Nessuna corsa programmata
 
 
 </div>
 
 
 </section>
+
 
 
 
@@ -119,53 +92,16 @@ Lecce - Stazione Ferroviaria
 
 <!-- LE MIE CORSE -->
 
+
 <section id="corse" class="page">
 
 
-<h1>Le mie corse</h1>
+<h1>
+Le mie corse
+</h1>
 
 
-
-<!-- PROSSIMA CORSA -->
-
-
-<div class="card next-card">
-
-
-<div class="section-title">
-Prossima corsa
-</div>
-
-
-<div class="time">
-08:30
-</div>
-
-
-<div class="info">
-Mario Rossi
-</div>
-
-
-<div class="info">
-Via Roma 10, Lecce
-</div>
-
-
-<button class="secondary-btn">
-Apri dettagli
-</button>
-
-
-</div>
-
-
-
-
-
-
-
-<!-- PROGRAMMATE -->
+<div id="prossima"></div>
 
 
 <h2>
@@ -173,148 +109,16 @@ Corse programmate
 </h2>
 
 
-
-<div class="trip card"
-onclick="toggleTrip(this)">
-
-
-<div class="trip-header">
-
-
-<div>
-
-<div class="time">
-14:00
-</div>
-
-
-<div>
-Cliente senza nome
-</div>
-
-
-</div>
+<div id="programmate"></div>
 
 
 
-<div>
-▼
-</div>
-
-
-</div>
-
-
-
-<div class="trip-address">
-
-Via Trinchese, Lecce
-
-</div>
-
-
-
-
-
-<div class="details">
-
-
-<hr>
-
-
-<div>
-Telefono:
-</div>
-
-
-<div>
-Arrivo:
-</div>
-
-
-<div>
-Data:
-</div>
-
-
-<div>
-Passeggeri:
-</div>
-
-
-<div>
-Note:
-</div>
-
-
-
-<div class="actions">
-
-
-<button>
-Modifica corsa
-</button>
-
-
-<button class="delete">
-Elimina corsa
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- COMPLETATE -->
-
-
-<h2 class="completed-title">
-
+<h2>
 Corse completate
-
 </h2>
 
 
-
-<div class="card completed-trip">
-
-
-<div class="time">
-08:30
-</div>
-
-
-<div>
-Mario Rossi
-</div>
-
-
-<div>
-Via Roma 10, Lecce
-</div>
-
-
-<div class="small-text">
-
-Eliminazione automatica tra 20 minuti
-
-</div>
-
-
-</div>
-
+<div id="completate"></div>
 
 
 </section>
@@ -327,7 +131,8 @@ Eliminazione automatica tra 20 minuti
 
 
 
-<!-- AGGIUNGI -->
+<!-- AGGIUNGI CORSA -->
+
 
 <section id="add" class="page">
 
@@ -345,15 +150,15 @@ Aggiungi una corsa
 Nome cliente
 </label>
 
-<input type="text">
+<input id="cliente" type="text">
 
 
 
 <label>
-Numero telefono
+Numero telefono cliente
 </label>
 
-<input type="tel">
+<input id="telefono" type="tel">
 
 
 
@@ -361,7 +166,7 @@ Numero telefono
 Indirizzo partenza *
 </label>
 
-<input type="text" required>
+<input id="partenza" type="text">
 
 
 
@@ -369,7 +174,7 @@ Indirizzo partenza *
 Indirizzo arrivo
 </label>
 
-<input type="text">
+<input id="arrivo" type="text">
 
 
 
@@ -377,7 +182,7 @@ Indirizzo arrivo
 Data *
 </label>
 
-<input type="date" required>
+<input id="data" type="date">
 
 
 
@@ -385,7 +190,7 @@ Data *
 Orario
 </label>
 
-<input type="time">
+<input id="orario" type="time">
 
 
 
@@ -393,7 +198,7 @@ Orario
 Numero passeggeri
 </label>
 
-<input type="number">
+<input id="passeggeri" type="number">
 
 
 
@@ -401,7 +206,7 @@ Numero passeggeri
 Note extra
 </label>
 
-<textarea></textarea>
+<textarea id="note"></textarea>
 
 
 
@@ -416,7 +221,51 @@ Salva corsa
 </div>
 
 
+
+
+
+
+
+
+
+<!-- IMPOSTAZIONI AUTISTA -->
+
+
+<div class="card">
+
+
+<h2>
+Impostazioni autista
+</h2>
+
+
+<label>
+Nome tassista
+</label>
+
+
+<input 
+id="driverInput"
+type="text"
+placeholder="Inserisci nome tassista">
+
+
+
+<button 
+class="save"
+onclick="salvaNomeTassista()">
+
+Salva nome
+
+</button>
+
+
+</div>
+
+
+
 </section>
+
 
 
 
@@ -431,11 +280,16 @@ Salva corsa
 
 
 
+
+<!-- NAVIGAZIONE -->
+
+
 <nav class="bottom-nav">
 
 
-<button onclick="openPage('home',this)"
-class="nav-item active">
+<button 
+class="nav-item active"
+onclick="openPage('home',this)">
 
 Home
 
@@ -443,8 +297,9 @@ Home
 
 
 
-<button onclick="openPage('corse',this)"
-class="nav-item">
+<button 
+class="nav-item"
+onclick="openPage('corse',this)">
 
 Le mie corse
 
@@ -452,8 +307,9 @@ Le mie corse
 
 
 
-<button onclick="openPage('add',this)"
-class="nav-item add">
+<button 
+class="nav-item add"
+onclick="openPage('add',this)">
 
 +
 
@@ -466,6 +322,7 @@ Aggiungi una corsa
 
 
 </nav>
+
 
 
 
