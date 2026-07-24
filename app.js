@@ -1055,6 +1055,325 @@ document.querySelectorAll(
 
 setInterval(()=>{
 
+// =====================
+// BACKUP DATI
+// =====================
+
+
+function mostraBackupMessaggio(testo){
+
+
+let box = document.getElementById("backupMessage");
+
+
+if(box){
+
+
+box.innerText = testo;
+
+
+box.classList.add("show");
+
+
+
+setTimeout(()=>{
+
+
+box.classList.remove("show");
+
+
+},4000);
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+function aggiornaUltimoBackup(){
+
+
+let ultimo =
+localStorage.getItem("ultimoBackup");
+
+
+
+let box =
+document.getElementById("lastBackup");
+
+
+
+if(box && ultimo){
+
+
+let data =
+new Date(ultimo);
+
+
+
+box.innerText =
+"Ultimo backup: " +
+data.toLocaleString("it-IT");
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+function esportaBackup(){
+
+
+
+let backup = {
+
+
+versione:"1.0",
+
+
+dataBackup:
+new Date(),
+
+
+autista:
+autista,
+
+
+corse:
+corse
+
+
+
+};
+
+
+
+
+let contenuto =
+JSON.stringify(
+backup,
+null,
+2
+);
+
+
+
+
+let file =
+new Blob(
+[contenuto],
+{
+type:"application/json"
+}
+);
+
+
+
+
+let link =
+document.createElement("a");
+
+
+
+link.href =
+URL.createObjectURL(file);
+
+
+
+let data =
+new Date()
+.toLocaleDateString("it-IT")
+.replaceAll("/","-");
+
+
+
+link.download =
+"backup-corse-taxi-"+data+".json";
+
+
+
+link.click();
+
+
+
+
+
+localStorage.setItem(
+"ultimoBackup",
+new Date()
+);
+
+
+
+
+aggiornaUltimoBackup();
+
+
+
+mostraBackupMessaggio(
+"Backup creato con successo"
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function importaBackup(event){
+
+
+
+let file =
+event.target.files[0];
+
+
+
+if(!file){
+
+return;
+
+}
+
+
+
+
+let lettore =
+new FileReader();
+
+
+
+
+lettore.onload=function(e){
+
+
+
+try{
+
+
+
+let dati =
+JSON.parse(e.target.result);
+
+
+
+
+if(!dati.corse){
+
+
+throw "errore";
+
+
+}
+
+
+
+
+
+corse =
+dati.corse;
+
+
+
+salvaDatabase();
+
+
+
+
+
+if(dati.autista){
+
+
+autista =
+dati.autista;
+
+
+
+localStorage.setItem(
+"nomeTassista",
+autista
+);
+
+
+
+}
+
+
+
+
+aggiornaApp();
+
+
+
+mostraBackupMessaggio(
+"Backup importato correttamente"
+);
+
+
+
+}catch(error){
+
+
+
+mostraBackupMessaggio(
+"Backup non valido"
+);
+
+
+
+}
+
+
+
+};
+
+
+
+
+
+lettore.readAsText(file);
+
+
+
+}
+
+
+
+
+
+
+
+// CARICA ULTIMO BACKUP ALL'AVVIO
+
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
+
+
+aggiornaUltimoBackup();
+
+
+});
 aggiornaApp();
 
 },60000);
