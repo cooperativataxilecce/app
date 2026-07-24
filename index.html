@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cooperativa Taxi Lecce - App Tassista</title>
+<title>Cooperativa Taxi Lecce</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -18,63 +18,43 @@
 <body>
 
 
-<header>
 
-<img src="logo.png" alt="Cooperativa Taxi Lecce">
-
-<div class="driver-name" id="driverName">
-Tassista Cristian
-</div>
-
-</header>
+<!-- PRIMO ACCESSO -->
 
 
+<section id="welcome" class="welcome">
 
 
-<main class="container">
+<div class="welcome-box">
 
 
-
-<!-- HOME -->
-
-<section id="home" class="page active">
+<img src="logo.png" class="logo">
 
 
-<h1>Home</h1>
+<h1>
+Benvenuto
+</h1>
+
+
+<p>
+Inserisci il tuo nome per configurare l'app
+</p>
 
 
 
-<div class="card next-card">
-
-
-<div class="section-title">
-Prossima corsa
-</div>
-
-
-<div class="time">
-Nessuna corsa
-</div>
-
-
-<div class="info">
-Aggiungi una nuova corsa per visualizzarla qui
-</div>
-
-
-</div>
+<input 
+id="firstDriverName"
+type="text"
+placeholder="Nome tassista">
 
 
 
-<div class="card">
+<button onclick="salvaPrimoAccesso()">
 
+Inizia
 
-<div class="section-title">
-Corsa successiva
-</div>
+</button>
 
-
-Nessuna corsa programmata
 
 
 </div>
@@ -90,7 +70,145 @@ Nessuna corsa programmata
 
 
 
-<!-- LE MIE CORSE -->
+<!-- APP -->
+
+
+<div id="app">
+
+
+
+
+
+<header>
+
+
+<img src="logo.png">
+
+
+<div>
+
+<div class="driver-name" id="driverName">
+
+Tassista
+
+</div>
+
+
+<div class="small-text">
+
+Cooperativa Taxi Lecce
+
+</div>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+
+
+
+
+<main class="container">
+
+
+
+
+
+
+
+<!-- HOME -->
+
+
+<section id="home" class="page active">
+
+
+<h1>
+Home
+</h1>
+
+
+
+
+<div class="card next-card">
+
+
+<div class="section-title">
+
+PROSSIMA CORSA
+
+</div>
+
+
+
+<div id="homeNext">
+
+
+<div class="empty">
+
+Nessuna corsa programmata
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<div class="section-title">
+
+CORSA SUCCESSIVA
+
+</div>
+
+
+<div id="homeAfter">
+
+
+Nessuna corsa successiva
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- CORSE -->
 
 
 <section id="corse" class="page">
@@ -101,7 +219,27 @@ Le mie corse
 </h1>
 
 
-<div id="prossima"></div>
+
+<div class="highlight-box">
+
+
+<div class="section-title">
+
+PROSSIMA CORSA
+
+</div>
+
+
+<div id="nextTrip">
+
+</div>
+
+
+</div>
+
+
+
+
 
 
 <h2>
@@ -109,7 +247,13 @@ Corse programmate
 </h2>
 
 
-<div id="programmate"></div>
+
+<div id="plannedTrips">
+
+</div>
+
+
+
 
 
 
@@ -118,10 +262,18 @@ Corse completate
 </h2>
 
 
-<div id="completate"></div>
+
+<div id="completedTrips">
+
+</div>
+
 
 
 </section>
+
+
+
+
 
 
 
@@ -143,7 +295,13 @@ Aggiungi una corsa
 
 
 
-<div class="card">
+
+<div class="form-section">
+
+
+<h2>
+Cliente
+</h2>
 
 
 <label>
@@ -155,16 +313,33 @@ Nome cliente
 
 
 <label>
-Numero telefono cliente
+Telefono cliente
 </label>
 
 <input id="telefono" type="tel">
 
 
 
+</div>
+
+
+
+
+
+
+
+<div class="form-section">
+
+
+<h2>
+Percorso
+</h2>
+
+
 <label>
 Indirizzo partenza *
 </label>
+
 
 <input id="partenza" type="text">
 
@@ -174,13 +349,31 @@ Indirizzo partenza *
 Indirizzo arrivo
 </label>
 
+
 <input id="arrivo" type="text">
 
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-section">
+
+
+<h2>
+Servizio
+</h2>
 
 
 <label>
 Data *
 </label>
+
 
 <input id="data" type="date">
 
@@ -190,6 +383,7 @@ Data *
 Orario
 </label>
 
+
 <input id="orario" type="time">
 
 
@@ -198,15 +392,38 @@ Orario
 Numero passeggeri
 </label>
 
+
 <input id="passeggeri" type="number">
 
 
 
-<label>
-Note extra
-</label>
+</div>
 
-<textarea id="note"></textarea>
+
+
+
+
+
+
+
+<div class="form-section">
+
+
+<h2>
+Note
+</h2>
+
+
+<textarea id="note"
+placeholder="Note extra">
+</textarea>
+
+
+
+</div>
+
+
+
 
 
 
@@ -218,7 +435,8 @@ Salva corsa
 
 
 
-</div>
+
+</section>
 
 
 
@@ -228,15 +446,29 @@ Salva corsa
 
 
 
-<!-- IMPOSTAZIONI AUTISTA -->
+
+
+
+
+<!-- IMPOSTAZIONI -->
+
+
+<section id="settings" class="page">
+
+
+<h1>
+Impostazioni
+</h1>
+
 
 
 <div class="card">
 
 
 <h2>
-Impostazioni autista
+Dati tassista
 </h2>
+
 
 
 <label>
@@ -246,18 +478,16 @@ Nome tassista
 
 <input 
 id="driverInput"
-type="text"
-placeholder="Inserisci nome tassista">
+type="text">
 
 
 
-<button 
-class="save"
-onclick="salvaNomeTassista()">
+<button onclick="salvaNomeTassista()">
 
-Salva nome
+Salva modifiche
 
 </button>
+
 
 
 </div>
@@ -265,6 +495,9 @@ Salva nome
 
 
 </section>
+
+
+
 
 
 
@@ -281,7 +514,7 @@ Salva nome
 
 
 
-<!-- NAVIGAZIONE -->
+<!-- MENU INFERIORE -->
 
 
 <nav class="bottom-nav">
@@ -297,6 +530,8 @@ Home
 
 
 
+
+
 <button 
 class="nav-item"
 onclick="openPage('corse',this)">
@@ -307,15 +542,32 @@ Le mie corse
 
 
 
+
+
+
 <button 
 class="nav-item add"
 onclick="openPage('add',this)">
 
 +
 
-<br>
-
+<span>
 Aggiungi una corsa
+</span>
+
+
+</button>
+
+
+
+
+
+
+<button
+class="nav-item"
+onclick="openPage('settings',this)">
+
+Impostazioni
 
 </button>
 
