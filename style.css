@@ -753,3 +753,159 @@ textarea {
 
 
 }
+
+/* ==========================
+   BACKUP DATI
+========================== */
+
+.backup-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    background:#e87517;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    margin-bottom:15px;
+
+}
+
+.backup-btn:hover{
+
+    background:#cf6511;
+
+}
+
+.backup-btn:active{
+
+    transform:scale(.98);
+
+}
+
+
+
+.import-label{
+
+    display:block;
+
+    width:100%;
+
+    padding:14px;
+
+    border:2px dashed #d9d9d9;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    background:#fafafa;
+
+    transition:.2s;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    color:#555;
+
+}
+
+.import-label:hover{
+
+    border-color:#e87517;
+
+    background:#fff8f2;
+
+    color:#222;
+
+}
+
+.import-label input{
+
+    display:none;
+
+}
+
+
+
+/* ==========================
+   MESSAGGI BACKUP
+========================== */
+
+.backup-message{
+
+    margin-top:12px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:#eef8ee;
+
+    border:1px solid #b8dfb8;
+
+    color:#2d6a2d;
+
+    font-size:13px;
+
+    display:none;
+
+}
+
+.backup-message.show{
+
+    display:block;
+
+}
+
+
+
+/* ==========================
+   CARD BACKUP
+========================== */
+
+.backup-card{
+
+    margin-top:18px;
+
+}
+
+.backup-card .section-title{
+
+    margin-bottom:15px;
+
+}
+
+
+
+/* ==========================
+   INFO ULTIMO BACKUP
+========================== */
+
+.last-backup{
+
+    margin-top:15px;
+
+    font-size:13px;
+
+    color:#777;
+
+    text-align:center;
+
+}
