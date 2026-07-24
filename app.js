@@ -8,197 +8,124 @@ let modificaId = null;
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    controlloAccesso();
 
-    aggiornaApp();
+    avvioApp();
 
 
     document.querySelector(".save")
     .addEventListener("click", salvaCorsa);
 
+
 });
 
 
 
 
 
-// --------------------
+// =========================
+// AVVIO APP
+// =========================
+
+
+function avvioApp(){
+
+
+    let setup =
+    document.getElementById("setupPage");
+
+
+    let app =
+    document.getElementById("appContainer");
+
+
+
+    if(autista){
+
+
+        setup.style.display="none";
+
+        app.style.display="block";
+
+
+        document.getElementById("driverName")
+        .innerText =
+        "Tassista " + autista;
+
+
+
+    }else{
+
+
+        setup.style.display="flex";
+
+        app.style.display="none";
+
+
+    }
+
+
+
+    aggiornaApp();
+
+
+}
+
+
+
+
+
+
+
+// =========================
 // PRIMO ACCESSO
-// --------------------
-
-
-function controlloAccesso(){
-
-
-let welcome =
-document.getElementById("welcome");
-
-
-let app =
-document.getElementById("app");
-
-
-
-if(autista){
-
-
-welcome.style.display="none";
-
-app.style.display="block";
-
-
-document.getElementById("driverName")
-.innerText =
-"Tassista " + autista;
-
-
-document.getElementById("driverInput")
-.value = autista;
-
-
-
-}else{
-
-
-app.style.display="none";
-
-
-}
-
-
-
-}
-
-
-
+// =========================
 
 
 function salvaPrimoAccesso(){
 
 
-let nome =
-document.getElementById("firstDriverName")
-.value.trim();
+    let nome =
+    document.getElementById("setupDriverName")
+    .value.trim();
 
 
 
-if(nome===""){
+    if(nome===""){
 
-alert("Inserisci il nome");
 
-return;
+        alert("Inserisci il nome del tassista");
 
-}
+        return;
 
 
+    }
 
-localStorage.setItem(
-"nomeTassista",
-nome
-);
 
 
+    localStorage.setItem(
+        "nomeTassista",
+        nome
+    );
 
-autista = nome;
 
+    autista = nome;
 
 
-document.getElementById("welcome")
-.style.display="none";
 
+    document.getElementById("setupPage")
+    .style.display="none";
 
-document.getElementById("app")
-.style.display="block";
 
 
-document.getElementById("driverName")
-.innerText =
-"Tassista " + nome;
+    document.getElementById("appContainer")
+    .style.display="block";
 
 
-}
 
+    document.getElementById("driverName")
+    .innerText =
+    "Tassista " + nome;
 
-
-
-// --------------------
-// PAGINE
-// --------------------
-
-
-function openPage(page, element){
-
-
-document.querySelectorAll(".page")
-.forEach(p=>{
-
-p.classList.remove("active");
-
-});
-
-
-
-document.getElementById(page)
-.classList.add("active");
-
-
-
-document.querySelectorAll(".nav-item")
-.forEach(n=>{
-
-n.classList.remove("active");
-
-});
-
-
-
-element.classList.add("active");
-
-
-aggiornaApp();
-
-
-}
-
-
-
-
-
-
-
-
-// --------------------
-// IMPOSTAZIONI
-// --------------------
-
-
-function salvaNomeTassista(){
-
-
-let nome =
-document.getElementById("driverInput")
-.value.trim();
-
-
-
-if(!nome)return;
-
-
-
-localStorage.setItem(
-"nomeTassista",
-nome
-);
-
-
-
-autista = nome;
-
-
-
-document.getElementById("driverName")
-.innerText =
-"Tassista " + nome;
 
 
 }
@@ -211,16 +138,63 @@ document.getElementById("driverName")
 
 
 
-// --------------------
+// =========================
+// CAMBIO PAGINA
+// =========================
+
+
+function openPage(page, elemento){
+
+
+    document.querySelectorAll(".page")
+    .forEach(p=>{
+
+        p.classList.remove("active");
+
+    });
+
+
+
+    document.getElementById(page)
+    .classList.add("active");
+
+
+
+    document.querySelectorAll(".nav-item")
+    .forEach(n=>{
+
+        n.classList.remove("active");
+
+    });
+
+
+
+    elemento.classList.add("active");
+
+
+
+    aggiornaApp();
+
+
+}
+
+
+
+
+
+
+
+
+// =========================
 // SALVA CORSA
-// --------------------
+// =========================
 
 
 function salvaCorsa(){
 
 
 
-let corsa={
+let corsa = {
 
 
 id: modificaId || Date.now(),
@@ -264,7 +238,6 @@ document.getElementById("note").value,
 stato:"programmata"
 
 
-
 };
 
 
@@ -273,11 +246,15 @@ stato:"programmata"
 
 if(!corsa.partenza || !corsa.data){
 
-alert("Compila i campi obbligatori");
+
+alert("Inserisci partenza e data");
+
 
 return;
 
+
 }
+
 
 
 
@@ -286,15 +263,17 @@ if(modificaId){
 
 
 corse =
-corse.map(c=>
+corse.map(c=>{
 
-c.id===modificaId
+
+return c.id===modificaId
 ?
 corsa
 :
-c
+c;
 
-);
+
+});
 
 
 
@@ -312,14 +291,14 @@ corse.push(corsa);
 
 
 
-
-salva();
+salvaDatabase();
 
 
 pulisciForm();
 
 
 aggiornaApp();
+
 
 
 }
@@ -331,7 +310,9 @@ aggiornaApp();
 
 
 
-function salva(){
+
+function salvaDatabase(){
+
 
 localStorage.setItem(
 "corseTaxi",
@@ -348,13 +329,13 @@ JSON.stringify(corse)
 
 
 
-// --------------------
-// CONTROLLO TEMPI
-// --------------------
+
+// =========================
+// CONTROLLO ORARI
+// =========================
 
 
-function controlloCorse(){
-
+function controllaCorse(){
 
 
 let ora = new Date();
@@ -364,14 +345,14 @@ let ora = new Date();
 corse.forEach(c=>{
 
 
-let data =
+let dataCorsa =
 new Date(
 `${c.data}T${c.orario || "23:59"}`
 );
 
 
 
-if(data < ora){
+if(dataCorsa < ora){
 
 
 if(c.stato==="programmata"){
@@ -379,16 +360,13 @@ if(c.stato==="programmata"){
 
 c.stato="completata";
 
-
-c.completata =
-Date.now();
+c.completata=Date.now();
 
 
 }
 
 
 }
-
 
 
 });
@@ -404,22 +382,22 @@ corse.filter(c=>{
 if(c.stato==="completata"){
 
 
-return Date.now()-c.completata
-<
-1800000;
+return Date.now()-c.completata < 1800000;
 
 
 }
 
 
+
 return true;
+
 
 
 });
 
 
 
-salva();
+salvaDatabase();
 
 
 }
@@ -431,16 +409,15 @@ salva();
 
 
 
-
-// --------------------
-// AGGIORNA
-// --------------------
+// =========================
+// AGGIORNAMENTO
+// =========================
 
 
 function aggiornaApp(){
 
 
-controlloCorse();
+controllaCorse();
 
 
 aggiornaHome();
@@ -457,6 +434,7 @@ aggiornaCorse();
 
 
 
+
 function prossimaCorsa(){
 
 
@@ -464,17 +442,17 @@ return corse
 
 .filter(c=>c.stato==="programmata")
 
-
 .sort((a,b)=>{
 
 
 return new Date(
-a.data+"T"+a.orario
+`${a.data}T${a.orario}`
 )
 -
 new Date(
-b.data+"T"+b.orario
+`${b.data}T${b.orario}`
 );
+
 
 
 })[0];
@@ -489,9 +467,10 @@ b.data+"T"+b.orario
 
 
 
-// --------------------
+
+// =========================
 // HOME
-// --------------------
+// =========================
 
 
 function aggiornaHome(){
@@ -515,14 +494,14 @@ box.innerHTML =
 
 return;
 
+
 }
 
 
 
 
-box.innerHTML =
+box.innerHTML = `
 
-`
 
 <div class="time">
 
@@ -555,9 +534,8 @@ ${corsa.arrivo || "-"}
 
 </div>
 
+
 `;
-
-
 
 
 
@@ -571,13 +549,12 @@ ${corsa.arrivo || "-"}
 
 
 
-// --------------------
-// LE MIE CORSE
-// --------------------
+// =========================
+// PAGINA CORSE
+// =========================
 
 
 function aggiornaCorse(){
-
 
 
 let programmate =
@@ -601,7 +578,6 @@ prossima.innerHTML="";
 
 
 
-
 let next =
 prossimaCorsa();
 
@@ -609,8 +585,10 @@ prossimaCorsa();
 
 if(next){
 
+
 prossima.innerHTML =
-creaCorsa(next,true);
+creaCard(next,true);
+
 
 }
 
@@ -627,7 +605,7 @@ if(c.stato==="programmata"
 
 
 programmate.innerHTML +=
-creaCorsa(c,false);
+creaCard(c,false);
 
 
 }
@@ -638,7 +616,7 @@ if(c.stato==="completata"){
 
 
 completate.innerHTML +=
-creaCorsa(c,false);
+creaCard(c,false);
 
 
 }
@@ -658,15 +636,15 @@ creaCorsa(c,false);
 
 
 
-function creaCorsa(c,evidenziata){
+function creaCard(corsa,evidenziata){
 
 
 return `
 
 
-<div class="card trip ${evidenziata?"next-card":""}"
+<div class="card trip ${evidenziata ? "next-card":""}"
 
-onclick="toggleTrip(this)">
+onclick="apriDettagli(this)">
 
 
 
@@ -678,21 +656,21 @@ onclick="toggleTrip(this)">
 
 <div class="time">
 
-${c.orario || "--"}
+${corsa.orario || "--"}
 
 </div>
 
 
 <div>
 
-${c.cliente || "Cliente"}
+${corsa.cliente || "Cliente"}
 
 </div>
 
 
 <div>
 
-${c.partenza}
+${corsa.partenza}
 
 </div>
 
@@ -712,14 +690,14 @@ ${c.partenza}
 
 
 
+
+
 <div class="details">
 
 
-<br>
-
 Telefono:
 
-${c.telefono || "-"}
+${corsa.telefono || "-"}
 
 
 <br><br>
@@ -727,7 +705,7 @@ ${c.telefono || "-"}
 
 Arrivo:
 
-${c.arrivo || "-"}
+${corsa.arrivo || "-"}
 
 
 <br><br>
@@ -735,8 +713,15 @@ ${c.arrivo || "-"}
 
 Data:
 
-${c.data}
+${corsa.data}
 
+
+<br><br>
+
+
+Passeggeri:
+
+${corsa.passeggeri || "-"}
 
 
 <br><br>
@@ -744,7 +729,7 @@ ${c.data}
 
 Note:
 
-${c.note || "-"}
+${corsa.note || "-"}
 
 
 
@@ -752,20 +737,21 @@ ${c.note || "-"}
 <div class="actions">
 
 
-<button onclick="event.stopPropagation(); modificaCorsa(${c.id})">
+<button onclick="event.stopPropagation(); modificaCorsa(${corsa.id})">
 
 Modifica
 
 </button>
 
 
-<button class="delete"
 
-onclick="event.stopPropagation(); eliminaCorsa(${c.id})">
+<button class="delete"
+onclick="event.stopPropagation(); eliminaCorsa(${corsa.id})">
 
 Elimina
 
 </button>
+
 
 
 </div>
@@ -785,10 +771,11 @@ Elimina
 
 
 
+function apriDettagli(card){
 
-function toggleTrip(element){
 
-element.classList.toggle("open");
+card.classList.toggle("open");
+
 
 }
 
@@ -800,9 +787,9 @@ element.classList.toggle("open");
 
 
 
-// --------------------
+// =========================
 // MODIFICA
-// --------------------
+// =========================
 
 
 function modificaCorsa(id){
@@ -810,6 +797,10 @@ function modificaCorsa(id){
 
 let c =
 corse.find(x=>x.id===id);
+
+
+
+if(!c)return;
 
 
 
@@ -824,21 +815,21 @@ document.querySelector(".add")
 
 
 
-cliente.value=c.cliente;
+document.getElementById("cliente").value=c.cliente || "";
 
-telefono.value=c.telefono;
+document.getElementById("telefono").value=c.telefono || "";
 
-partenza.value=c.partenza;
+document.getElementById("partenza").value=c.partenza || "";
 
-arrivo.value=c.arrivo;
+document.getElementById("arrivo").value=c.arrivo || "";
 
-data.value=c.data;
+document.getElementById("data").value=c.data || "";
 
-orario.value=c.orario;
+document.getElementById("orario").value=c.orario || "";
 
-passeggeri.value=c.passeggeri;
+document.getElementById("passeggeri").value=c.passeggeri || "";
 
-note.value=c.note;
+document.getElementById("note").value=c.note || "";
 
 
 
@@ -851,22 +842,22 @@ note.value=c.note;
 
 
 
-// --------------------
+// =========================
 // ELIMINA
-// --------------------
+// =========================
 
 
 function eliminaCorsa(id){
 
 
-if(confirm("Eliminare corsa?")){
+if(confirm("Eliminare questa corsa?")){
 
 
 corse =
 corse.filter(c=>c.id!==id);
 
 
-salva();
+salvaDatabase();
 
 
 aggiornaApp();
@@ -883,15 +874,17 @@ aggiornaApp();
 
 
 
-
-
 function pulisciForm(){
 
 
 document.querySelectorAll(
-"#add input,#add textarea"
+"#add input, #add textarea"
 )
-.forEach(x=>x.value="");
+.forEach(x=>{
+
+x.value="";
+
+});
 
 
 }
