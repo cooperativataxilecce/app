@@ -1,10 +1,25 @@
-let corse = JSON.parse(localStorage.getItem("corseTaxi")) || [];
+ let corse = JSON.parse(localStorage.getItem("corseTaxi")) || [];
 
 let modificaId = null;
 
 
+// AVVIO APP
 
-// CAMBIO PAGINE
+document.addEventListener("DOMContentLoaded", () => {
+
+    caricaNomeTassista();
+
+    document.querySelector(".save")
+        .addEventListener("click", salvaCorsa);
+
+    aggiornaApp();
+
+});
+
+
+
+
+// CAMBIO PAGINA
 
 function openPage(page, element) {
 
@@ -12,7 +27,9 @@ function openPage(page, element) {
         p.classList.remove("active");
     });
 
-    document.getElementById(page).classList.add("active");
+
+    document.getElementById(page)
+        .classList.add("active");
 
 
     document.querySelectorAll(".nav-item").forEach(n => {
@@ -22,7 +39,6 @@ function openPage(page, element) {
 
     element.classList.add("active");
 
-
     aggiornaApp();
 
 }
@@ -30,81 +46,126 @@ function openPage(page, element) {
 
 
 
-// APERTURA MENU A TENDINA
-
-function toggleTrip(element) {
-
-    element.classList.toggle("open");
-
-}
 
 
+// NOME TASSISTA
 
 
-// AVVIO APP
+function salvaNomeTassista() {
 
-document.addEventListener("DOMContentLoaded", () => {
-
-
-    const bottone = document.querySelector(".save");
+    let nome =
+    document.getElementById("driverInput").value.trim();
 
 
-    if (bottone) {
 
-        bottone.addEventListener("click", salvaCorsa);
+    if(nome === "") {
+
+        alert("Inserisci il nome del tassista");
+
+        return;
 
     }
 
 
-    aggiornaApp();
+    localStorage.setItem(
+        "nomeTassista",
+        nome
+    );
 
 
-});
+    document.getElementById("driverName")
+        .innerText = nome;
+
+
+    alert("Nome salvato");
+
+}
+
+
+
+
+
+function caricaNomeTassista() {
+
+    let nome =
+    localStorage.getItem("nomeTassista");
+
+
+    if(nome) {
+
+        document.getElementById("driverName")
+            .innerText = nome;
+
+
+        document.getElementById("driverInput")
+            .value = nome;
+
+    }
+
+}
 
 
 
 
 
 
-// SALVA O MODIFICA CORSA
+
+// SALVA CORSA
+
 
 function salvaCorsa() {
 
 
-    let campi = document.querySelectorAll(
-        "#add input, #add textarea"
-    );
-
-
     let corsa = {
+
 
         id: modificaId || Date.now(),
 
-        cliente: campi[0].value,
 
-        telefono: campi[1].value,
+        cliente:
+        document.getElementById("cliente").value,
 
-        partenza: campi[2].value,
 
-        arrivo: campi[3].value,
+        telefono:
+        document.getElementById("telefono").value,
 
-        data: campi[4].value,
 
-        orario: campi[5].value,
+        partenza:
+        document.getElementById("partenza").value,
 
-        passeggeri: campi[6].value,
 
-        note: campi[7].value,
+        arrivo:
+        document.getElementById("arrivo").value,
 
-        stato: "programmata"
+
+        data:
+        document.getElementById("data").value,
+
+
+        orario:
+        document.getElementById("orario").value,
+
+
+        passeggeri:
+        document.getElementById("passeggeri").value,
+
+
+        note:
+        document.getElementById("note").value,
+
+
+        stato:"programmata"
+
 
     };
 
 
 
-    if (!corsa.partenza || !corsa.data) {
 
-        alert("Compila i campi obbligatori");
+
+    if(!corsa.partenza || !corsa.data) {
+
+        alert("Compila indirizzo di partenza e data");
 
         return;
 
@@ -112,17 +173,26 @@ function salvaCorsa() {
 
 
 
-    if (modificaId) {
 
 
-        corse = corse.map(c =>
 
-            c.id === modificaId ? corsa : c
+    if(modificaId) {
+
+
+        corse =
+        corse.map(c =>
+
+            c.id === modificaId
+            ?
+            corsa
+            :
+            c
 
         );
 
 
         modificaId = null;
+
 
 
     } else {
@@ -137,9 +207,7 @@ function salvaCorsa() {
 
     salvaDatabase();
 
-
     pulisciForm();
-
 
     aggiornaApp();
 
@@ -151,7 +219,9 @@ function salvaCorsa() {
 
 
 
+
 // DATABASE
+
 
 function salvaDatabase() {
 
@@ -168,34 +238,37 @@ function salvaDatabase() {
 
 
 
-// CONTROLLO CORSE SCADUTE
+// CONTROLLO AUTOMATICO CORSE
+
 
 function controllaCorse() {
 
 
-    let adesso = new Date();
+    let ora = new Date();
 
 
 
     corse.forEach(corsa => {
 
 
-        let dataCorsa = new Date(
+        let dataCorsa =
+        new Date(
             `${corsa.data}T${corsa.orario || "23:59"}`
         );
 
 
 
-        if (dataCorsa < adesso) {
+        if(dataCorsa < ora) {
 
 
-            if (corsa.stato === "programmata") {
+            if(corsa.stato === "programmata") {
 
 
-                corsa.stato = "completata";
+                corsa.stato="completata";
 
 
-                corsa.oraCompletata = Date.now();
+                corsa.oraCompletata =
+                Date.now();
 
 
             }
@@ -213,13 +286,15 @@ function controllaCorse() {
     corse = corse.filter(corsa => {
 
 
-        if (corsa.stato === "completata") {
+        if(corsa.stato === "completata") {
 
 
             return (
-                Date.now() - corsa.oraCompletata
+                Date.now()
+                -
+                corsa.oraCompletata
                 <
-                30 * 60 * 1000
+                1800000
             );
 
 
@@ -244,17 +319,15 @@ function controllaCorse() {
 
 
 
-
 // AGGIORNA APP
+
 
 function aggiornaApp() {
 
 
     controllaCorse();
 
-
     aggiornaHome();
-
 
     aggiornaCorse();
 
@@ -267,30 +340,30 @@ function aggiornaApp() {
 
 
 
+// PROSSIMA CORSA
 
-// TROVA PROSSIMA CORSA
 
 function trovaProssima() {
 
 
     return corse
 
-        .filter(c => c.stato === "programmata")
-
-        .sort((a, b) => {
+    .filter(c => c.stato === "programmata")
 
 
-            return new Date(
-                `${a.data}T${a.orario}`
-            )
-            -
-            new Date(
-                `${b.data}T${b.orario}`
-            );
+    .sort((a,b)=>{
 
 
-        })[0];
+        return new Date(
+            `${a.data}T${a.orario}`
+        )
+        -
+        new Date(
+            `${b.data}T${b.orario}`
+        );
 
+
+    })[0];
 
 }
 
@@ -303,23 +376,43 @@ function trovaProssima() {
 
 // HOME
 
+
 function aggiornaHome() {
 
 
-    let prossima = trovaProssima();
-
-
-    if (!prossima) return;
-
-
-
-    let home = document.querySelector(
-        "#home .next-card"
-    );
+    let prossima =
+    trovaProssima();
 
 
 
-    home.innerHTML = `
+    let box =
+    document.querySelector("#home .next-card");
+
+
+
+    if(!prossima) {
+
+        box.innerHTML = `
+
+        <div class="section-title">
+        Prossima corsa
+        </div>
+
+        <div class="info">
+        Nessuna corsa programmata
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+
+
+    box.innerHTML = `
 
     <div class="section-title">
     Prossima corsa
@@ -327,7 +420,7 @@ function aggiornaHome() {
 
 
     <div class="time">
-    ${prossima.orario || "--"}
+    ${prossima.orario}
     </div>
 
 
@@ -367,93 +460,102 @@ function aggiornaHome() {
 
 // PAGINA CORSE
 
+
 function aggiornaCorse() {
 
 
-    let pagina = document.querySelector("#corse");
-
-
-    let programmate = corse.filter(
-        c => c.stato === "programmata"
-    );
-
-
-    let completate = corse.filter(
-        c => c.stato === "completata"
-    );
+let pagina =
+document.getElementById("corse");
 
 
 
-    pagina.innerHTML = `
-
-
-    <h1>Le mie corse</h1>
-
-
-    <div id="prossima"></div>
-
-
-    <h2>Corse programmate</h2>
-
-
-    <div id="programmate"></div>
+let programmate =
+corse.filter(c=>c.stato==="programmata");
 
 
 
-    <h2>Corse completate</h2>
-
-
-    <div id="completate"></div>
-
-
-    `;
+let completate =
+corse.filter(c=>c.stato==="completata");
 
 
 
-
-    let prossima = trovaProssima();
-
+pagina.innerHTML = `
 
 
-    if (prossima) {
+<h1>
+Le mie corse
+</h1>
 
 
-        document.querySelector("#prossima")
-        .innerHTML =
-        creaCard(prossima, true);
+<div id="prossima"></div>
 
 
-    }
+<h2>
+Corse programmate
+</h2>
 
 
+<div id="programmate"></div>
 
 
-    programmate
-    .filter(c => !prossima || c.id !== prossima.id)
-    .forEach(c => {
+<h2>
+Corse completate
+</h2>
 
 
-        document.querySelector("#programmate")
-        .innerHTML +=
-        creaCard(c, false);
+<div id="completate"></div>
 
 
-    });
-
+`;
 
 
 
-
-    completate.forEach(c => {
-
-
-        document.querySelector("#completate")
-        .innerHTML +=
-        creaCard(c, false);
+let prossima =
+trovaProssima();
 
 
-    });
 
+if(prossima) {
+
+
+document.getElementById("prossima")
+.innerHTML =
+creaCard(prossima,true);
+
+
+}
+
+
+
+programmate.forEach(corsa=>{
+
+
+if(!prossima || corsa.id !== prossima.id) {
+
+
+document.getElementById("programmate")
+.innerHTML +=
+creaCard(corsa,false);
+
+
+}
+
+
+});
+
+
+
+
+
+completate.forEach(corsa=>{
+
+
+document.getElementById("completate")
+.innerHTML +=
+creaCard(corsa,false);
+
+
+});
 
 
 }
@@ -464,16 +566,16 @@ function aggiornaCorse() {
 
 
 
+// CREA CARD
 
-// CREA CARD CORSA
 
-function creaCard(corsa, evidenziata) {
+function creaCard(corsa,evidenziata) {
 
 
 return `
 
 
-<div class="card trip ${evidenziata ? "next-card" : ""}"
+<div class="card trip ${evidenziata ? "next-card":""}"
 
 onclick="toggleTrip(this)">
 
@@ -486,41 +588,29 @@ onclick="toggleTrip(this)">
 
 
 <div class="time">
-
 ${corsa.orario || "--"}
-
 </div>
-
 
 
 <div>
-
 ${corsa.cliente || "Cliente non indicato"}
-
 </div>
-
 
 
 <div class="trip-address">
-
 ${corsa.partenza}
-
 </div>
 
 
 </div>
-
 
 
 <div>
-
 ▼
-
 </div>
 
 
 </div>
-
 
 
 
@@ -532,51 +622,36 @@ ${corsa.partenza}
 <hr>
 
 
-
 Telefono:
-
 ${corsa.telefono || "-"}
 
 
-
 <br><br>
-
 
 
 Arrivo:
-
 ${corsa.arrivo || "-"}
 
 
-
 <br><br>
-
 
 
 Data:
-
 ${corsa.data}
 
 
-
 <br><br>
-
 
 
 Passeggeri:
-
 ${corsa.passeggeri || "-"}
-
 
 
 <br><br>
 
 
-
 Note:
-
 ${corsa.note || "-"}
-
 
 
 
@@ -592,9 +667,7 @@ Modifica corsa
 
 
 
-
 <button class="delete"
-
 onclick="event.stopPropagation(); eliminaCorsa(${corsa.id})">
 
 Elimina corsa
@@ -602,13 +675,10 @@ Elimina corsa
 </button>
 
 
-
 </div>
 
 
-
 </div>
-
 
 
 </div>
@@ -624,88 +694,112 @@ Elimina corsa
 
 
 
+// APRI DETTAGLI
 
-// ELIMINA CORSA
+
+function toggleTrip(element){
+
+element.classList.toggle("open");
+
+}
+
+
+
+
+
+
+
+// MODIFICA
+
+
+function modificaCorsa(id){
+
+
+let corsa =
+corse.find(c=>c.id===id);
+
+
+
+if(!corsa) return;
+
+
+
+modificaId=id;
+
+
+
+openPage(
+"add",
+document.querySelector(".add")
+);
+
+
+
+document.getElementById("cliente").value =
+corsa.cliente;
+
+
+document.getElementById("telefono").value =
+corsa.telefono;
+
+
+document.getElementById("partenza").value =
+corsa.partenza;
+
+
+document.getElementById("arrivo").value =
+corsa.arrivo;
+
+
+document.getElementById("data").value =
+corsa.data;
+
+
+document.getElementById("orario").value =
+corsa.orario;
+
+
+document.getElementById("passeggeri").value =
+corsa.passeggeri;
+
+
+document.getElementById("note").value =
+corsa.note;
+
+
+document.querySelector(".save")
+.innerText =
+"Salva modifiche";
+
+
+}
+
+
+
+
+
+
+
+
+// ELIMINA
+
 
 function eliminaCorsa(id) {
 
 
-    if(confirm("Eliminare questa corsa?")) {
+if(confirm("Eliminare questa corsa?")) {
 
 
-        corse = corse.filter(
-            c => c.id !== id
-        );
+corse =
+corse.filter(c=>c.id!==id);
 
 
-        salvaDatabase();
+salvaDatabase();
 
+aggiornaApp();
 
-        aggiornaApp();
-
-
-    }
 
 }
-
-
-
-
-
-
-
-
-// MODIFICA CORSA
-
-function modificaCorsa(id) {
-
-
-    let corsa = corse.find(
-        c => c.id === id
-    );
-
-
-    if (!corsa) return;
-
-
-
-    modificaId = id;
-
-
-
-    openPage(
-        "add",
-        document.querySelector(".add")
-    );
-
-
-
-    let campi = document.querySelectorAll(
-        "#add input, #add textarea"
-    );
-
-
-
-    campi[0].value = corsa.cliente || "";
-
-    campi[1].value = corsa.telefono || "";
-
-    campi[2].value = corsa.partenza || "";
-
-    campi[3].value = corsa.arrivo || "";
-
-    campi[4].value = corsa.data || "";
-
-    campi[5].value = corsa.orario || "";
-
-    campi[6].value = corsa.passeggeri || "";
-
-    campi[7].value = corsa.note || "";
-
-
-
-    document.querySelector(".save").innerText =
-    "Salva modifiche";
 
 
 }
@@ -716,24 +810,23 @@ function modificaCorsa(id) {
 
 
 
-// PULIZIA FORM
-
-function pulisciForm() {
+// PULISCI FORM
 
 
-    document.querySelectorAll(
-        "#add input, #add textarea"
-    )
-    .forEach(c => c.value = "");
+function pulisciForm(){
 
 
+document.querySelectorAll(
+"#add input, #add textarea"
+)
+.forEach(c=>c.value="");
 
-    document.querySelector(".save").innerText =
-    "Salva corsa";
+
+document.querySelector(".save")
+.innerText="Salva corsa";
 
 
 }
-
 
 
 
@@ -742,8 +835,9 @@ function pulisciForm() {
 
 // CONTROLLO OGNI MINUTO
 
-setInterval(() => {
 
-    aggiornaApp();
+setInterval(()=>{
 
-}, 60000);
+aggiornaApp();
+
+},60000);
