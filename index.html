@@ -1,213 +1,16 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Cooperativa Taxi Lecce - App Tassista</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:'Montserrat',sans-serif;
-    background:#f5f5f5;
-    color:#222;
-}
-
-/* HEADER */
-
-header{
-    background:white;
-    padding:20px;
-    display:flex;
-    align-items:center;
-    border-bottom:1px solid #ddd;
-}
-
-header img{
-    width:55px;
-    height:auto;
-}
-
-.driver-name{
-    margin-left:15px;
-    font-size:14px;
-    font-weight:500;
-    color:#555;
-}
-
-
-/* CONTENUTO */
-
-.container{
-    padding:20px;
-    padding-bottom:90px;
-}
-
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-
-h1{
-    font-size:22px;
-    margin-bottom:20px;
-}
-
-
-/* CARD */
-
-.card{
-    background:white;
-    border-radius:14px;
-    padding:18px;
-    margin-bottom:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
-}
-
-
-.next-card{
-    border-left:5px solid #e87817;
-    background:#fff8f1;
-}
-
-
-.title{
-    font-size:13px;
-    font-weight:700;
-    color:#e87817;
-    margin-bottom:12px;
-    text-transform:uppercase;
-}
-
-
-.info{
-    margin:8px 0;
-    font-size:14px;
-}
-
-
-.label{
-    font-weight:600;
-}
-
-
-/* CORSE */
-
-.trip-preview{
-    cursor:pointer;
-}
-
-.trip-preview .time{
-    font-size:18px;
-    font-weight:700;
-}
-
-.trip-preview .customer{
-    font-size:15px;
-    margin-top:5px;
-}
-
-.trip-preview .address{
-    font-size:13px;
-    color:#666;
-    margin-top:8px;
-}
-
-
-.details{
-    display:none;
-    margin-top:15px;
-    border-top:1px solid #ddd;
-    padding-top:15px;
-}
-
-
-.trip-preview.open .details{
-    display:block;
-}
-
-
-/* FORM */
-
-input, textarea{
-
-    width:100%;
-    padding:12px;
-    margin-bottom:12px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    font-family:'Montserrat';
-}
-
-
-button{
-
-    width:100%;
-    padding:14px;
-    background:#e87817;
-    color:white;
-    border:none;
-    border-radius:8px;
-    font-weight:600;
-}
-
-
-/* NAVBAR */
-
-.bottom-nav{
-
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    height:70px;
-    background:white;
-    border-top:1px solid #ddd;
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-}
-
-
-.nav-item{
-
-    text-align:center;
-    font-size:12px;
-    color:#555;
-    cursor:pointer;
-}
-
-
-.nav-item.active{
-
-    color:#e87817;
-    font-weight:600;
-}
-
-
-.add-button{
-
-    color:#e87817;
-    font-weight:600;
-}
-
-
-</style>
 
 </head>
 
@@ -217,36 +20,39 @@ button{
 
 <header>
 
-<img src="logo.png">
+<img src="logo.png" alt="Cooperativa Taxi Lecce">
 
 <div class="driver-name">
-    Tassista Cristian
+Tassista Cristian
 </div>
 
 </header>
 
 
 
-<div class="container">
+<main class="container">
 
 
 <!-- HOME -->
 
 <section id="home" class="page active">
 
+
 <h1>Home</h1>
 
 
 <div class="card next-card">
 
-<div class="title">
+
+<div class="section-title">
 Prossima corsa
 </div>
 
 
-<div class="info">
-<strong>08:30</strong>
+<div class="time">
+08:30
 </div>
+
 
 <div class="info">
 Mario Rossi
@@ -254,36 +60,50 @@ Mario Rossi
 
 
 <div class="info">
-<span class="label">Partenza:</span><br>
+Telefono:
+3331234567
+</div>
+
+
+<div class="info">
+Partenza:
+<br>
 Via Roma 10, Lecce
 </div>
 
 
 <div class="info">
-<span class="label">Arrivo:</span><br>
+Arrivo:
+<br>
 Aeroporto Brindisi
 </div>
 
 
 <div class="info">
-<span class="label">Telefono:</span><br>
-3331234567
+Passeggeri:
+3
 </div>
 
 
 </div>
+
 
 
 
 <div class="card">
 
-<div class="title">
+
+<div class="section-title">
 Corsa successiva
 </div>
 
-14:00<br>
 
-Lecce → Stazione Ferroviaria
+14:00
+
+<br>
+
+Lecce - Stazione Ferroviaria
+
 
 </div>
 
@@ -295,74 +115,200 @@ Lecce → Stazione Ferroviaria
 
 
 
-<!-- CORSE -->
 
+
+<!-- LE MIE CORSE -->
 
 <section id="corse" class="page">
+
 
 <h1>Le mie corse</h1>
 
 
+
+<!-- PROSSIMA CORSA -->
+
+
 <div class="card next-card">
 
-<div class="title">
+
+<div class="section-title">
 Prossima corsa
 </div>
 
+
+<div class="time">
 08:30
+</div>
 
-<br>
 
+<div class="info">
 Mario Rossi
+</div>
 
-<br>
 
+<div class="info">
 Via Roma 10, Lecce
+</div>
+
+
+<button class="secondary-btn">
+Apri dettagli
+</button>
+
 
 </div>
 
 
 
 
-<div class="card trip-preview" onclick="this.classList.toggle('open')">
+
+
+
+<!-- PROGRAMMATE -->
+
+
+<h2>
+Corse programmate
+</h2>
+
+
+
+<div class="trip card"
+onclick="toggleTrip(this)">
+
+
+<div class="trip-header">
+
+
+<div>
 
 <div class="time">
 14:00
 </div>
 
 
-<div class="customer">
+<div>
 Cliente senza nome
 </div>
 
 
-<div class="address">
-Via Trinchese, Lecce
 </div>
+
+
+
+<div>
+▼
+</div>
+
+
+</div>
+
+
+
+<div class="trip-address">
+
+Via Trinchese, Lecce
+
+</div>
+
+
 
 
 
 <div class="details">
 
-<div class="info">
+
+<hr>
+
+
+<div>
 Telefono:
 </div>
 
 
-<div class="info">
+<div>
 Arrivo:
 </div>
 
 
-<div class="info">
+<div>
+Data:
+</div>
+
+
+<div>
 Passeggeri:
 </div>
 
 
-<div class="info">
+<div>
 Note:
 </div>
 
+
+
+<div class="actions">
+
+
+<button>
+Modifica corsa
+</button>
+
+
+<button class="delete">
+Elimina corsa
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- COMPLETATE -->
+
+
+<h2 class="completed-title">
+
+Corse completate
+
+</h2>
+
+
+
+<div class="card completed-trip">
+
+
+<div class="time">
+08:30
+</div>
+
+
+<div>
+Mario Rossi
+</div>
+
+
+<div>
+Via Roma 10, Lecce
+</div>
+
+
+<div class="small-text">
+
+Eliminazione automatica tra 20 minuti
 
 </div>
 
@@ -372,6 +318,9 @@ Note:
 
 
 </section>
+
+
+
 
 
 
@@ -380,40 +329,88 @@ Note:
 
 <!-- AGGIUNGI -->
 
-
 <section id="add" class="page">
 
 
-<h1>Aggiungi una corsa</h1>
+<h1>
+Aggiungi una corsa
+</h1>
+
 
 
 <div class="card">
 
 
-<input placeholder="Nome cliente">
+<label>
+Nome cliente
+</label>
 
-<input placeholder="Numero telefono">
-
-<input placeholder="Indirizzo partenza *">
-
-<input placeholder="Indirizzo arrivo">
+<input type="text">
 
 
-<input type="date">
 
+<label>
+Numero telefono
+</label>
+
+<input type="tel">
+
+
+
+<label>
+Indirizzo partenza *
+</label>
+
+<input type="text" required>
+
+
+
+<label>
+Indirizzo arrivo
+</label>
+
+<input type="text">
+
+
+
+<label>
+Data *
+</label>
+
+<input type="date" required>
+
+
+
+<label>
+Orario
+</label>
 
 <input type="time">
 
 
-<input placeholder="Numero passeggeri">
+
+<label>
+Numero passeggeri
+</label>
+
+<input type="number">
 
 
-<textarea placeholder="Note extra"></textarea>
+
+<label>
+Note extra
+</label>
+
+<textarea></textarea>
 
 
-<button>
-SALVA CORSA
+
+<button class="save">
+
+Salva corsa
+
 </button>
+
 
 
 </div>
@@ -423,7 +420,12 @@ SALVA CORSA
 
 
 
-</div>
+
+
+</main>
+
+
+
 
 
 
@@ -432,21 +434,35 @@ SALVA CORSA
 <nav class="bottom-nav">
 
 
-<div class="nav-item active" onclick="openPage('home',this)">
+<button onclick="openPage('home',this)"
+class="nav-item active">
+
 Home
-</div>
+
+</button>
 
 
-<div class="nav-item" onclick="openPage('corse',this)">
+
+<button onclick="openPage('corse',this)"
+class="nav-item">
+
 Le mie corse
-</div>
+
+</button>
 
 
-<div class="nav-item add-button" onclick="openPage('add',this)">
+
+<button onclick="openPage('add',this)"
+class="nav-item add">
+
 +
+
 <br>
+
 Aggiungi una corsa
-</div>
+
+</button>
+
 
 
 </nav>
@@ -455,30 +471,10 @@ Aggiungi una corsa
 
 
 
-<script>
 
-function openPage(page,element){
-
-document.querySelectorAll(".page").forEach(p=>{
-    p.classList.remove("active");
-});
-
-
-document.getElementById(page).classList.add("active");
-
-
-document.querySelectorAll(".nav-item").forEach(n=>{
-    n.classList.remove("active");
-});
-
-
-element.classList.add("active");
-
-}
-
-
-</script>
+<script src="app.js"></script>
 
 
 </body>
+
 </html>
