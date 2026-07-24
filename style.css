@@ -1,88 +1,180 @@
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
 
-body {
+body{
 
-    margin: 0;
+    margin:0;
 
-    background: #f4f4f4;
+    font-family:'Montserrat', Arial, sans-serif;
 
-    color: #222;
+    background:#f5f5f5;
 
-    font-family: "Montserrat", Arial, sans-serif;
+    color:#222;
 
 }
 
 
-
-
-
-/* ======================
+/* =====================
    PRIMO ACCESSO
-====================== */
+===================== */
 
 
-.setup-page {
+.setup-page{
 
-    position: fixed;
+    position:fixed;
 
     inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:white;
+
+    z-index:10;
+
+}
+
+
+.setup-box{
+
+    width:90%;
+
+    max-width:350px;
+
+    text-align:center;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+
+}
+
+
+.setup-logo{
+
+    width:120px;
+
+    margin-bottom:20px;
+
+}
+
+
+
+
+
+/* =====================
+   APP HEADER
+===================== */
+
+
+#appContainer{
+
+    display:none;
+
+}
+
+
+.app-header{
 
     background:white;
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    z-index:1000;
+    padding:15px;
+
+    gap:15px;
+
+    border-bottom:1px solid #ddd;
 
 }
 
 
+.header-logo{
 
-.setup-box {
+    width:55px;
 
-    width:90%;
+    height:55px;
 
-    max-width:330px;
-
-    text-align:center;
-
-}
-
-
-
-.setup-logo {
-
-    width:60px;
-
-    margin-bottom:20px;
+    object-fit:contain;
 
 }
 
 
+.driver-name{
 
-.setup-box h1 {
+    font-size:15px;
 
-    font-size:22px;
-
-    margin-bottom:8px;
+    font-weight:600;
 
 }
 
 
+.company-name{
 
-.setup-box p {
+    font-size:12px;
 
     color:#777;
 
-    font-size:14px;
+}
 
-    margin-bottom:20px;
+
+
+
+
+
+/* =====================
+   CONTENUTO
+===================== */
+
+
+.container{
+
+    padding:15px;
+
+    padding-bottom:90px;
+
+}
+
+
+.page{
+
+    display:none;
+
+}
+
+
+.page.active{
+
+    display:block;
+
+}
+
+
+h1{
+
+    font-size:24px;
+
+    margin:10px 0 20px;
+
+}
+
+
+h2{
+
+    font-size:17px;
+
+    margin-top:25px;
 
 }
 
@@ -90,9 +182,91 @@ body {
 
 
 
-input,
-textarea {
 
+
+/* =====================
+   CARD
+===================== */
+
+
+.card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:18px;
+
+    margin-bottom:15px;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+
+}
+
+
+.section-title{
+
+    font-size:12px;
+
+    font-weight:700;
+
+    color:#e87517;
+
+    margin-bottom:12px;
+
+}
+
+
+
+
+
+.next-card{
+
+    border-left:5px solid #e87517;
+
+}
+
+
+
+
+
+
+
+/* =====================
+   FORM
+===================== */
+
+
+.form-section{
+
+    background:white;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+
+}
+
+
+label{
+
+    display:block;
+
+    font-size:13px;
+
+    margin-top:12px;
+
+    margin-bottom:5px;
+
+    color:#555;
+
+}
+
+
+input,
+textarea{
 
     width:100%;
 
@@ -102,579 +276,69 @@ textarea {
 
     border:1px solid #ddd;
 
-    font-family:inherit;
-
-    font-size:14px;
-
-    outline:none;
-
-
-}
-
-
-
-
-button {
+    font-size:15px;
 
     font-family:inherit;
 
-    cursor:pointer;
-
 }
 
 
-
-
-
-.setup-box button {
-
-
-    width:100%;
-
-    margin-top:15px;
-
-    padding:14px;
-
-    border:0;
-
-    border-radius:10px;
-
-    background:#e87517;
-
-    color:white;
-
-    font-weight:700;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ======================
-   HEADER
-====================== */
-
-
-.app-header {
-
-
-    height:62px;
-
-    background:white;
-
-    display:flex;
-
-    align-items:center;
-
-    padding:10px 18px;
-
-    border-bottom:1px solid #ddd;
-
-
-}
-
-
-
-.header-logo {
-
-
-    width:38px;
-
-    height:38px;
-
-    object-fit:contain;
-
-    margin-right:12px;
-
-
-}
-
-
-
-.driver-name {
-
-
-    font-size:14px;
-
-    font-weight:700;
-
-
-}
-
-
-
-.company-name {
-
-
-    font-size:11px;
-
-    color:#777;
-
-
-}
-
-
-
-
-
-
-
-#appContainer {
-
-
-    display:none;
-
-}
-
-
-
-
-
-
-
-
-/* ======================
-   PAGINE
-====================== */
-
-
-.container {
-
-
-    padding:18px;
-
-    padding-bottom:90px;
-
-
-}
-
-
-
-
-.page {
-
-
-    display:none;
-
-}
-
-
-
-.page.active {
-
-
-    display:block;
-
-
-}
-
-
-
-
-h1 {
-
-
-    font-size:23px;
-
-    margin:5px 0 18px;
-
-
-}
-
-
-
-h2 {
-
-
-    font-size:16px;
-
-    margin:25px 0 12px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ======================
-   CARD
-====================== */
-
-
-.card {
-
-
-    background:white;
-
-    border-radius:14px;
-
-    padding:16px;
-
-    margin-bottom:15px;
-
-    box-shadow:0 3px 10px rgba(0,0,0,0.05);
-
-
-}
-
-
-
-.next-card {
-
-
-    border-left:4px solid #e87517;
-
-
-}
-
-
-
-.highlight-box {
-
-
-    background:#fff7ef;
-
-    border:1px solid #f1d3b7;
-
-    border-radius:14px;
-
-    padding:16px;
-
-    margin-bottom:20px;
-
-
-}
-
-
-
-.section-title {
-
-
-    font-size:11px;
-
-    color:#e87517;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
-
-    margin-bottom:10px;
-
-
-}
-
-
-
-.time {
-
-
-    font-size:25px;
-
-    font-weight:700;
-
-    margin-bottom:8px;
-
-
-}
-
-
-
-.info {
-
-
-    font-size:14px;
-
-    line-height:1.6;
-
-
-}
-
-
-
-
-
-
-
-
-/* ======================
-   GIORNI
-====================== */
-
-
-.day-selector {
-
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:8px 12px;
-
-    margin-bottom:20px;
-
-    box-shadow:0 3px 10px rgba(0,0,0,0.05);
-
-
-}
-
-
-
-.day-selector button {
-
-
-    width:38px;
-
-    height:38px;
-
-    border:0;
-
-    border-radius:50%;
-
-    background:#e87517;
-
-    color:white;
-
-    font-size:22px;
-
-
-}
-
-
-
-#giornoSelezionato {
-
-
-    font-size:14px;
-
-    font-weight:700;
-
-}
-
-
-
-
-
-
-
-
-
-/* ======================
-   FORM
-====================== */
-
-
-.form-section {
-
-
-    background:white;
-
-    border-radius:14px;
-
-    padding:16px;
-
-    margin-bottom:15px;
-
-
-}
-
-
-
-.form-section h2 {
-
-
-    margin-top:0;
-
-    margin-bottom:15px;
-
-
-}
-
-
-
-label {
-
-
-    display:block;
-
-    font-size:12px;
-
-    font-weight:600;
-
-    margin-bottom:6px;
-
-
-}
-
-
-
-
-textarea {
-
+textarea{
 
     height:90px;
 
     resize:none;
 
+}
+
+
+
+
+
+button{
+
+    font-family:inherit;
+
+    cursor:pointer;
 
 }
 
 
 
-.save {
 
+
+.save{
 
     width:100%;
 
     padding:15px;
 
-    border:0;
+    background:#e87517;
+
+    color:white;
+
+    border:none;
 
     border-radius:12px;
 
-    background:#e87517;
-
-    color:white;
-
     font-weight:700;
 
-    font-size:15px;
-
-
-}
-
-
-
-
-
-
-
-
-/* ======================
-   CORSE
-====================== */
-
-
-.trip {
-
-
-    cursor:pointer;
-
+    font-size:16px;
 
 }
 
 
 
-.trip-header {
-
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-
-}
-
-
-
-.details {
-
-
-    display:none;
-
-    margin-top:15px;
-
-    font-size:14px;
-
-
-}
-
-
-
-.trip.open .details {
-
-
-    display:block;
-
-
-}
-
-
-
-.actions {
-
-
-    display:flex;
-
-    gap:10px;
-
-    margin-top:15px;
-
-
-}
-
-
-
-.actions button {
-
-
-    flex:1;
-
-    border:0;
-
-    padding:10px;
-
-    border-radius:8px;
-
-    background:#e87517;
-
-    color:white;
-
-
-}
-
-
-
-.actions .delete {
-
-
-    background:#222;
-
-
-}
 
 
 
 
+/* =====================
+   MENU INFERIORE
+===================== */
 
 
-
-
-/* ======================
-   MENU BASSO
-====================== */
-
-
-.bottom-nav {
-
+.bottom-nav{
 
     position:fixed;
 
@@ -688,75 +352,207 @@ textarea {
 
     background:white;
 
-    border-top:1px solid #ddd;
-
     display:flex;
 
     justify-content:space-around;
 
     align-items:center;
 
-    z-index:100;
-
+    border-top:1px solid #ddd;
 
 }
 
 
-
-
-.nav-item {
-
+.nav-item{
 
     background:none;
 
-    border:0;
+    border:none;
 
-    font-size:12px;
-
-    font-weight:600;
+    font-size:13px;
 
     color:#555;
 
-
 }
 
 
-
-.nav-item.active {
-
+.nav-item.active{
 
     color:#e87517;
 
+    font-weight:700;
 
 }
 
 
-
-.nav-item.add {
-
+.nav-item.add{
 
     color:#e87517;
 
-    font-size:22px;
-
+    font-weight:700;
 
 }
 
 
 
-.nav-item.add span {
 
+
+
+
+/* =====================
+   CORSE
+===================== */
+
+
+.day-selector{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:white;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    margin-bottom:15px;
+
+}
+
+
+.day-selector button{
+
+    border:none;
+
+    background:none;
+
+    font-size:25px;
+
+}
+
+
+
+
+.highlight-box{
+
+    background:#fff4ea;
+
+    border:1px solid #e87517;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+
+.trip{
+
+    overflow:hidden;
+
+}
+
+
+.trip-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+
+.time{
+
+    font-weight:700;
+
+    color:#e87517;
+
+    font-size:18px;
+
+}
+
+
+
+.details{
+
+    display:none;
+
+    margin-top:15px;
+
+    padding-top:15px;
+
+    border-top:1px solid #eee;
+
+    font-size:14px;
+
+}
+
+
+.trip.open .details{
 
     display:block;
 
-    font-size:10px;
+}
 
+
+
+
+
+.actions{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
 
 }
 
-/* ==========================
-   BACKUP DATI
-========================== */
+
+.actions button{
+
+    flex:1;
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#eee;
+
+}
+
+
+.actions .delete{
+
+    background:#d9534f;
+
+    color:white;
+
+}
+
+
+
+
+
+
+
+
+/* =====================
+   BACKUP
+===================== */
+
 
 .backup-btn{
 
@@ -766,75 +562,33 @@ textarea {
 
     background:#e87517;
 
-    color:#fff;
+    color:white;
 
     border:none;
 
     border-radius:12px;
 
-    font-size:15px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-    margin-bottom:15px;
+    font-weight:700;
 
 }
-
-.backup-btn:hover{
-
-    background:#cf6511;
-
-}
-
-.backup-btn:active{
-
-    transform:scale(.98);
-
-}
-
 
 
 .import-label{
 
     display:block;
 
-    width:100%;
+    margin-top:15px;
 
     padding:14px;
 
-    border:2px dashed #d9d9d9;
+    text-align:center;
+
+    border:2px dashed #ccc;
 
     border-radius:12px;
 
-    text-align:center;
-
-    cursor:pointer;
-
-    background:#fafafa;
-
-    transition:.2s;
-
-    font-size:14px;
-
-    font-weight:500;
-
-    color:#555;
-
 }
 
-.import-label:hover{
-
-    border-color:#e87517;
-
-    background:#fff8f2;
-
-    color:#222;
-
-}
 
 .import-label input{
 
@@ -843,69 +597,23 @@ textarea {
 }
 
 
-
-/* ==========================
-   MESSAGGI BACKUP
-========================== */
-
-.backup-message{
-
-    margin-top:12px;
-
-    padding:12px;
-
-    border-radius:10px;
-
-    background:#eef8ee;
-
-    border:1px solid #b8dfb8;
-
-    color:#2d6a2d;
-
-    font-size:13px;
-
-    display:none;
-
-}
-
-.backup-message.show{
-
-    display:block;
-
-}
-
-
-
-/* ==========================
-   CARD BACKUP
-========================== */
-
-.backup-card{
-
-    margin-top:18px;
-
-}
-
-.backup-card .section-title{
-
-    margin-bottom:15px;
-
-}
-
-
-
-/* ==========================
-   INFO ULTIMO BACKUP
-========================== */
-
-.last-backup{
+#backupMessage{
 
     margin-top:15px;
 
     font-size:13px;
 
-    color:#777;
+    color:#228b22;
 
-    text-align:center;
+}
+
+
+#lastBackup{
+
+    margin-top:10px;
+
+    font-size:12px;
+
+    color:#777;
 
 }
