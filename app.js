@@ -367,7 +367,7 @@ alert("SALVA PREMUTO");
 
         corse.push(corsa);
 
-
+console.log(corse);
     }
 
 
