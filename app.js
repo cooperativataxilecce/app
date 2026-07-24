@@ -1,3 +1,5 @@
+alert("APP.JS CARICATO");
+
 let corse = JSON.parse(localStorage.getItem("corseTaxi")) || [];
 
 let autista = localStorage.getItem("nomeTassista") || "";
