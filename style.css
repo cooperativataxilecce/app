@@ -7,9 +7,9 @@ body {
 
     margin: 0;
 
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", Arial, sans-serif;
 
-    background: #f5f5f5;
+    background: #f4f4f4;
 
     color: #222;
 
@@ -19,37 +19,36 @@ body {
 
 
 
-/* PRIMO ACCESSO */
+/* =========================
+   PRIMO ACCESSO
+========================= */
 
 
-.welcome {
+.setup-page {
 
     position: fixed;
 
-    width: 100%;
-
-    height: 100vh;
+    inset: 0;
 
     background: white;
 
     display: flex;
 
-    justify-content: center;
-
     align-items: center;
 
-    z-index: 200;
+    justify-content: center;
 
+    z-index: 1000;
 
 }
 
 
 
-.welcome-box {
+.setup-box {
 
-    width: 85%;
+    width: 90%;
 
-    max-width: 360px;
+    max-width: 350px;
 
     text-align: center;
 
@@ -57,10 +56,33 @@ body {
 
 
 
+.setup-logo {
 
-.logo {
+    width: 65px;
 
-    width: 90px;
+    height: auto;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+.setup-box h1 {
+
+    font-size: 22px;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.setup-box p {
+
+    color: #777;
+
+    font-size: 14px;
 
     margin-bottom: 25px;
 
@@ -69,22 +91,43 @@ body {
 
 
 
-.welcome h1 {
-
-    font-size: 28px;
-
-    margin-bottom: 10px;
-
-}
 
 
 
-.welcome p {
 
-    color: #777;
+input,
+textarea {
+
+
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    border: 1px solid #ddd;
+
+    font-family: inherit;
 
     font-size: 14px;
 
+    background:white;
+
+
+}
+
+
+
+
+
+button {
+
+
+    font-family: inherit;
+
+    cursor:pointer;
+
+
 }
 
 
@@ -93,36 +136,25 @@ body {
 
 
 
-.welcome input {
-
-    width: 100%;
-
-    margin-top: 20px;
-
-}
+.setup-box button {
 
 
+    margin-top:15px;
 
+    width:100%;
 
-
-
-.welcome button {
-
-    width: 100%;
-
-    margin-top: 15px;
-
-    background: #e87517;
-
-    color:white;
+    padding:14px;
 
     border:0;
 
-    padding:15px;
+    border-radius:10px;
 
-    border-radius:12px;
+    background:#e87517;
+
+    color:white;
 
     font-weight:700;
+
 
 }
 
@@ -134,14 +166,15 @@ body {
 
 
 
-
-/* HEADER */
-
-
-header {
+/* =========================
+   HEADER
+========================= */
 
 
-    height:75px;
+.app-header {
+
+
+    height:65px;
 
     background:white;
 
@@ -149,7 +182,7 @@ header {
 
     align-items:center;
 
-    padding:15px 20px;
+    padding:10px 18px;
 
     border-bottom:1px solid #ddd;
 
@@ -158,12 +191,17 @@ header {
 
 
 
-header img {
+
+.header-logo {
 
 
-    width:50px;
+    width:38px;
 
-    margin-right:15px;
+    height:38px;
+
+    object-fit:contain;
+
+    margin-right:12px;
 
 
 }
@@ -182,13 +220,14 @@ header img {
 
 
 
+.company-name {
 
-.small-text {
 
-
-    font-size:12px;
+    font-size:11px;
 
     color:#777;
+
+    margin-top:2px;
 
 
 }
@@ -201,17 +240,28 @@ header img {
 
 
 
+/* =========================
+   PAGINE
+========================= */
 
 
-/* CONTENUTO */
+#appContainer {
+
+
+    display:none;
+
+
+}
+
+
 
 
 .container {
 
 
-    padding:20px;
+    padding:18px;
 
-    padding-bottom:110px;
+    padding-bottom:90px;
 
 
 }
@@ -229,6 +279,7 @@ header img {
 
 
 
+
 .page.active {
 
 
@@ -241,18 +292,15 @@ header img {
 
 
 
-
-
 h1 {
 
 
-    font-size:24px;
+    font-size:23px;
 
-    margin:0 0 20px;
+    margin:5px 0 18px;
 
 
 }
-
 
 
 
@@ -263,8 +311,6 @@ h2 {
 
     margin-top:25px;
 
-    margin-bottom:12px;
-
 
 }
 
@@ -276,9 +322,9 @@ h2 {
 
 
 
-
-
-/* CARD */
+/* =========================
+   CARD
+========================= */
 
 
 .card {
@@ -286,16 +332,14 @@ h2 {
 
     background:white;
 
-    border-radius:18px;
+    border-radius:14px;
 
-    padding:18px;
+    padding:16px;
 
-    margin-bottom:18px;
+    margin-bottom:15px;
 
 
-    box-shadow:
-
-    0 5px 15px rgba(0,0,0,0.06);
+    box-shadow:0 3px 12px rgba(0,0,0,0.05);
 
 
 }
@@ -305,7 +349,7 @@ h2 {
 .next-card {
 
 
-    border-left:5px solid #e87517;
+    border-left:4px solid #e87517;
 
 
 }
@@ -316,13 +360,15 @@ h2 {
 .highlight-box {
 
 
-    background:#fff7ef;
+    background:#fff8f1;
 
-    border-radius:18px;
+    border-radius:14px;
 
-    padding:18px;
+    padding:16px;
 
-    border:1px solid #f1d1b5;
+    border:1px solid #f0d4ba;
+
+    margin-bottom:20px;
 
 
 }
@@ -330,21 +376,18 @@ h2 {
 
 
 
-
-
-
 .section-title {
 
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:700;
 
     color:#e87517;
 
-    letter-spacing:.5px;
+    letter-spacing:.6px;
 
-    margin-bottom:12px;
+    margin-bottom:10px;
 
 
 }
@@ -355,7 +398,7 @@ h2 {
 .time {
 
 
-    font-size:26px;
+    font-size:24px;
 
     font-weight:700;
 
@@ -366,13 +409,12 @@ h2 {
 
 
 
-
 .info {
 
 
     font-size:14px;
 
-    line-height:1.7;
+    line-height:1.6;
 
 
 }
@@ -380,24 +422,14 @@ h2 {
 
 
 
-.empty {
-
-
-    color:#777;
-
-    font-size:14px;
-
-}
 
 
 
 
 
-
-
-
-
-/* FORM */
+/* =========================
+   FORM
+========================= */
 
 
 .form-section {
@@ -405,14 +437,28 @@ h2 {
 
     background:white;
 
-    border-radius:18px;
+    padding:16px;
 
-    padding:18px;
+    border-radius:14px;
 
-    margin-bottom:18px;
+    margin-bottom:15px;
 
 
 }
+
+
+
+
+.form-section h2 {
+
+
+    margin-top:0;
+
+    margin-bottom:15px;
+
+
+}
+
 
 
 
@@ -421,11 +467,11 @@ label {
 
     display:block;
 
-    font-size:13px;
+    font-size:12px;
 
     font-weight:600;
 
-    margin-bottom:7px;
+    margin-bottom:6px;
 
 
 }
@@ -433,38 +479,16 @@ label {
 
 
 
-input,
 textarea {
 
 
-    width:100%;
-
-    border:1px solid #ddd;
-
-    border-radius:12px;
-
-    padding:14px;
-
-    margin-bottom:15px;
-
-    font-family:"Montserrat", sans-serif;
-
-    font-size:14px;
-
-
-}
-
-
-
-textarea {
-
-
-    height:100px;
+    height:90px;
 
     resize:none;
 
 
 }
+
 
 
 
@@ -480,9 +504,9 @@ textarea {
 
     color:white;
 
-    border:none;
+    border:0;
 
-    padding:16px;
+    padding:15px;
 
     border-radius:12px;
 
@@ -500,7 +524,10 @@ textarea {
 
 
 
-/* CORSE */
+
+/* =========================
+   CORSE
+========================= */
 
 
 .trip {
@@ -510,7 +537,6 @@ textarea {
 
 
 }
-
 
 
 
@@ -535,6 +561,8 @@ textarea {
 
     margin-top:15px;
 
+    font-size:14px;
+
 
 }
 
@@ -547,8 +575,6 @@ textarea {
 
 
 }
-
-
 
 
 
@@ -571,13 +597,16 @@ textarea {
 
     flex:1;
 
+    padding:10px;
+
+    border-radius:8px;
+
+    border:0;
+
     background:#e87517;
 
     color:white;
 
-    padding:12px;
-
-    border-radius:10px;
 
 }
 
@@ -586,7 +615,7 @@ textarea {
 .actions .delete {
 
 
-    background:#333;
+    background:#222;
 
 
 }
@@ -599,7 +628,9 @@ textarea {
 
 
 
-/* MENU INFERIORE */
+/* =========================
+   MENU BASSO
+========================= */
 
 
 .bottom-nav {
@@ -611,17 +642,13 @@ textarea {
 
     left:0;
 
-    width:100%;
+    right:0;
 
-
-    height:80px;
-
+    height:70px;
 
     background:white;
 
-
     border-top:1px solid #ddd;
-
 
     display:flex;
 
@@ -630,28 +657,22 @@ textarea {
     align-items:center;
 
 
-    z-index:100;
-
-
 }
-
 
 
 
 .nav-item {
 
 
-    border:none;
+    border:0;
 
     background:none;
 
-    font-family:"Montserrat";
-
     font-size:12px;
 
-    color:#555;
-
     font-weight:600;
+
+    color:#555;
 
 
 }
@@ -668,12 +689,13 @@ textarea {
 
 
 
+
 .nav-item.add {
 
 
-    color:#e87517;
-
     font-size:22px;
+
+    color:#e87517;
 
 
 }
@@ -686,37 +708,6 @@ textarea {
     display:block;
 
     font-size:10px;
-
-
-}
-
-
-
-
-
-
-button {
-
-    cursor:pointer;
-
-}
-
-
-
-
-
-
-
-@media(max-width:600px){
-
-
-.container{
-
-padding-left:15px;
-
-padding-right:15px;
-
-}
 
 
 }
