@@ -674,7 +674,7 @@ function aggiornaHome(){
 
 
 function aggiornaCorse(){
-
+alert("Totale corse: " + corse.length);
 
     let programmate =
     document.getElementById("plannedTrips");
