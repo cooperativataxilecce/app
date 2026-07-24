@@ -1078,3 +1078,60 @@ setInterval(()=>{
 aggiornaApp();
 
 },60000);
+
+// =====================
+// TELEFONO CLIENTE
+// =====================
+
+
+function chiamaCliente(numero){
+
+
+if(!numero){
+
+alert("Numero cliente non presente");
+
+return;
+
+}
+
+
+window.location.href =
+"tel:" + numero;
+
+
+}
+
+
+
+
+
+
+// =====================
+// GOOGLE MAPS
+// =====================
+
+
+function navigaCorsa(partenza, arrivo){
+
+
+let percorso =
+encodeURIComponent(partenza)
++
+"/"
++
+encodeURIComponent(arrivo);
+
+
+
+let url =
+"https://www.google.com/maps/dir/"
++
+percorso;
+
+
+
+window.open(url,"_blank");
+
+
+}
