@@ -9,19 +9,30 @@
 
 <title>Cooperativa Taxi Lecce</title>
 
+
 <link rel="stylesheet" href="style.css">
+
+
+<link rel="manifest" href="manifest.json">
+
+
+<meta name="theme-color" content="#e87517">
+
+
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+
 </head>
+
 
 
 <body>
 
 
 
+<!-- CONFIGURAZIONE PRIMO ACCESSO -->
 
-<!-- PAGINA PRIMO ACCESSO -->
 
 <section id="setupPage" class="setup-page">
 
@@ -43,7 +54,7 @@ Inserisci il nome del tassista
 
 
 
-<input 
+<input
 id="setupDriverName"
 type="text"
 placeholder="Nome tassista">
@@ -55,6 +66,7 @@ placeholder="Nome tassista">
 Continua
 
 </button>
+
 
 
 </div>
@@ -70,9 +82,12 @@ Continua
 
 
 
-<!-- APP -->
+<!-- APP PRINCIPALE -->
+
 
 <div id="appContainer">
+
+
 
 
 
@@ -80,6 +95,7 @@ Continua
 
 
 <img src="logo.png" class="header-logo">
+
 
 
 <div>
@@ -102,7 +118,9 @@ Cooperativa Taxi Lecce
 </div>
 
 
+
 </header>
+
 
 
 
@@ -121,12 +139,14 @@ Cooperativa Taxi Lecce
 
 <!-- HOME -->
 
+
 <section id="home" class="page active">
 
 
 <h1>
 Home
 </h1>
+
 
 
 
@@ -148,10 +168,8 @@ Nessuna corsa prevista oggi
 </div>
 
 
+
 </div>
-
-
-
 
 
 
@@ -172,14 +190,13 @@ Nessuna corsa prevista oggi
 
 
 <h1>
+
 Le mie corse
+
 </h1>
 
 
 
-
-
-<!-- SELETTORE GIORNO -->
 
 
 <div class="day-selector">
@@ -193,11 +210,13 @@ Le mie corse
 
 
 
+
 <div id="giornoSelezionato">
 
 Oggi
 
 </div>
+
 
 
 
@@ -218,8 +237,6 @@ Oggi
 
 
 
-<!-- PROSSIMA -->
-
 
 <div class="highlight-box">
 
@@ -231,9 +248,11 @@ PROSSIMA CORSA
 </div>
 
 
+
 <div id="nextTrip">
 
 </div>
+
 
 
 </div>
@@ -246,7 +265,9 @@ PROSSIMA CORSA
 
 
 <h2>
+
 Corse programmate
+
 </h2>
 
 
@@ -263,7 +284,9 @@ Corse programmate
 
 
 <h2>
+
 Corse completate
+
 </h2>
 
 
@@ -288,7 +311,6 @@ Corse completate
 
 
 
-
 <!-- AGGIUNGI CORSA -->
 
 
@@ -296,7 +318,9 @@ Corse completate
 
 
 <h1>
+
 Aggiungi una corsa
+
 </h1>
 
 
@@ -308,30 +332,35 @@ Aggiungi una corsa
 
 
 <h2>
+
 Cliente
+
 </h2>
 
 
 
+
 <label>
+
 Nome cliente
+
 </label>
 
 
-<input 
-id="cliente"
-type="text">
+<input id="cliente" type="text">
+
+
 
 
 
 <label>
+
 Numero telefono
+
 </label>
 
 
-<input 
-id="telefono"
-type="tel">
+<input id="telefono" type="tel">
 
 
 
@@ -344,36 +373,41 @@ type="tel">
 
 
 
+
 <div class="form-section">
 
 
 <h2>
+
 Percorso
+
 </h2>
 
 
 
+
 <label>
+
 Indirizzo partenza *
+
 </label>
 
 
-<input 
-id="partenza"
-type="text">
+<input id="partenza" type="text">
+
 
 
 
 
 
 <label>
+
 Indirizzo arrivo
+
 </label>
 
 
-<input 
-id="arrivo"
-type="text">
+<input id="arrivo" type="text">
 
 
 
@@ -386,50 +420,56 @@ type="text">
 
 
 
+
 <div class="form-section">
 
 
 <h2>
+
 Dettagli corsa
+
 </h2>
 
 
 
 
+
 <label>
+
 Data *
+
 </label>
 
 
-<input 
-id="data"
-type="date">
+<input id="data" type="date">
+
 
 
 
 
 
 <label>
+
 Orario
+
 </label>
 
 
-<input 
-id="orario"
-type="time">
+<input id="orario" type="time">
+
 
 
 
 
 
 <label>
+
 Numero passeggeri
+
 </label>
 
 
-<input 
-id="passeggeri"
-type="number">
+<input id="passeggeri" type="number">
 
 
 
@@ -442,12 +482,16 @@ type="number">
 
 
 
+
 <div class="form-section">
 
 
 <h2>
+
 Note
+
 </h2>
+
 
 
 
@@ -465,11 +509,13 @@ placeholder="Note extra">
 
 
 
+
 <button class="save">
 
 Salva corsa
 
 </button>
+
 
 
 
@@ -494,13 +540,14 @@ Salva corsa
 
 
 
+
 <!-- MENU INFERIORE -->
 
 
 <nav class="bottom-nav">
 
 
-<button 
+<button
 class="nav-item active"
 onclick="openPage('home',this)">
 
@@ -512,7 +559,7 @@ Home
 
 
 
-<button 
+<button
 class="nav-item"
 onclick="openPage('corse',this)">
 
@@ -524,19 +571,16 @@ Le mie corse
 
 
 
-<button 
+
+<button
 class="nav-item add"
 onclick="openPage('add',this)">
 
-+
-
-<span>
-
 Aggiungi corsa
 
-</span>
-
 </button>
+
+
 
 
 
@@ -549,7 +593,31 @@ Aggiungi corsa
 
 
 
+
 <script src="app.js"></script>
+
+
+
+<script>
+
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+
+navigator.serviceWorker.register("service-worker.js");
+
+
+});
+
+
+}
+
+
+</script>
+
+
 
 
 </body>
