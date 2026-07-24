@@ -18,32 +18,30 @@
 <body>
 
 
+<!-- PAGINA PRIMO ACCESSO -->
 
-<!-- PRIMO ACCESSO -->
-
-
-<section id="welcome" class="welcome">
+<section id="setupPage" class="setup-page">
 
 
-<div class="welcome-box">
+<div class="setup-box">
 
 
-<img src="logo.png" class="logo">
+<img src="logo.png" class="setup-logo">
 
 
 <h1>
-Benvenuto
+Configura il profilo
 </h1>
 
 
 <p>
-Inserisci il tuo nome per configurare l'app
+Inserisci il nome del tassista per iniziare
 </p>
 
 
 
 <input 
-id="firstDriverName"
+id="setupDriverName"
 type="text"
 placeholder="Nome tassista">
 
@@ -51,10 +49,9 @@ placeholder="Nome tassista">
 
 <button onclick="salvaPrimoAccesso()">
 
-Inizia
+Continua
 
 </button>
-
 
 
 </div>
@@ -69,32 +66,33 @@ Inizia
 
 
 
+<!-- APP PRINCIPALE -->
 
-<!-- APP -->
-
-
-<div id="app">
+<div id="appContainer">
 
 
 
 
 
-<header>
+<header class="app-header">
 
 
-<img src="logo.png">
+<img src="logo.png" class="header-logo">
 
 
-<div>
 
-<div class="driver-name" id="driverName">
+<div class="header-info">
+
+
+<div id="driverName" class="driver-name">
 
 Tassista
 
 </div>
 
 
-<div class="small-text">
+
+<div class="company-name">
 
 Cooperativa Taxi Lecce
 
@@ -113,7 +111,6 @@ Cooperativa Taxi Lecce
 
 
 
-
 <main class="container">
 
 
@@ -124,14 +121,12 @@ Cooperativa Taxi Lecce
 
 <!-- HOME -->
 
-
 <section id="home" class="page active">
 
 
 <h1>
 Home
 </h1>
-
 
 
 
@@ -148,22 +143,12 @@ PROSSIMA CORSA
 
 <div id="homeNext">
 
-
-<div class="empty">
-
 Nessuna corsa programmata
 
 </div>
 
 
 </div>
-
-
-
-</div>
-
-
-
 
 
 
@@ -174,23 +159,19 @@ Nessuna corsa programmata
 
 <div class="section-title">
 
-CORSA SUCCESSIVA
+SUCCESSIVA
 
 </div>
 
 
-<div id="homeAfter">
-
+<div id="homeSecond">
 
 Nessuna corsa successiva
 
 </div>
 
 
-
 </div>
-
-
 
 
 
@@ -204,11 +185,7 @@ Nessuna corsa successiva
 
 
 
-
-
-
-
-<!-- CORSE -->
+<!-- LE MIE CORSE -->
 
 
 <section id="corse" class="page">
@@ -217,6 +194,7 @@ Nessuna corsa successiva
 <h1>
 Le mie corse
 </h1>
+
 
 
 
@@ -247,7 +225,6 @@ Corse programmate
 </h2>
 
 
-
 <div id="plannedTrips">
 
 </div>
@@ -262,7 +239,6 @@ Corse completate
 </h2>
 
 
-
 <div id="completedTrips">
 
 </div>
@@ -270,10 +246,6 @@ Corse completate
 
 
 </section>
-
-
-
-
 
 
 
@@ -296,12 +268,14 @@ Aggiungi una corsa
 
 
 
+
 <div class="form-section">
 
 
 <h2>
 Cliente
 </h2>
+
 
 
 <label>
@@ -313,14 +287,14 @@ Nome cliente
 
 
 <label>
-Telefono cliente
+Numero telefono
 </label>
 
 <input id="telefono" type="tel">
 
 
-
 </div>
+
 
 
 
@@ -336,10 +310,10 @@ Percorso
 </h2>
 
 
+
 <label>
 Indirizzo partenza *
 </label>
-
 
 <input id="partenza" type="text">
 
@@ -349,12 +323,11 @@ Indirizzo partenza *
 Indirizzo arrivo
 </label>
 
-
 <input id="arrivo" type="text">
 
 
-
 </div>
+
 
 
 
@@ -366,14 +339,14 @@ Indirizzo arrivo
 
 
 <h2>
-Servizio
+Dettagli corsa
 </h2>
+
 
 
 <label>
 Data *
 </label>
-
 
 <input id="data" type="date">
 
@@ -383,22 +356,19 @@ Data *
 Orario
 </label>
 
-
 <input id="orario" type="time">
 
 
 
 <label>
-Numero passeggeri
+Passeggeri
 </label>
-
 
 <input id="passeggeri" type="number">
 
 
 
 </div>
-
 
 
 
@@ -415,13 +385,12 @@ Note
 
 
 <textarea id="note"
-placeholder="Note extra">
+placeholder="Note aggiuntive">
 </textarea>
 
 
 
 </div>
-
 
 
 
@@ -435,67 +404,7 @@ Salva corsa
 
 
 
-
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- IMPOSTAZIONI -->
-
-
-<section id="settings" class="page">
-
-
-<h1>
-Impostazioni
-</h1>
-
-
-
-<div class="card">
-
-
-<h2>
-Dati tassista
-</h2>
-
-
-
-<label>
-Nome tassista
-</label>
-
-
-<input 
-id="driverInput"
-type="text">
-
-
-
-<button onclick="salvaNomeTassista()">
-
-Salva modifiche
-
-</button>
-
-
-
-</div>
-
-
-
-</section>
-
 
 
 
@@ -514,8 +423,7 @@ Salva modifiche
 
 
 
-<!-- MENU INFERIORE -->
-
+<!-- NAVIGAZIONE -->
 
 <nav class="bottom-nav">
 
@@ -544,7 +452,6 @@ Le mie corse
 
 
 
-
 <button 
 class="nav-item add"
 onclick="openPage('add',this)">
@@ -552,22 +459,8 @@ onclick="openPage('add',this)">
 +
 
 <span>
-Aggiungi una corsa
+Aggiungi corsa
 </span>
-
-
-</button>
-
-
-
-
-
-
-<button
-class="nav-item"
-onclick="openPage('settings',this)">
-
-Impostazioni
 
 </button>
 
