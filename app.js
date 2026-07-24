@@ -883,9 +883,29 @@ ${c.telefono || "-"}
 <br><br>
 
 
+<button onclick="event.stopPropagation(); chiamaCliente('${c.telefono}')">
+
+📞 Chiama cliente
+
+</button>
+
+
+<br><br>
+
+
 Arrivo:
 
 ${c.arrivo || "-"}
+
+
+<br><br>
+
+
+<button onclick="event.stopPropagation(); navigaCorsa('${c.partenza}','${c.arrivo}')">
+
+📍 Apri navigazione
+
+</button>
 
 
 <br><br>
