@@ -374,6 +374,7 @@ console.log(corse);
 
 
     salvaDatabase();
+    alert("Corse salvate: " + corse.length);
 
 
     pulisciForm();
