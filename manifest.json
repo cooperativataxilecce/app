@@ -1,0 +1,15 @@
+{
+  "name": "Cooperativa Taxi Lecce",
+  "short_name": "Taxi Lecce",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e87517",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
