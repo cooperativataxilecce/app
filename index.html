@@ -7,59 +7,42 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <title>Cooperativa Taxi Lecce</title>
-
 
 <link rel="stylesheet" href="style.css">
 
-
 <link rel="manifest" href="manifest.json">
-
 
 <meta name="theme-color" content="#e87517">
 
-
-
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-
 </head>
-
 
 
 <body>
 
 
-
-<!-- PRIMO ACCESSO -->
-
+<!-- PAGINA PRIMO ACCESSO -->
 
 <section id="setupPage" class="setup-page">
 
-
 <div class="setup-box">
 
-
 <img src="logo.png" class="setup-logo">
-
 
 <h1>
 Configura profilo
 </h1>
 
-
 <p>
 Inserisci il nome del tassista
 </p>
-
-
 
 <input 
 id="setupDriverName"
 type="text"
 placeholder="Nome tassista">
-
 
 
 <button onclick="salvaPrimoAccesso()">
@@ -68,10 +51,7 @@ Continua
 
 </button>
 
-
-
 </div>
-
 
 </section>
 
@@ -81,13 +61,9 @@ Continua
 
 
 
-
-
-<!-- APP -->
+<!-- APP PRINCIPALE -->
 
 <div id="appContainer">
-
-
 
 
 
@@ -100,16 +76,12 @@ Continua
 <div>
 
 <div id="driverName" class="driver-name">
-
 Tassista
-
 </div>
 
 
 <div class="company-name">
-
 Cooperativa Taxi Lecce
-
 </div>
 
 
@@ -132,11 +104,7 @@ Cooperativa Taxi Lecce
 
 
 
-
-
-
 <!-- HOME -->
-
 
 <section id="home" class="page active">
 
@@ -147,22 +115,16 @@ Home
 
 
 
-
 <div class="card next-card">
 
 
 <div class="section-title">
-
 PROSSIMA CORSA DI OGGI
-
 </div>
-
 
 
 <div id="homeNext">
-
 Nessuna corsa prevista oggi
-
 </div>
 
 
@@ -172,26 +134,19 @@ Nessuna corsa prevista oggi
 
 
 
-
-
-
-
-<!-- BACKUP -->
 
 
 <div class="card">
 
 
 <div class="section-title">
-
 BACKUP DATI
-
 </div>
 
 
 
 <button 
-onclick="esportaBackup"
+onclick="esportaBackup()"
 class="backup-btn">
 
 Esporta backup corse
@@ -201,9 +156,7 @@ Esporta backup corse
 
 
 
-
 <label class="import-label">
-
 
 Importa backup
 
@@ -229,12 +182,7 @@ onchange="importaBackup(event)">
 
 
 
-
 </section>
-
-
-
-
 
 
 
@@ -246,16 +194,12 @@ onchange="importaBackup(event)">
 
 <!-- LE MIE CORSE -->
 
-
 <section id="corse" class="page">
 
 
 <h1>
-
 Le mie corse
-
 </h1>
-
 
 
 
@@ -264,31 +208,24 @@ Le mie corse
 
 
 <button onclick="cambiaGiorno(-1)">
-
 ‹
-
 </button>
 
 
 
 <div id="giornoSelezionato">
-
 Oggi
-
 </div>
 
 
 
 <button onclick="cambiaGiorno(1)">
-
 ›
-
 </button>
 
 
 
 </div>
-
 
 
 
@@ -300,9 +237,7 @@ Oggi
 
 
 <div class="section-title">
-
 PROSSIMA CORSA
-
 </div>
 
 
@@ -321,11 +256,8 @@ PROSSIMA CORSA
 
 
 <h2>
-
 Corse programmate
-
 </h2>
-
 
 
 <div id="plannedTrips">
@@ -339,11 +271,8 @@ Corse programmate
 
 
 <h2>
-
 Corse completate
-
 </h2>
-
 
 
 <div id="completedTrips">
@@ -362,20 +291,13 @@ Corse completate
 
 
 
-
-
-
-
 <!-- AGGIUNGI CORSA -->
-
 
 <section id="add" class="page">
 
 
 <h1>
-
 Aggiungi una corsa
-
 </h1>
 
 
@@ -383,45 +305,36 @@ Aggiungi una corsa
 
 
 
-
-
 <div class="form-section">
 
 
 <h2>
-
 Cliente
-
 </h2>
 
 
-
 <label>
-
 Nome cliente
-
 </label>
 
 
-<input id="cliente" type="text">
-
-
+<input 
+id="cliente"
+type="text">
 
 
 
 <label>
-
 Numero telefono
-
 </label>
 
 
-<input id="telefono" type="tel">
-
+<input 
+id="telefono"
+type="tel">
 
 
 </div>
-
 
 
 
@@ -434,41 +347,32 @@ Numero telefono
 
 
 <h2>
-
 Percorso
-
 </h2>
 
 
-
-
 <label>
-
 Indirizzo partenza *
-
 </label>
 
 
-<input id="partenza" type="text">
-
-
-
+<input 
+id="partenza"
+type="text">
 
 
 
 <label>
-
 Indirizzo arrivo
-
 </label>
 
 
-<input id="arrivo" type="text">
-
+<input 
+id="arrivo"
+type="text">
 
 
 </div>
-
 
 
 
@@ -481,48 +385,41 @@ Indirizzo arrivo
 
 
 <h2>
-
 Dettagli corsa
-
 </h2>
 
 
 
-
 <label>
-
 Data *
-
 </label>
 
 
-<input id="data" type="date">
-
-
+<input 
+id="data"
+type="date">
 
 
 
 <label>
-
 Orario
-
 </label>
 
 
-<input id="orario" type="time">
-
-
+<input 
+id="orario"
+type="time">
 
 
 
 <label>
-
 Numero passeggeri
-
 </label>
 
 
-<input id="passeggeri" type="number">
+<input 
+id="passeggeri"
+type="number">
 
 
 
@@ -535,30 +432,23 @@ Numero passeggeri
 
 
 
-
 <div class="form-section">
 
 
 <h2>
-
 Note
-
 </h2>
 
 
-
-
-<textarea
-
+<textarea 
 id="note"
-
 placeholder="Note extra">
-
 </textarea>
 
 
 
 </div>
+
 
 
 
@@ -584,7 +474,6 @@ Salva corsa
 
 
 
-
 </main>
 
 
@@ -594,17 +483,14 @@ Salva corsa
 
 
 
+<!-- MENU INFERIORE -->
 
-<!-- MENU -->
 
 <nav class="bottom-nav">
 
 
-
-<button
-
+<button 
 class="nav-item active"
-
 onclick="openPage('home',this)">
 
 Home
@@ -615,10 +501,8 @@ Home
 
 
 
-<button
-
+<button 
 class="nav-item"
-
 onclick="openPage('corse',this)">
 
 Le mie corse
@@ -629,17 +513,13 @@ Le mie corse
 
 
 
-
-<button
-
+<button 
 class="nav-item add"
-
 onclick="openPage('add',this)">
 
 Aggiungi corsa
 
 </button>
-
 
 
 
@@ -653,19 +533,17 @@ Aggiungi corsa
 
 
 
+
 <script src="app.js"></script>
-
-
-
 
 
 <script>
 
 
-if("serviceWorker" in navigator){
+if ("serviceWorker" in navigator) {
 
 
-window.addEventListener("load",()=>{
+window.addEventListener("load", () => {
 
 
 navigator.serviceWorker.register(
@@ -680,8 +558,6 @@ navigator.serviceWorker.register(
 
 
 </script>
-
-
 
 
 
