@@ -1,5 +1,3 @@
-alert("APP.JS CARICATO");
-
 let corse = JSON.parse(localStorage.getItem("corseTaxi")) || [];
 
 let autista = localStorage.getItem("nomeTassista") || "";
@@ -10,10 +8,8 @@ let giornoVisualizzato = new Date();
 
 
 
-// =====================
-// AVVIO
-// =====================
 
+// AVVIO
 
 document.addEventListener("DOMContentLoaded",()=>{
 
@@ -21,20 +17,8 @@ document.addEventListener("DOMContentLoaded",()=>{
     avvioApp();
 
 
-    let salva = document.querySelector(".save");
-
-
-    if(salva){
-
-        salva.addEventListener(
-            "click",
-            salvaCorsa
-        );
-
-    }
-
-
-    aggiornaUltimoBackup();
+    document.querySelector(".save")
+    .addEventListener("click", salvaCorsa);
 
 
 });
@@ -50,46 +34,44 @@ document.addEventListener("DOMContentLoaded",()=>{
 function avvioApp(){
 
 
-    let setup =
-    document.getElementById("setupPage");
+let setup =
+document.getElementById("setupPage");
 
 
-    let app =
-    document.getElementById("appContainer");
-
-
-
-    if(autista){
-
-
-        setup.style.display="none";
-
-        app.style.display="block";
-
-
-        document.getElementById("driverName").innerText =
-        "Tassista " + autista;
-
-
-    }else{
-
-
-        setup.style.display="flex";
-
-        app.style.display="none";
-
-
-    }
+let app =
+document.getElementById("appContainer");
 
 
 
-    aggiornaApp();
+if(autista){
+
+
+setup.style.display="none";
+
+app.style.display="block";
+
+
+document.getElementById("driverName")
+.innerText =
+"Tassista " + autista;
+
+
+}else{
+
+
+setup.style.display="flex";
+
+app.style.display="none";
 
 
 }
 
 
 
+aggiornaApp();
+
+
+}
 
 
 
@@ -97,57 +79,50 @@ function avvioApp(){
 function salvaPrimoAccesso(){
 
 
-    let nome =
-    document
-    .getElementById("setupDriverName")
-    .value
-    .trim();
+let nome =
+document.getElementById("setupDriverName")
+.value.trim();
 
 
 
-    if(nome===""){
+if(nome===""){
 
+alert("Inserisci il nome");
 
-        alert("Inserisci il nome");
+return;
 
-
-        return;
-
-
-    }
+}
 
 
 
-    autista = nome;
+localStorage.setItem(
+"nomeTassista",
+nome
+);
 
 
 
-    localStorage.setItem(
-        "nomeTassista",
-        nome
-    );
+autista=nome;
 
 
 
-    document.getElementById("setupPage")
-    .style.display="none";
+document.getElementById("setupPage")
+.style.display="none";
 
 
-    document.getElementById("appContainer")
-    .style.display="block";
+document.getElementById("appContainer")
+.style.display="block";
 
 
+document.getElementById("driverName")
+.innerText =
+"Tassista " + nome;
 
-    document.getElementById("driverName")
-    .innerText =
-    "Tassista " + nome;
-
-
-
-    aggiornaApp();
 
 
 }
+
+
 
 
 
@@ -163,45 +138,35 @@ function salvaPrimoAccesso(){
 function openPage(page,element){
 
 
-    document.querySelectorAll(".page")
-    .forEach(p=>{
+document.querySelectorAll(".page")
+.forEach(p=>{
+
+p.classList.remove("active");
+
+});
 
 
-        p.classList.remove("active");
-
-
-    });
-
-
-
-    document.getElementById(page)
-    .classList.add("active");
+document.getElementById(page)
+.classList.add("active");
 
 
 
-    document.querySelectorAll(".nav-item")
-    .forEach(n=>{
+document.querySelectorAll(".nav-item")
+.forEach(n=>{
+
+n.classList.remove("active");
+
+});
 
 
-        n.classList.remove("active");
+element.classList.add("active");
 
 
-    });
-
-
-
-    if(element){
-
-        element.classList.add("active");
-
-    }
-
-
-
-    aggiornaApp();
+aggiornaApp();
 
 
 }
+
 
 
 
@@ -217,23 +182,21 @@ function openPage(page,element){
 function formatoData(data){
 
 
-    let anno =
-    data.getFullYear();
+let anno =
+data.getFullYear();
 
 
-    let mese =
-    String(data.getMonth()+1)
-    .padStart(2,"0");
+let mese =
+String(data.getMonth()+1)
+.padStart(2,"0");
 
 
-    let giorno =
-    String(data.getDate())
-    .padStart(2,"0");
+let giorno =
+String(data.getDate())
+.padStart(2,"0");
 
 
-
-    return `${anno}-${mese}-${giorno}`;
-
+return `${anno}-${mese}-${giorno}`;
 
 }
 
@@ -243,18 +206,19 @@ function formatoData(data){
 function cambiaGiorno(numero){
 
 
-    giornoVisualizzato.setDate(
+giornoVisualizzato.setDate(
 
-        giornoVisualizzato.getDate()+numero
+giornoVisualizzato.getDate()+numero
 
-    );
+);
 
 
 
-    aggiornaCorse();
+aggiornaCorse();
 
 
 }
+
 
 
 
@@ -269,122 +233,117 @@ function cambiaGiorno(numero){
 
 
 function salvaCorsa(){
-   
-alert("SALVA PREMUTO");
 
 
-    let corsa = {
+let corsa={
 
 
-        id:
-        modificaId || Date.now(),
+id: modificaId || Date.now(),
 
 
-        autista:
-        autista,
+autista: autista,
 
 
-        cliente:
-        document.getElementById("cliente").value,
+cliente:
+document.getElementById("cliente").value,
 
 
-        telefono:
-        document.getElementById("telefono").value,
+telefono:
+document.getElementById("telefono").value,
 
 
-        partenza:
-        document.getElementById("partenza").value,
+partenza:
+document.getElementById("partenza").value,
 
 
-        arrivo:
-        document.getElementById("arrivo").value,
+arrivo:
+document.getElementById("arrivo").value,
 
 
-        data:
-        document.getElementById("data").value,
+data:
+document.getElementById("data").value,
 
 
-        orario:
-        document.getElementById("orario").value,
+orario:
+document.getElementById("orario").value,
 
 
-        passeggeri:
-        document.getElementById("passeggeri").value,
+passeggeri:
+document.getElementById("passeggeri").value,
 
 
-        note:
-        document.getElementById("note").value,
+note:
+document.getElementById("note").value,
 
 
-        stato:"programmata"
+stato:"programmata"
 
 
-    };
+};
 
 
 
 
-    if(!corsa.partenza || !corsa.data){
 
+if(!corsa.partenza || !corsa.data){
 
-        alert("Inserisci partenza e data");
 
+alert("Inserisci partenza e data");
 
-        return;
 
-
-    }
-
-
-
-
-
-
-    if(modificaId){
-
-
-        corse =
-        corse.map(c=>{
-
-
-            return c.id===modificaId
-            ?
-            corsa
-            :
-            c;
-
-
-        });
-
-
-
-        modificaId=null;
-
-
-
-    }else{
-
-
-        corse.push(corsa);
-
-console.log(corse);
-    }
-
-
-
-
-    salvaDatabase();
-    
-    alert("Corse salvate: " + corse.length);
-
-
-    pulisciForm();
-
-
-    aggiornaApp();
+return;
 
 
 }
+
+
+
+
+
+
+if(modificaId){
+
+
+corse =
+corse.map(c=>{
+
+
+return c.id===modificaId
+?
+corsa
+:
+c;
+
+
+});
+
+
+modificaId=null;
+
+
+
+}else{
+
+
+corse.push(corsa);
+
+
+}
+
+
+
+
+salvaDatabase();
+
+
+pulisciForm();
+
+
+aggiornaApp();
+
+
+}
+
 
 
 
@@ -393,90 +352,103 @@ console.log(corse);
 function salvaDatabase(){
 
 
-    localStorage.setItem(
+localStorage.setItem(
 
-        "corseTaxi",
+"corseTaxi",
 
-        JSON.stringify(corse)
+JSON.stringify(corse)
 
-    );
+);
 
 
 }
 
 
+
+
+
+
+
+
+
 // =====================
-// CONTROLLO AUTOMATICO CORSE
+// CONTROLLO AUTOMATICO
 // =====================
 
 
 function controlloCorse(){
 
 
-    let ora = new Date();
+let ora =
+new Date();
 
 
 
-    corse.forEach(c=>{
+corse.forEach(c=>{
 
 
-        let dataCorsa =
-        new Date(
-            `${c.data}T${c.orario || "23:59"}`
-        );
+let dataCorsa =
+new Date(
 
+`${c.data}T${c.orario || "23:59"}`
 
-
-        if(dataCorsa < ora){
-
-
-            if(c.stato==="programmata"){
-
-
-                c.stato="completata";
-
-
-                c.completata =
-                Date.now();
-
-
-            }
-
-
-        }
-
-
-    });
+);
 
 
 
-
-
-    corse =
-    corse.filter(c=>{
-
-
-        if(c.stato==="completata"){
-
-
-            return (
-                Date.now() - c.completata
-                <
-                1800000
-            );
-
-
-        }
-
-
-        return true;
-
-
-    });
+if(dataCorsa < ora){
 
 
 
-    salvaDatabase();
+if(c.stato==="programmata"){
+
+
+c.stato="completata";
+
+
+c.completata =
+Date.now();
+
+
+}
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+corse =
+corse.filter(c=>{
+
+
+if(c.stato==="completata"){
+
+
+return Date.now()-c.completata
+<
+1800000;
+
+
+}
+
+
+
+return true;
+
+
+
+});
+
+
+
+salvaDatabase();
 
 
 }
@@ -488,21 +460,22 @@ function controlloCorse(){
 
 
 
+
 // =====================
-// AGGIORNAMENTO APP
+// AGGIORNA
 // =====================
 
 
 function aggiornaApp(){
 
 
-    controlloCorse();
+controlloCorse();
 
 
-    aggiornaHome();
+aggiornaHome();
 
 
-    aggiornaCorse();
+aggiornaCorse();
 
 
 }
@@ -514,48 +487,48 @@ function aggiornaApp(){
 
 
 
+
 // =====================
-// PROSSIMA CORSA
+// PROSSIMA DI OGGI
 // =====================
 
 
 function prossimaCorsa(){
 
 
-    let oggi =
-    formatoData(new Date());
+let oggi =
+formatoData(new Date());
 
 
 
-    return corse
+return corse
 
-    .filter(c=>
+.filter(c=>
 
+c.data===oggi
 
-        c.data===oggi
+&&
 
-        &&
+c.stato==="programmata"
 
-        c.stato==="programmata"
-
-
-    )
+)
 
 
-    .sort((a,b)=>{
+
+.sort((a,b)=>{
 
 
-        return (a.orario || "")
-        .localeCompare(
-            b.orario || ""
-        );
+return (a.orario || "")
+.localeCompare(
+b.orario || ""
+);
 
 
-    })[0];
+})[0];
+
 
 
 }
-
 
 
 
@@ -572,90 +545,72 @@ function prossimaCorsa(){
 function aggiornaHome(){
 
 
-    let box =
-    document.getElementById("homeNext");
+let box =
+document.getElementById("homeNext");
 
 
 
-    if(!box)return;
+let corsa =
+prossimaCorsa();
 
 
 
-    let corsa =
-    prossimaCorsa();
+if(!corsa){
 
 
-
-    if(!corsa){
-
-
-        box.innerHTML =
-        "Nessuna corsa prevista oggi";
+box.innerHTML =
+"Nessuna corsa prevista oggi";
 
 
-        return;
+return;
 
 
-    }
+}
 
 
 
 
-    box.innerHTML = `
+box.innerHTML=`
 
 
-    <div class="time">
+<div class="time">
 
-    ${corsa.orario || "--"}
+${corsa.orario}
 
-    </div>
-
-
-
-    <div class="info">
-
-    ${corsa.cliente || "Cliente"}
-
-    </div>
+</div>
 
 
+<div class="info">
 
-    <div class="info">
+${corsa.cliente || "Cliente"}
 
-    Partenza:
-
-    <br>
-
-    ${corsa.partenza}
-
-    </div>
+</div>
 
 
+<div class="info">
 
-    <div class="info">
+Partenza:
 
-    Arrivo:
+<br>
 
-    <br>
+${corsa.partenza}
 
-    ${corsa.arrivo || "-"}
-
-    </div>
-
+</div>
 
 
-    <div class="info">
+<div class="info">
 
-    Telefono:
+Arrivo:
 
-    <br>
+<br>
 
-    ${corsa.telefono || "-"}
+${corsa.arrivo || "-"}
 
-    </div>
+</div>
 
 
-    `;
+`;
+
 
 
 }
@@ -674,187 +629,75 @@ function aggiornaHome(){
 
 
 function aggiornaCorse(){
-alert("Totale corse: " + corse.length);
 
-    let programmate =
-    document.getElementById("plannedTrips");
 
+let programmate =
+document.getElementById("plannedTrips");
 
-    let completate =
-    document.getElementById("completedTrips");
 
+let completate =
+document.getElementById("completedTrips");
 
-    let prossima =
-    document.getElementById("nextTrip");
 
+let prossima =
+document.getElementById("nextTrip");
 
-    let titolo =
-    document.getElementById("giornoSelezionato");
 
+let titolo =
+document.getElementById("giornoSelezionato");
 
 
-    if(!programmate)return;
 
 
+programmate.innerHTML="";
 
-    programmate.innerHTML="";
+completate.innerHTML="";
 
-    completate.innerHTML="";
+prossima.innerHTML="";
 
-    prossima.innerHTML="";
 
 
 
 
-    let giorno =
-    formatoData(giornoVisualizzato);
 
+let giorno =
+formatoData(giornoVisualizzato);
 
 
 
-    if(titolo){
 
 
-        let oggi =
-        formatoData(new Date());
+if(titolo){
 
 
 
-        if(giorno===oggi){
+let oggi =
+formatoData(new Date());
 
 
-            titolo.innerText="Oggi";
 
+if(giorno===oggi){
 
-        }else{
 
+titolo.innerText="Oggi";
 
-            titolo.innerText =
-            giornoVisualizzato
-            .toLocaleDateString(
-                "it-IT",
-                {
-                    weekday:"long",
-                    day:"numeric",
-                    month:"long"
-                }
-            );
 
+}else{
 
-        }
 
+titolo.innerText =
+giornoVisualizzato
+.toLocaleDateString(
+"it-IT",
+{
+weekday:"long",
+day:"numeric",
+month:"long"
+}
+);
 
-    }
 
-
-
-
-
-
-    let lista =
-    corse.filter(c=>
-
-        c.data===giorno
-
-    );
-
-
-
-
-
-    let programmateGiorno =
-    lista.filter(c=>
-
-        c.stato==="programmata"
-
-    );
-
-
-
-
-
-    programmateGiorno.sort((a,b)=>{
-
-
-        return (a.orario || "")
-        .localeCompare(
-            b.orario || ""
-        );
-
-
-    });
-
-
-
-
-
-    let prima =
-    programmateGiorno[0];
-
-
-
-
-
-    if(prima){
-
-
-        prossima.innerHTML =
-        creaCard(
-            prima,
-            true
-        );
-
-
-    }
-
-
-
-
-
-
-    programmateGiorno.forEach(c=>{
-
-
-        if(!prima || c.id!==prima.id){
-
-
-            programmate.innerHTML +=
-            creaCard(
-                c,
-                false
-            );
-
-
-        }
-
-
-    });
-
-
-
-
-
-
-
-    lista
-
-    .filter(c=>
-
-        c.stato==="completata"
-
-    )
-
-    .forEach(c=>{
-
-
-        completate.innerHTML +=
-        creaCard(
-            c,
-            false
-        );
-
-
-    });
+}
 
 
 
@@ -866,8 +709,111 @@ alert("Totale corse: " + corse.length);
 
 
 
+let lista =
+corse.filter(c=>
+
+
+c.data===giorno
+
+
+);
+
+
+
+
+
+let programmateGiorno =
+lista.filter(c=>
+
+c.stato==="programmata"
+
+);
+
+
+
+
+
+let prima =
+programmateGiorno
+.sort((a,b)=>
+
+a.orario.localeCompare(
+b.orario
+
+)
+
+)[0];
+
+
+
+
+
+
+if(prima){
+
+
+prossima.innerHTML =
+creaCard(prima,true);
+
+
+}
+
+
+
+
+
+programmateGiorno.forEach(c=>{
+
+
+if(!prima || c.id!==prima.id){
+
+
+programmate.innerHTML +=
+creaCard(c,false);
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+lista
+
+.filter(c=>
+
+c.stato==="completata"
+
+)
+
+.forEach(c=>{
+
+
+completate.innerHTML +=
+creaCard(c,false);
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+
 // =====================
-// CARD CORSA
+// CARD
 // =====================
 
 
@@ -877,7 +823,7 @@ function creaCard(c,evidenziata){
 return `
 
 
-<div class="card trip ${evidenziata ? "next-card":""}"
+<div class="card trip ${evidenziata?"next-card":""}"
 
 onclick="this.classList.toggle('open')">
 
@@ -896,7 +842,6 @@ ${c.orario || "--"}
 </div>
 
 
-
 <div>
 
 ${c.cliente || "Cliente"}
@@ -904,13 +849,11 @@ ${c.cliente || "Cliente"}
 </div>
 
 
-
 <div>
 
 ${c.partenza}
 
 </div>
-
 
 
 </div>
@@ -937,7 +880,6 @@ Telefono:
 ${c.telefono || "-"}
 
 
-
 <br><br>
 
 
@@ -946,14 +888,12 @@ Arrivo:
 ${c.arrivo || "-"}
 
 
-
 <br><br>
 
 
 Passeggeri:
 
 ${c.passeggeri || "-"}
-
 
 
 <br><br>
@@ -998,75 +938,59 @@ Elimina
 
 `;
 
-
 }
 
 
+
+
+
+
+
+
+
 // =====================
-// MODIFICA CORSA
+// MODIFICA
 // =====================
 
 
 function modificaCorsa(id){
 
 
-    let c =
-    corse.find(x=>x.id===id);
+let c =
+corse.find(x=>x.id===id);
 
 
 
-    if(!c)return;
+if(!c)return;
 
 
 
-    modificaId=id;
+modificaId=id;
 
 
 
-    openPage(
-        "add",
-        document.querySelector(".add")
-    );
+openPage(
+"add",
+document.querySelector(".add")
+);
 
 
 
-    document.getElementById("cliente").value =
-    c.cliente || "";
+cliente.value=c.cliente || "";
 
+telefono.value=c.telefono || "";
 
+partenza.value=c.partenza || "";
 
-    document.getElementById("telefono").value =
-    c.telefono || "";
+arrivo.value=c.arrivo || "";
 
+data.value=c.data || "";
 
+orario.value=c.orario || "";
 
-    document.getElementById("partenza").value =
-    c.partenza || "";
+passeggeri.value=c.passeggeri || "";
 
-
-
-    document.getElementById("arrivo").value =
-    c.arrivo || "";
-
-
-
-    document.getElementById("data").value =
-    c.data || "";
-
-
-
-    document.getElementById("orario").value =
-    c.orario || "";
-
-
-
-    document.getElementById("passeggeri").value =
-    c.passeggeri || "";
-
-
-
-    document.getElementById("note").value =
-    c.note || "";
+note.value=c.note || "";
 
 
 }
@@ -1080,33 +1004,27 @@ function modificaCorsa(id){
 
 
 // =====================
-// ELIMINA CORSA
+// ELIMINA
 // =====================
 
 
 function eliminaCorsa(id){
 
 
-    if(confirm("Eliminare questa corsa?")){
+if(confirm("Eliminare questa corsa?")){
 
 
-        corse =
-        corse.filter(c=>
-
-            c.id!==id
-
-        );
+corse =
+corse.filter(c=>c.id!==id);
 
 
-
-        salvaDatabase();
-
+salvaDatabase();
 
 
-        aggiornaApp();
+aggiornaApp();
 
 
-    }
+}
 
 
 }
@@ -1116,26 +1034,16 @@ function eliminaCorsa(id){
 
 
 
-
-// =====================
-// PULIZIA FORM
-// =====================
 
 
 function pulisciForm(){
 
 
-    document.querySelectorAll(
-        "#add input,#add textarea"
-    )
+document.querySelectorAll(
+"#add input,#add textarea"
+)
 
-    .forEach(x=>{
-
-
-        x.value="";
-
-
-    });
+.forEach(x=>x.value="");
 
 
 }
@@ -1143,330 +1051,10 @@ function pulisciForm(){
 
 
 
-
-
-
-
-
-// =====================
-// BACKUP DATI
-// =====================
-
-
-function mostraBackupMessaggio(testo){
-
-
-    let box =
-    document.getElementById("backupMessage");
-
-
-
-    if(box){
-
-
-        box.innerText =
-        testo;
-
-
-
-        setTimeout(()=>{
-
-
-            box.innerText="";
-
-
-        },4000);
-
-
-    }
-
-
-}
-
-
-
-
-
-
-function aggiornaUltimoBackup(){
-
-
-    let box =
-    document.getElementById("lastBackup");
-
-
-
-    let ultimo =
-    localStorage.getItem(
-        "ultimoBackup"
-    );
-
-
-
-    if(box && ultimo){
-
-
-
-        box.innerText =
-        "Ultimo backup: "
-        +
-        new Date(ultimo)
-        .toLocaleString("it-IT");
-
-
-    }
-
-
-}
-
-
-
-
-
-
-
-function esportaBackup(){
-
-
-
-    let backup = {
-
-
-        versione:"1.0",
-
-
-        dataBackup:
-        new Date(),
-
-
-        autista:
-        autista,
-
-
-        corse:
-        corse
-
-
-    };
-
-
-
-
-
-    let contenuto =
-    JSON.stringify(
-        backup,
-        null,
-        2
-    );
-
-
-
-
-
-    let file =
-    new Blob(
-
-        [
-            contenuto
-        ],
-
-        {
-            type:"application/json"
-        }
-
-    );
-
-
-
-
-
-    let link =
-    document.createElement("a");
-
-
-
-    link.href =
-    URL.createObjectURL(file);
-
-
-
-    let data =
-    new Date()
-    .toLocaleDateString("it-IT")
-    .replaceAll("/","-");
-
-
-
-    link.download =
-    "backup-corse-taxi-"+data+".json";
-
-
-
-    link.click();
-
-
-
-
-
-    localStorage.setItem(
-
-        "ultimoBackup",
-
-        new Date()
-
-    );
-
-
-
-    aggiornaUltimoBackup();
-
-
-
-    mostraBackupMessaggio(
-        "Backup creato con successo"
-    );
-
-
-}
-
-
-
-
-
-
-
-
-
-function importaBackup(event){
-
-
-    let file =
-    event.target.files[0];
-
-
-
-    if(!file)return;
-
-
-
-    let lettore =
-    new FileReader();
-
-
-
-
-    lettore.onload=function(e){
-
-
-
-        try{
-
-
-
-            let dati =
-            JSON.parse(
-                e.target.result
-            );
-
-
-
-            if(!dati.corse){
-
-
-                throw "errore";
-
-
-            }
-
-
-
-
-            corse =
-            dati.corse;
-
-
-
-            salvaDatabase();
-
-
-
-
-
-            if(dati.autista){
-
-
-
-                autista =
-                dati.autista;
-
-
-
-                localStorage.setItem(
-
-                    "nomeTassista",
-
-                    autista
-
-                );
-
-
-
-            }
-
-
-
-
-
-            aggiornaApp();
-
-
-
-            mostraBackupMessaggio(
-                "Backup importato correttamente"
-            );
-
-
-
-        }catch(error){
-
-
-
-            mostraBackupMessaggio(
-                "Backup non valido"
-            );
-
-
-        }
-
-
-    };
-
-
-
-
-    lettore.readAsText(file);
-
-
-}
-
-
-
-
-
-
-
-
-
-// =====================
-// AGGIORNAMENTO AUTOMATICO
-// =====================
 
 
 setInterval(()=>{
 
-
-    aggiornaApp();
-
+aggiornaApp();
 
 },60000);
