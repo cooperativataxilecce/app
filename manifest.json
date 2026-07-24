@@ -1,11 +1,19 @@
 {
   "name": "Cooperativa Taxi Lecce",
   "short_name": "Taxi Lecce",
-  "start_url": "index.html",
+  "description": "App gestionale per i tassisti della Cooperativa Taxi Lecce",
+  "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#e87517",
+
   "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
     {
       "src": "logo.png",
       "sizes": "512x512",
