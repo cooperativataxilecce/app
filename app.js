@@ -1497,7 +1497,42 @@ document.getElementById("dataIncasso")
 document.getElementById("dataIncasso").value
 :
 formatoData(giornoIncassi);
+let titolo =
+document.getElementById("giornoIncassiSelezionato");
 
+
+if(titolo){
+
+
+let oggi =
+formatoData(new Date());
+
+
+if(data===oggi){
+
+
+titolo.innerText="Oggi";
+
+
+}else{
+
+
+titolo.innerText =
+giornoIncassi.toLocaleDateString(
+"it-IT",
+{
+weekday:"long",
+day:"numeric",
+month:"long",
+year:"numeric"
+}
+);
+
+
+}
+
+
+}
 
 
 
