@@ -1445,12 +1445,20 @@ document.getElementById("resto")
 
 
 // =====================
-// INCASSI
+// GESTIONE INCASSI
 // =====================
 
 
 let incassi =
 JSON.parse(localStorage.getItem("incassiTaxi")) || [];
+
+
+let giornoIncassi =
+new Date();
+
+
+
+let modificaIncassoId = null;
 
 
 
@@ -1460,20 +1468,20 @@ function salvaIncasso(){
 
 
 let importo =
-document.getElementById("importoIncasso")
-.value;
+Number(
+document.getElementById("importoIncasso").value
+);
 
 
 
 let nota =
-document.getElementById("notaIncasso")
-.value;
+document.getElementById("notaIncasso").value;
 
 
 
-if(!importo){
+if(!importo || importo<=0){
 
-alert("Inserisci un importo");
+alert("Inserisci un importo valido");
 
 return;
 
@@ -1481,30 +1489,58 @@ return;
 
 
 
-let nuovoIncasso={
 
 
-id: Date.now(),
+let dataInserita =
+document.getElementById("dataIncasso")
+?
+document.getElementById("dataIncasso").value
+:
+formatoData(giornoIncassi);
 
 
-data:
-formatoData(new Date()),
 
 
-mese:
-new Date().getMonth()+1,
+
+let oraInserita =
+document.getElementById("oraIncasso")
+?
+document.getElementById("oraIncasso").value
+:
+new Date().toLocaleTimeString(
+"it-IT",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+);
 
 
-anno:
-new Date().getFullYear(),
+
+
+
+
+let nuovoIncasso = {
+
+
+id:
+modificaIncassoId || Date.now(),
 
 
 importo:
-Number(importo),
+importo,
 
 
 nota:
-nota
+nota,
+
+
+data:
+dataInserita,
+
+
+ora:
+oraInserita
 
 
 };
@@ -1512,7 +1548,40 @@ nota
 
 
 
+
+
+
+if(modificaIncassoId){
+
+
+incassi =
+incassi.map(i=>{
+
+
+return i.id===modificaIncassoId
+?
+nuovoIncasso
+:
+i;
+
+
+});
+
+
+modificaIncassoId=null;
+
+
+
+}else{
+
+
 incassi.push(nuovoIncasso);
+
+
+}
+
+
+
 
 
 
@@ -1523,14 +1592,399 @@ JSON.stringify(incassi)
 
 
 
-document.getElementById("importoIncasso")
-.value="";
 
 
-document.getElementById("notaIncasso")
-.value="";
+document.getElementById("importoIncasso").value="";
 
 
+document.getElementById("notaIncasso").value="";
+
+
+
+
+aggiornaIncassi();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function cambiaGiornoIncassi(numero){
+
+
+giornoIncassi.setDate(
+
+giornoIncassi.getDate()+numero
+
+);
+
+
+
+aggiornaIncassi();
+
+
+}
+
+
+
+
+
+
+
+
+function aggiornaIncassi(){
+
+
+
+let data =
+formatoData(giornoIncassi);
+
+
+
+
+let lista =
+incassi.filter(i=>
+
+i.data===data
+
+);
+
+
+
+
+let box =
+document.getElementById("incassiOggi");
+
+
+
+let totaleBox =
+document.getElementById("totaleOggi");
+
+
+
+
+if(!box)return;
+
+
+
+
+box.innerHTML="";
+
+
+
+let totale=0;
+
+
+
+
+
+if(lista.length===0){
+
+
+box.innerHTML =
+"Nessun incasso";
+
+
+
+}else{
+
+
+
+lista.forEach(i=>{
+
+
+totale += i.importo;
+
+
+
+box.innerHTML += `
+
+
+<div class="card">
+
+
+<div>
+
+<strong>
+${i.ora}
+</strong>
+
+</div>
+
+
+<div>
+
+${i.nota || "Incasso"}
+
+</div>
+
+
+
+<h3>
+
+€ ${i.importo.toFixed(2)}
+
+</h3>
+
+
+
+
+<button onclick="modificaIncasso(${i.id})">
+
+Modifica
+
+</button>
+
+
+
+<button onclick="eliminaIncasso(${i.id})">
+
+Elimina
+
+</button>
+
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+if(totaleBox){
+
+
+totaleBox.innerHTML =
+"€ " + totale.toFixed(2);
+
+
+}
+
+
+
+
+aggiornaStoricoMesi();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function modificaIncasso(id){
+
+
+
+let incasso =
+incassi.find(i=>
+
+i.id===id
+
+);
+
+
+
+if(!incasso)return;
+
+
+
+modificaIncassoId=id;
+
+
+
+
+document.getElementById("importoIncasso").value =
+incasso.importo;
+
+
+
+document.getElementById("notaIncasso").value =
+incasso.nota || "";
+
+
+
+
+if(document.getElementById("dataIncasso")){
+
+
+document.getElementById("dataIncasso").value =
+incasso.data;
+
+
+}
+
+
+
+
+if(document.getElementById("oraIncasso")){
+
+
+document.getElementById("oraIncasso").value =
+incasso.ora;
+
+
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function eliminaIncasso(id){
+
+
+if(confirm("Eliminare questo incasso?")){
+
+
+incassi =
+incassi.filter(i=>
+
+i.id!==id
+
+);
+
+
+
+localStorage.setItem(
+"incassiTaxi",
+JSON.stringify(incassi)
+);
+
+
+
+aggiornaIncassi();
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+
+function aggiornaStoricoMesi(){
+
+
+
+let storico =
+document.getElementById("storicoIncassi");
+
+
+
+if(!storico)return;
+
+
+
+let mesi={};
+
+
+
+incassi.forEach(i=>{
+
+
+let mese =
+i.data.substring(0,7);
+
+
+
+if(!mesi[mese]){
+
+mesi[mese]=0;
+
+}
+
+
+
+mesi[mese]+=i.importo;
+
+
+
+});
+
+
+
+
+storico.innerHTML="";
+
+
+
+
+Object.keys(mesi)
+
+.sort()
+
+.reverse()
+
+.forEach(m=>{
+
+
+storico.innerHTML += `
+
+
+<div class="card">
+
+<h3>
+
+${m}
+
+</h3>
+
+
+Totale:
+
+€ ${mesi[m].toFixed(2)}
+
+
+</div>
+
+
+`;
+
+
+
+});
+
+
+
+}
 
 aggiornaIncassi();
 
