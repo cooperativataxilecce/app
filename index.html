@@ -538,7 +538,171 @@ Salva corsa
 
 
 
+<!-- GESTIONE INCASSI -->
 
+
+<section id="incassi" class="page utility-page">
+
+
+<h1>
+Gestione incassi
+</h1>
+
+
+
+<div class="card">
+
+
+<h2>
+Nuovo incasso
+</h2>
+
+
+
+<input
+id="importoIncasso"
+type="number"
+placeholder="Importo €">
+
+
+
+<textarea
+id="notaIncasso"
+placeholder="Nota">
+</textarea>
+
+
+
+<button onclick="salvaIncasso()">
+
+Salva incasso
+
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Totale oggi
+</h2>
+
+
+<div id="totaleOggi">
+
+€ 0,00
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Storico incassi
+
+</h2>
+
+
+<div id="storicoIncassi">
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+<!-- CALCOLA RESTO -->
+
+
+<section id="resto" class="page utility-page">
+
+
+<h1>
+Calcola resto
+</h1>
+
+
+
+<div class="card">
+
+
+<label>
+Importo corsa
+</label>
+
+
+<input
+id="prezzoCorsa"
+type="number">
+
+
+
+
+
+<label>
+Pagamento cliente
+</label>
+
+
+<input
+id="pagamentoCliente"
+type="number">
+
+
+
+
+
+<button onclick="calcolaResto()">
+
+Calcola
+
+</button>
+
+
+
+
+<h2>
+Resto:
+
+</h2>
+
+
+
+<div id="risultatoResto">
+
+€ 0,00
+
+</div>
+
+
+</div>
+
+
+
+</section>
+  
 </main>
 
 
@@ -550,7 +714,6 @@ Salva corsa
 
 
 <!-- MENU INFERIORE -->
-
 
 <nav class="bottom-nav">
 
@@ -565,8 +728,6 @@ Home
 
 
 
-
-
 <button 
 class="nav-item"
 onclick="openPage('corse',this)">
@@ -577,8 +738,6 @@ Le mie corse
 
 
 
-
-
 <button 
 class="nav-item add"
 onclick="openPage('add',this)">
@@ -586,10 +745,18 @@ onclick="openPage('add',this)">
 +
 
 <span>
-
 Aggiungi corsa
-
 </span>
+
+</button>
+
+
+
+<button 
+class="nav-item"
+onclick="apriUtility()">
+
+Utility
 
 </button>
 
@@ -603,7 +770,81 @@ Aggiungi corsa
 
 
 
+<!-- UTILITY PANEL -->
 
+
+<div id="utilityOverlay"></div>
+
+
+
+<div id="utilityPanel">
+
+
+<div class="utility-header">
+
+
+<h2>
+Utility
+</h2>
+
+
+<button onclick="chiudiUtility()">
+
+X
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="utility-menu">
+
+
+<div class="utility-card"
+onclick="apriIncassi()">
+
+
+<h3>
+Gestione incassi
+</h3>
+
+
+<p>
+Storico giornaliero, mensile e annuale
+</p>
+
+
+</div>
+
+
+
+
+
+<div class="utility-card"
+onclick="apriResto()">
+
+
+<h3>
+Calcola resto
+</h3>
+
+
+<p>
+Calcolo rapido del resto cliente
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+  
 <script src="app.js"></script>
 
 
