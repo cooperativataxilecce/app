@@ -150,6 +150,61 @@ Nessuna corsa prevista oggi
 
 </div>
 
+  <div class="card">
+
+
+<div class="section-title">
+
+BACKUP DATI
+
+</div>
+
+
+
+<button 
+class="backup-btn"
+onclick="esportaBackup()">
+
+⬇️ Esporta backup corse
+
+</button>
+
+
+
+
+<label class="import-label">
+
+⬆️ Importa backup
+
+
+<input
+type="file"
+id="importBackup"
+accept=".json"
+onchange="importaBackup(event)">
+
+
+</label>
+
+
+
+
+<div id="backupMessage">
+
+</div>
+
+
+
+<div id="lastBackup">
+
+Nessun backup eseguito
+
+</div>
+
+
+
+</div>
+
 
 
 
