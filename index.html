@@ -19,29 +19,21 @@
 <body>
 
 
-
-
-<!-- PAGINA PRIMO ACCESSO -->
+<!-- CONFIGURAZIONE PRIMO ACCESSO -->
 
 <section id="setupPage" class="setup-page">
 
-
 <div class="setup-box">
 
-
 <img src="logo.png" class="setup-logo">
-
 
 <h1>
 Configura profilo
 </h1>
 
-
 <p>
 Inserisci il nome del tassista
 </p>
-
-
 
 <input 
 id="setupDriverName"
@@ -49,16 +41,12 @@ type="text"
 placeholder="Nome tassista">
 
 
-
 <button onclick="salvaPrimoAccesso()">
-
 Continua
-
 </button>
 
 
 </div>
-
 
 </section>
 
@@ -66,36 +54,25 @@ Continua
 
 
 
-
-
-
-
-<!-- APP -->
+<!-- APPLICAZIONE -->
 
 <div id="appContainer">
 
 
-
 <header class="app-header">
-
 
 <img src="logo.png" class="header-logo">
 
 
 <div>
 
-
 <div id="driverName" class="driver-name">
-
 Tassista
-
 </div>
 
 
 <div class="company-name">
-
 Cooperativa Taxi Lecce
-
 </div>
 
 
@@ -108,14 +85,7 @@ Cooperativa Taxi Lecce
 
 
 
-
-
-
 <main class="container">
-
-
-
-
 
 
 
@@ -134,29 +104,26 @@ Home
 
 
 <div class="section-title">
-
 PROSSIMA CORSA DI OGGI
-
 </div>
-
 
 
 <div id="homeNext">
-
 Nessuna corsa prevista oggi
-
 </div>
 
 
 </div>
 
-  <div class="card">
+
+
+
+
+<div class="card">
 
 
 <div class="section-title">
-
 BACKUP DATI
-
 </div>
 
 
@@ -165,7 +132,7 @@ BACKUP DATI
 class="backup-btn"
 onclick="esportaBackup()">
 
-⬇️ Esporta backup corse
+⬇️ Esporta backup
 
 </button>
 
@@ -183,36 +150,22 @@ id="importBackup"
 accept=".json"
 onchange="importaBackup(event)">
 
-
 </label>
 
 
 
-
-<div id="backupMessage">
-
-</div>
-
+<div id="backupMessage"></div>
 
 
 <div id="lastBackup">
-
 Nessun backup eseguito
-
 </div>
 
 
-
 </div>
-
-
-
-
 
 
 </section>
-
-
 
 
 
@@ -232,69 +185,44 @@ Le mie corse
 
 
 
-
-
-<!-- SELETTORE GIORNO -->
-
-
 <div class="day-selector">
 
 
 <button onclick="cambiaGiorno(-1)">
-
 ‹
-
 </button>
-
 
 
 <div id="giornoSelezionato">
-
 Oggi
-
 </div>
-
 
 
 <button onclick="cambiaGiorno(1)">
-
 ›
-
 </button>
-
 
 
 </div>
 
 
 
-
-
-
-
-
-<!-- PROSSIMA -->
 
 
 <div class="highlight-box">
 
 
 <div class="section-title">
-
 PROSSIMA CORSA
-
 </div>
 
 
 <div id="nextTrip">
-
+Nessuna corsa
 </div>
 
 
 </div>
-
-
-
 
 
 
@@ -305,13 +233,9 @@ Corse programmate
 </h2>
 
 
-
 <div id="plannedTrips">
 
 </div>
-
-
-
 
 
 
@@ -322,20 +246,13 @@ Corse completate
 </h2>
 
 
-
 <div id="completedTrips">
 
 </div>
 
 
 
-
 </section>
-
-
-
-
-
 
 
 
@@ -358,7 +275,6 @@ Aggiungi una corsa
 
 
 
-
 <div class="form-section">
 
 
@@ -367,31 +283,25 @@ Cliente
 </h2>
 
 
-
 <label>
 Nome cliente
 </label>
 
 
-<input 
-id="cliente"
-type="text">
+<input id="cliente" type="text">
 
 
 
 <label>
-Numero telefono
+Telefono
 </label>
 
 
-<input 
-id="telefono"
-type="tel">
+<input id="telefono" type="tel">
 
 
 
 </div>
-
 
 
 
@@ -407,28 +317,21 @@ Percorso
 </h2>
 
 
-
 <label>
-Indirizzo partenza *
+Partenza *
 </label>
 
 
-<input 
-id="partenza"
-type="text">
-
-
+<input id="partenza" type="text">
 
 
 
 <label>
-Indirizzo arrivo
+Arrivo
 </label>
 
 
-<input 
-id="arrivo"
-type="text">
+<input id="arrivo" type="text">
 
 
 
@@ -449,18 +352,12 @@ Dettagli corsa
 </h2>
 
 
-
-
 <label>
 Data *
 </label>
 
 
-<input 
-id="data"
-type="date">
-
-
+<input id="data" type="date">
 
 
 
@@ -469,27 +366,20 @@ Orario
 </label>
 
 
-<input 
-id="orario"
-type="time">
-
-
+<input id="orario" type="time">
 
 
 
 <label>
-Numero passeggeri
+Passeggeri
 </label>
 
 
-<input 
-id="passeggeri"
-type="number">
+<input id="passeggeri" type="number" min="1">
 
 
 
 </div>
-
 
 
 
@@ -505,12 +395,10 @@ Note
 </h2>
 
 
-
 <textarea 
 id="note"
 placeholder="Note extra">
 </textarea>
-
 
 
 </div>
@@ -519,13 +407,78 @@ placeholder="Note extra">
 
 
 
-
-<button class="save">
+<button 
+class="save"
+onclick="salvaCorsa()">
 
 Salva corsa
 
 </button>
 
+
+
+</section>
+
+  <!-- GESTIONE INCASSI -->
+
+<section id="elencoIncassi" class="page utility-page">
+
+
+<h1>
+Gestione incassi
+</h1>
+
+
+
+
+<div class="day-selector">
+
+
+<button onclick="cambiaGiornoIncassi(-1)">
+‹
+</button>
+
+
+
+<div id="giornoIncassiSelezionato">
+Oggi
+</div>
+
+
+
+<button onclick="cambiaGiornoIncassi(1)">
+›
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Totale giornata
+</h2>
+
+
+<div id="totaleElenco">
+€ 0,00
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="listaIncassi">
+
+</div>
 
 
 
@@ -535,158 +488,6 @@ Salva corsa
 
 
 
-
-
-
-<!-- GESTIONE INCASSI -->
-
-
-function apriElencoIncassi(){
-
-
-document.querySelectorAll(".page")
-.forEach(p=>{
-
-p.classList.remove("active");
-
-});
-
-
-
-document.getElementById("elencoIncassi")
-.classList.add("active");
-
-
-
-caricaElencoIncassi();
-
-
-}
-
-
-
-
-function caricaElencoIncassi(){
-
-
-let data =
-formatoData(giornoIncassi);
-
-
-
-let lista =
-incassi.filter(i=>
-
-i.data===data
-
-);
-
-
-
-
-// ultimo incasso sopra
-
-lista.sort((a,b)=>
-
-b.id-a.id
-
-);
-
-
-
-let box =
-document.getElementById(
-"listaIncassi"
-);
-
-
-
-box.innerHTML="";
-
-
-
-let totale=0;
-
-
-
-lista.forEach(i=>{
-
-
-totale += i.importo;
-
-
-
-box.innerHTML += `
-
-
-<div class="card">
-
-
-<div style="display:flex;justify-content:space-between">
-
-
-<div>
-
-
-<h2>
-+ € ${i.importo.toFixed(2)}
-</h2>
-
-
-<p>
-${i.nota || "Incasso"}
-</p>
-
-
-</div>
-
-
-
-<div>
-
-${i.ora || ""}
-
-</div>
-
-
-</div>
-
-
-
-<button onclick="modificaIncasso(${i.id})">
-
-Modifica
-
-</button>
-
-
-
-<button onclick="eliminaIncasso(${i.id})">
-
-Elimina
-
-</button>
-
-
-</div>
-
-
-`;
-
-
-});
-
-
-
-document.getElementById(
-"totaleElenco"
-)
-.innerHTML =
-"€ "+totale.toFixed(2);
-
-
-
-}
 
 
 
@@ -703,6 +504,7 @@ Calcola resto
 
 
 
+
 <div class="card">
 
 
@@ -711,9 +513,10 @@ Importo corsa
 </label>
 
 
-<input
+<input 
 id="prezzoCorsa"
-type="number">
+type="number"
+step="0.01">
 
 
 
@@ -724,9 +527,10 @@ Pagamento cliente
 </label>
 
 
-<input
+<input 
 id="pagamentoCliente"
-type="number">
+type="number"
+step="0.01">
 
 
 
@@ -741,9 +545,9 @@ Calcola
 
 
 
+
 <h2>
 Resto:
-
 </h2>
 
 
@@ -755,12 +559,17 @@ Resto:
 </div>
 
 
+
 </div>
 
 
-
 </section>
-  
+
+
+
+
+
+
 </main>
 
 
@@ -772,6 +581,7 @@ Resto:
 
 
 <!-- MENU INFERIORE -->
+
 
 <nav class="bottom-nav">
 
@@ -786,6 +596,8 @@ Home
 
 
 
+
+
 <button 
 class="nav-item"
 onclick="openPage('corse',this)">
@@ -796,9 +608,12 @@ Le mie corse
 
 
 
+
+
 <button 
 class="nav-item add"
 onclick="openPage('add',this)">
+
 
 +
 
@@ -806,7 +621,11 @@ onclick="openPage('add',this)">
 Aggiungi corsa
 </span>
 
+
 </button>
+
+
+
 
 
 
@@ -828,14 +647,28 @@ Utility
 
 
 
-<!-- UTILITY PANEL -->
 
 
-<div id="utilityOverlay"></div>
 
+<!-- OVERLAY UTILITY -->
+
+
+<div id="utilityOverlay"
+onclick="chiudiUtility()">
+
+</div>
+
+
+
+
+
+
+
+<!-- PANNELLO UTILITY -->
 
 
 <div id="utilityPanel">
+
 
 
 <div class="utility-header">
@@ -853,7 +686,10 @@ X
 </button>
 
 
+
 </div>
+
+
 
 
 
@@ -861,8 +697,13 @@ X
 <div class="utility-menu">
 
 
-<div class="utility-card"
-onclick="apriIncassi()">
+
+
+
+<div 
+class="utility-card"
+onclick="apriElencoIncassi()">
+
 
 
 <h3>
@@ -881,8 +722,12 @@ Storico giornaliero, mensile e annuale
 
 
 
-<div class="utility-card"
+
+
+<div 
+class="utility-card"
 onclick="apriResto()">
+
 
 
 <h3>
@@ -898,14 +743,28 @@ Calcolo rapido del resto cliente
 </div>
 
 
-</div>
+
+
 
 
 </div>
-  
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
 <script src="app.js"></script>
 
 
 </body>
+
 
 </html>
