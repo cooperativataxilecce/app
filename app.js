@@ -1415,10 +1415,10 @@ function apriElencoIncassi(){
     if(pagina){
 
         pagina.classList.add("active");
-        alert("Pagina incassi aperta");
+    
 
     }
-
+alert("Pagina incassi aperta");
 
 
     aggiornaIncassi();
