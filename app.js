@@ -1356,3 +1356,356 @@ new Date(ultimo)
 
 
 }
+
+// =====================
+// UTILITY PANEL
+// =====================
+
+
+function apriUtility(){
+
+document.getElementById("utilityOverlay")
+.style.display="block";
+
+
+document.getElementById("utilityPanel")
+.style.display="block";
+
+
+}
+
+
+
+function chiudiUtility(){
+
+document.getElementById("utilityOverlay")
+.style.display="none";
+
+
+document.getElementById("utilityPanel")
+.style.display="none";
+
+
+}
+
+
+
+
+
+function apriIncassi(){
+
+chiudiUtility();
+
+
+document.querySelectorAll(".page")
+.forEach(p=>{
+
+p.classList.remove("active");
+
+});
+
+
+document.getElementById("incassi")
+.classList.add("active");
+
+
+aggiornaIncassi();
+
+
+}
+
+
+
+
+
+function apriResto(){
+
+chiudiUtility();
+
+
+document.querySelectorAll(".page")
+.forEach(p=>{
+
+p.classList.remove("active");
+
+});
+
+
+document.getElementById("resto")
+.classList.add("active");
+
+
+}
+
+
+
+
+
+
+
+
+// =====================
+// INCASSI
+// =====================
+
+
+let incassi =
+JSON.parse(localStorage.getItem("incassiTaxi")) || [];
+
+
+
+
+
+function salvaIncasso(){
+
+
+let importo =
+document.getElementById("importoIncasso")
+.value;
+
+
+
+let nota =
+document.getElementById("notaIncasso")
+.value;
+
+
+
+if(!importo){
+
+alert("Inserisci un importo");
+
+return;
+
+}
+
+
+
+let nuovoIncasso={
+
+
+id: Date.now(),
+
+
+data:
+formatoData(new Date()),
+
+
+mese:
+new Date().getMonth()+1,
+
+
+anno:
+new Date().getFullYear(),
+
+
+importo:
+Number(importo),
+
+
+nota:
+nota
+
+
+};
+
+
+
+
+incassi.push(nuovoIncasso);
+
+
+
+localStorage.setItem(
+"incassiTaxi",
+JSON.stringify(incassi)
+);
+
+
+
+document.getElementById("importoIncasso")
+.value="";
+
+
+document.getElementById("notaIncasso")
+.value="";
+
+
+
+aggiornaIncassi();
+
+
+
+}
+
+
+
+
+
+
+
+
+
+function aggiornaIncassi(){
+
+
+
+let oggi =
+formatoData(new Date());
+
+
+
+let listaOggi =
+incassi.filter(i=>
+
+i.data===oggi
+
+);
+
+
+
+let totale=0;
+
+
+
+listaOggi.forEach(i=>{
+
+
+totale += i.importo;
+
+
+});
+
+
+
+
+let totaleBox =
+document.getElementById("totaleOggi");
+
+
+
+if(totaleBox){
+
+totaleBox.innerHTML =
+"€ " + totale.toFixed(2);
+
+
+}
+
+
+
+
+
+let storico =
+document.getElementById("storicoIncassi");
+
+
+
+if(!storico)return;
+
+
+
+storico.innerHTML="";
+
+
+
+let mesi={};
+
+
+
+incassi.forEach(i=>{
+
+
+let chiave =
+i.anno+"-"+i.mese;
+
+
+
+if(!mesi[chiave]){
+
+mesi[chiave]=0;
+
+}
+
+
+
+mesi[chiave]+=i.importo;
+
+
+
+});
+
+
+
+
+
+Object.keys(mesi)
+.sort()
+.reverse()
+.forEach(m=>{
+
+
+storico.innerHTML += `
+
+<div class="card">
+
+<h3>
+${m}
+</h3>
+
+<p>
+Totale: € ${mesi[m].toFixed(2)}
+</p>
+
+</div>
+
+`;
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+
+// =====================
+// CALCOLO RESTO
+// =====================
+
+
+function calcolaResto(){
+
+
+let prezzo =
+Number(
+document.getElementById("prezzoCorsa").value
+);
+
+
+
+let pagato =
+Number(
+document.getElementById("pagamentoCliente").value
+);
+
+
+
+let risultato =
+pagato-prezzo;
+
+
+
+document.getElementById("risultatoResto")
+.innerHTML =
+"€ " + risultato.toFixed(2);
+
+
+
+}
