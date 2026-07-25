@@ -1,123 +1,141 @@
+// =====================
+// DATABASE
+// =====================
+
 let corse = JSON.parse(localStorage.getItem("corseTaxi")) || [];
+
+let incassi = JSON.parse(localStorage.getItem("incassiTaxi")) || [];
 
 let autista = localStorage.getItem("nomeTassista") || "";
 
 let modificaId = null;
 
+let modificaIncassoId = null;
+
 let giornoVisualizzato = new Date();
 
+let giornoIncassi = new Date();
 
 
 
-// AVVIO
+
+// =====================
+// AVVIO APP
+// =====================
+
 
 document.addEventListener("DOMContentLoaded",()=>{
 
-
     avvioApp();
-
-
-    document.querySelector(".save")
-    .addEventListener("click", salvaCorsa);
-
 
 });
 
 
 
 
-// =====================
-// ACCESSO
-// =====================
-
 
 function avvioApp(){
 
 
-let setup =
-document.getElementById("setupPage");
+    const setup =
+    document.getElementById("setupPage");
 
 
-let app =
-document.getElementById("appContainer");
+    const app =
+    document.getElementById("appContainer");
 
 
 
-if(autista){
+    if(autista){
 
 
-setup.style.display="none";
+        setup.style.display="none";
 
-app.style.display="block";
-
-
-document.getElementById("driverName")
-.innerText =
-"Tassista " + autista;
+        app.style.display="block";
 
 
-}else{
+        document.getElementById("driverName").innerText =
+        "Tassista " + autista;
 
 
-setup.style.display="flex";
+    }else{
 
-app.style.display="none";
+
+        setup.style.display="flex";
+
+        app.style.display="none";
+
+
+    }
+
+
+
+    aggiornaUltimoBackup();
+
+    aggiornaApp();
 
 
 }
 
 
 
-aggiornaApp();
 
 
-}
 
 
+
+
+// =====================
+// PRIMO ACCESSO
+// =====================
 
 
 function salvaPrimoAccesso(){
 
 
-let nome =
-document.getElementById("setupDriverName")
-.value.trim();
+    let nome =
+    document.getElementById("setupDriverName")
+    .value
+    .trim();
 
 
 
-if(nome===""){
+    if(!nome){
 
-alert("Inserisci il nome");
+        alert("Inserisci il nome");
 
-return;
+        return;
 
-}
-
-
-
-localStorage.setItem(
-"nomeTassista",
-nome
-);
+    }
 
 
 
-autista=nome;
+    autista = nome;
 
 
 
-document.getElementById("setupPage")
-.style.display="none";
+    localStorage.setItem(
+        "nomeTassista",
+        nome
+    );
 
 
-document.getElementById("appContainer")
-.style.display="block";
+
+    document.getElementById("setupPage")
+    .style.display="none";
 
 
-document.getElementById("driverName")
-.innerText =
-"Tassista " + nome;
+    document.getElementById("appContainer")
+    .style.display="block";
 
+
+    document.getElementById("driverName")
+    .innerText =
+    "Tassista " + nome;
+
+
+
+    aggiornaApp();
 
 
 }
@@ -131,41 +149,57 @@ document.getElementById("driverName")
 
 
 // =====================
-// PAGINE
+// NAVIGAZIONE PAGINE
 // =====================
 
 
 function openPage(page,element){
 
 
-document.querySelectorAll(".page")
-.forEach(p=>{
+    document.querySelectorAll(".page")
+    .forEach(p=>{
 
-p.classList.remove("active");
+        p.classList.remove("active");
 
-});
-
-
-document.getElementById(page)
-.classList.add("active");
+    });
 
 
 
-document.querySelectorAll(".nav-item")
-.forEach(n=>{
-
-n.classList.remove("active");
-
-});
+    let pagina =
+    document.getElementById(page);
 
 
-element.classList.add("active");
+
+    if(pagina){
+
+        pagina.classList.add("active");
+
+    }
 
 
-aggiornaApp();
+
+    document.querySelectorAll(".nav-item")
+    .forEach(n=>{
+
+        n.classList.remove("active");
+
+    });
+
+
+
+    if(element){
+
+        element.classList.add("active");
+
+    }
+
+
+
+    aggiornaApp();
 
 
 }
+
 
 
 
@@ -182,23 +216,27 @@ aggiornaApp();
 function formatoData(data){
 
 
-let anno =
-data.getFullYear();
+    let anno =
+    data.getFullYear();
 
 
-let mese =
-String(data.getMonth()+1)
-.padStart(2,"0");
+
+    let mese =
+    String(data.getMonth()+1)
+    .padStart(2,"0");
 
 
-let giorno =
-String(data.getDate())
-.padStart(2,"0");
+
+    let giorno =
+    String(data.getDate())
+    .padStart(2,"0");
 
 
-return `${anno}-${mese}-${giorno}`;
+
+    return `${anno}-${mese}-${giorno}`;
 
 }
+
 
 
 
@@ -206,15 +244,14 @@ return `${anno}-${mese}-${giorno}`;
 function cambiaGiorno(numero){
 
 
-giornoVisualizzato.setDate(
+    giornoVisualizzato.setDate(
 
-giornoVisualizzato.getDate()+numero
+        giornoVisualizzato.getDate()+numero
 
-);
+    );
 
 
-
-aggiornaCorse();
+    aggiornaCorse();
 
 
 }
@@ -228,70 +265,125 @@ aggiornaCorse();
 
 
 // =====================
-// SALVA CORSA
+// SALVATAGGIO CORSA
 // =====================
 
 
 function salvaCorsa(){
 
 
-let corsa={
+    let corsa={
 
 
-id: modificaId || Date.now(),
+        id:
+        modificaId || Date.now(),
 
 
-autista: autista,
+        autista:
+        autista,
 
 
-cliente:
-document.getElementById("cliente").value,
+        cliente:
+        document.getElementById("cliente").value.trim(),
 
 
-telefono:
-document.getElementById("telefono").value,
+        telefono:
+        document.getElementById("telefono").value.trim(),
 
 
-partenza:
-document.getElementById("partenza").value,
+        partenza:
+        document.getElementById("partenza").value.trim(),
 
 
-arrivo:
-document.getElementById("arrivo").value,
+        arrivo:
+        document.getElementById("arrivo").value.trim(),
 
 
-data:
-document.getElementById("data").value,
+        data:
+        document.getElementById("data").value,
 
 
-orario:
-document.getElementById("orario").value,
+        orario:
+        document.getElementById("orario").value,
 
 
-passeggeri:
-document.getElementById("passeggeri").value,
+        passeggeri:
+        document.getElementById("passeggeri").value,
 
 
-note:
-document.getElementById("note").value,
+        note:
+        document.getElementById("note").value.trim(),
 
 
-stato:"programmata"
+        stato:
+        "programmata"
 
 
-};
+    };
 
 
 
 
 
-if(!corsa.partenza || !corsa.data){
+    if(!corsa.partenza || !corsa.data){
 
 
-alert("Inserisci partenza e data");
+        alert("Inserisci partenza e data");
 
 
-return;
+        return;
+
+    }
+
+
+
+
+
+
+    if(modificaId){
+
+
+        corse =
+        corse.map(c=>{
+
+
+            return c.id===modificaId
+            ?
+            corsa
+            :
+            c;
+
+
+        });
+
+
+        modificaId=null;
+
+
+
+    }else{
+
+
+        corse.push(corsa);
+
+
+    }
+
+
+
+
+
+
+    salvaCorse();
+
+
+    pulisciForm();
+
+
+    aggiornaApp();
+
+
+    alert("Corsa salvata");
 
 
 }
@@ -301,64 +393,16 @@ return;
 
 
 
-if(modificaId){
+function salvaCorse(){
 
 
-corse =
-corse.map(c=>{
+    localStorage.setItem(
 
+        "corseTaxi",
 
-return c.id===modificaId
-?
-corsa
-:
-c;
+        JSON.stringify(corse)
 
-
-});
-
-
-modificaId=null;
-
-
-
-}else{
-
-
-corse.push(corsa);
-
-
-}
-
-
-
-
-salvaDatabase();
-
-
-pulisciForm();
-
-
-aggiornaApp();
-
-
-}
-
-
-
-
-
-
-function salvaDatabase(){
-
-
-localStorage.setItem(
-
-"corseTaxi",
-
-JSON.stringify(corse)
-
-);
+    );
 
 
 }
@@ -372,83 +416,51 @@ JSON.stringify(corse)
 
 
 // =====================
-// CONTROLLO AUTOMATICO
+// CONTROLLO CORSE
 // =====================
 
 
 function controlloCorse(){
 
 
-let ora =
-new Date();
+    let ora =
+    new Date();
 
 
 
-corse.forEach(c=>{
+    corse.forEach(c=>{
 
 
-let dataCorsa =
-new Date(
+        let dataCorsa =
+        new Date(
 
-`${c.data}T${c.orario || "23:59"}`
+            `${c.data}T${c.orario || "23:59"}`
 
-);
-
-
-
-if(dataCorsa < ora){
+        );
 
 
 
-if(c.stato==="programmata"){
+        if(dataCorsa < ora && c.stato==="programmata"){
 
 
-c.stato="completata";
+            c.stato="completata";
+
+            c.completata =
+            Date.now();
 
 
-c.completata =
-Date.now();
-
-
-}
-
-
-
-}
+        }
 
 
 
-});
+    });
 
 
 
+    // NON elimina più lo storico
 
 
-corse =
-corse.filter(c=>{
-
-
-if(c.stato==="completata"){
-
-
-return Date.now()-c.completata
-<
-1800000;
-
-
-}
-
-
-
-return true;
-
-
-
-});
-
-
-
-salvaDatabase();
+    salvaCorse();
 
 
 }
@@ -462,70 +474,57 @@ salvaDatabase();
 
 
 // =====================
-// AGGIORNA
+// AGGIORNAMENTO GENERALE
 // =====================
 
 
 function aggiornaApp(){
 
 
-controlloCorse();
+    controlloCorse();
 
 
-aggiornaHome();
+    aggiornaHome();
 
 
-aggiornaCorse();
+    aggiornaCorse();
 
 
 }
 
-
-
-
-
-
-
-
-
 // =====================
-// PROSSIMA DI OGGI
+// HOME - PROSSIMA CORSA
 // =====================
 
 
 function prossimaCorsa(){
 
 
-let oggi =
-formatoData(new Date());
+    let oggi =
+    formatoData(new Date());
 
 
 
-return corse
+    return corse
 
-.filter(c=>
+    .filter(c=>
 
-c.data===oggi
+        c.data===oggi &&
+        c.stato==="programmata"
 
-&&
-
-c.stato==="programmata"
-
-)
+    )
 
 
-
-.sort((a,b)=>{
-
-
-return (a.orario || "")
-.localeCompare(
-b.orario || ""
-);
+    .sort((a,b)=>{
 
 
-})[0];
+        return (a.orario || "")
+        .localeCompare(
+            b.orario || ""
+        );
 
+
+    })[0];
 
 
 }
@@ -536,81 +535,68 @@ b.orario || ""
 
 
 
-
-// =====================
-// HOME
-// =====================
 
 
 function aggiornaHome(){
 
 
-let box =
-document.getElementById("homeNext");
+    let box =
+    document.getElementById("homeNext");
 
 
 
-let corsa =
-prossimaCorsa();
+    if(!box) return;
 
 
 
-if(!corsa){
-
-
-box.innerHTML =
-"Nessuna corsa prevista oggi";
-
-
-return;
-
-
-}
+    let corsa =
+    prossimaCorsa();
 
 
 
-
-box.innerHTML=`
-
-
-<div class="time">
-
-${corsa.orario}
-
-</div>
+    if(!corsa){
 
 
-<div class="info">
-
-${corsa.cliente || "Cliente"}
-
-</div>
+        box.innerHTML =
+        "Nessuna corsa prevista oggi";
 
 
-<div class="info">
-
-Partenza:
-
-<br>
-
-${corsa.partenza}
-
-</div>
+        return;
 
 
-<div class="info">
-
-Arrivo:
-
-<br>
-
-${corsa.arrivo || "-"}
-
-</div>
+    }
 
 
-`;
 
+
+
+    box.innerHTML = `
+
+
+    <div class="time">
+        ${corsa.orario || "--"}
+    </div>
+
+
+    <div>
+        👤 ${corsa.cliente || "Cliente"}
+    </div>
+
+
+    <br>
+
+
+    <div>
+        📍 ${corsa.partenza}
+    </div>
+
+
+    <div>
+        ➡️ ${corsa.arrivo || "-"}
+    </div>
+
+
+    `;
 
 
 }
@@ -624,181 +610,149 @@ ${corsa.arrivo || "-"}
 
 
 // =====================
-// LE MIE CORSE
+// LISTA CORSE
 // =====================
 
 
 function aggiornaCorse(){
 
 
-let programmate =
-document.getElementById("plannedTrips");
+    let programmate =
+    document.getElementById("plannedTrips");
 
 
-let completate =
-document.getElementById("completedTrips");
+    let completate =
+    document.getElementById("completedTrips");
 
 
-let prossima =
-document.getElementById("nextTrip");
+    let prossima =
+    document.getElementById("nextTrip");
 
 
-let titolo =
-document.getElementById("giornoSelezionato");
+    let titolo =
+    document.getElementById("giornoSelezionato");
 
 
 
+    if(!programmate || !completate)
+    return;
 
-programmate.innerHTML="";
 
-completate.innerHTML="";
 
-prossima.innerHTML="";
+    programmate.innerHTML="";
 
+    completate.innerHTML="";
 
 
 
+    if(prossima)
+    prossima.innerHTML="";
 
 
-let giorno =
-formatoData(giornoVisualizzato);
 
 
 
+    let giorno =
+    formatoData(giornoVisualizzato);
 
 
-if(titolo){
 
 
+    if(titolo){
 
-let oggi =
-formatoData(new Date());
 
+        let oggi =
+        formatoData(new Date());
 
 
-if(giorno===oggi){
 
+        titolo.innerText =
+        giorno===oggi
+        ?
+        "Oggi"
+        :
+        giornoVisualizzato.toLocaleDateString(
+            "it-IT",
+            {
+                weekday:"long",
+                day:"numeric",
+                month:"long"
+            }
+        );
 
-titolo.innerText="Oggi";
+    }
 
 
-}else{
 
 
-titolo.innerText =
-giornoVisualizzato
-.toLocaleDateString(
-"it-IT",
-{
-weekday:"long",
-day:"numeric",
-month:"long"
-}
-);
 
+    let lista =
+    corse.filter(c=>
 
-}
+        c.data===giorno
 
+    );
 
 
-}
 
 
 
+    lista.sort((a,b)=>
 
+        (a.orario || "")
+        .localeCompare(
+            b.orario || ""
+        )
 
+    );
 
 
-let lista =
-corse.filter(c=>
 
 
-c.data===giorno
 
+    lista.forEach(c=>{
 
-);
 
+        if(c.stato==="programmata"){
 
 
+            programmate.innerHTML +=
+            creaCard(c,false);
 
 
-let programmateGiorno =
-lista.filter(c=>
+        }else{
 
-c.stato==="programmata"
 
-);
+            completate.innerHTML +=
+            creaCard(c,false);
 
 
+        }
 
 
+    });
 
-let prima =
-programmateGiorno
-.sort((a,b)=>
 
-a.orario.localeCompare(
-b.orario
 
-)
 
-)[0];
 
+    let prima =
+    lista.find(c=>
 
+        c.stato==="programmata"
 
+    );
 
 
 
-if(prima){
+    if(prima && prossima){
 
 
-prossima.innerHTML =
-creaCard(prima,true);
+        prossima.innerHTML =
+        creaCard(prima,true);
 
 
-}
-
-
-
-
-
-programmateGiorno.forEach(c=>{
-
-
-if(!prima || c.id!==prima.id){
-
-
-programmate.innerHTML +=
-creaCard(c,false);
-
-
-}
-
-
-
-});
-
-
-
-
-
-
-lista
-
-.filter(c=>
-
-c.stato==="completata"
-
-)
-
-.forEach(c=>{
-
-
-completate.innerHTML +=
-creaCard(c,false);
-
-
-});
+    }
 
 
 
@@ -813,7 +767,7 @@ creaCard(c,false);
 
 
 // =====================
-// CARD
+// CARD CORSA
 // =====================
 
 
@@ -823,13 +777,11 @@ function creaCard(c,evidenziata){
 return `
 
 
-<div class="card trip ${evidenziata?"next-card":""}"
-
-onclick="this.classList.toggle('open')">
+<div class="card trip ${evidenziata ? "next-card":""}">
 
 
-
-<div class="trip-header">
+<div class="trip-header"
+onclick="this.parentElement.classList.toggle('open')">
 
 
 <div>
@@ -842,27 +794,25 @@ ${c.orario || "--"}
 </div>
 
 
-<div>
+
+<strong>
 
 ${c.cliente || "Cliente"}
 
-</div>
+</strong>
 
 
-<div>
+<br>
+
 
 ${c.partenza}
 
-</div>
-
 
 </div>
 
 
 <div>
-
 ▼
-
 </div>
 
 
@@ -876,21 +826,23 @@ ${c.partenza}
 
 
 Telefono:
-
 ${c.telefono || "-"}
 
 
 <br><br>
 
 
-<button onclick="event.stopPropagation(); chiamaCliente('${c.telefono}')">
 
-📞 Chiama cliente
+<button onclick="chiamaCliente('${c.telefono}')">
+
+📞 Chiama
 
 </button>
 
 
+
 <br><br>
+
 
 
 Arrivo:
@@ -898,17 +850,22 @@ Arrivo:
 ${c.arrivo || "-"}
 
 
+
 <br><br>
 
 
-<button onclick="event.stopPropagation(); navigaCorsa('${c.partenza}','${c.arrivo}')">
 
-📍 Apri navigazione
+<button onclick="navigaCorsa('${c.partenza}','${c.arrivo}')">
+
+📍 Naviga
 
 </button>
 
 
+
+
 <br><br>
+
 
 
 Passeggeri:
@@ -916,7 +873,10 @@ Passeggeri:
 ${c.passeggeri || "-"}
 
 
+
+
 <br><br>
+
 
 
 Note:
@@ -926,11 +886,10 @@ ${c.note || "-"}
 
 
 
-
 <div class="actions">
 
 
-<button onclick="event.stopPropagation(); modificaCorsa(${c.id})">
+<button onclick="modificaCorsa(${c.id})">
 
 Modifica
 
@@ -938,9 +897,9 @@ Modifica
 
 
 
-<button class="delete"
-
-onclick="event.stopPropagation(); eliminaCorsa(${c.id})">
+<button 
+class="delete"
+onclick="eliminaCorsa(${c.id})">
 
 Elimina
 
@@ -969,48 +928,57 @@ Elimina
 
 
 // =====================
-// MODIFICA
+// MODIFICA CORSA
 // =====================
 
 
 function modificaCorsa(id){
 
 
-let c =
-corse.find(x=>x.id===id);
+    let c =
+    corse.find(x=>x.id===id);
 
 
 
-if(!c)return;
+    if(!c) return;
 
 
 
-modificaId=id;
+    modificaId=id;
 
 
 
-openPage(
-"add",
-document.querySelector(".add")
-);
+    openPage(
+        "add",
+        document.querySelector(".add")
+    );
 
 
 
-cliente.value=c.cliente || "";
+    cliente.value =
+    c.cliente || "";
 
-telefono.value=c.telefono || "";
+    telefono.value =
+    c.telefono || "";
 
-partenza.value=c.partenza || "";
+    partenza.value =
+    c.partenza || "";
 
-arrivo.value=c.arrivo || "";
+    arrivo.value =
+    c.arrivo || "";
 
-data.value=c.data || "";
+    data.value =
+    c.data || "";
 
-orario.value=c.orario || "";
+    orario.value =
+    c.orario || "";
 
-passeggeri.value=c.passeggeri || "";
+    passeggeri.value =
+    c.passeggeri || "";
 
-note.value=c.note || "";
+    note.value =
+    c.note || "";
+
 
 
 }
@@ -1024,30 +992,35 @@ note.value=c.note || "";
 
 
 // =====================
-// ELIMINA
+// ELIMINA CORSA
 // =====================
 
 
 function eliminaCorsa(id){
 
 
-if(confirm("Eliminare questa corsa?")){
+    if(confirm("Eliminare questa corsa?")){
 
 
-corse =
-corse.filter(c=>c.id!==id);
+        corse =
+        corse.filter(c=>
+
+            c.id!==id
+
+        );
 
 
-salvaDatabase();
+        salvaCorse();
 
 
-aggiornaApp();
+        aggiornaApp();
+
+
+    }
 
 
 }
 
-
-}
 
 
 
@@ -1059,11 +1032,14 @@ aggiornaApp();
 function pulisciForm(){
 
 
-document.querySelectorAll(
-"#add input,#add textarea"
-)
+    document.querySelectorAll(
+        "#add input,#add textarea"
+    )
+    .forEach(x=>{
 
-.forEach(x=>x.value="");
+        x.value="";
+
+    });
 
 
 }
@@ -1073,34 +1049,35 @@ document.querySelectorAll(
 
 
 
-setInterval(()=>{
 
-aggiornaApp();
-
-},60000);
 
 // =====================
-// TELEFONO CLIENTE
+// TELEFONO
 // =====================
 
 
 function chiamaCliente(numero){
 
 
-if(!numero){
+    if(!numero){
 
-alert("Numero cliente non presente");
 
-return;
+        alert("Numero cliente mancante");
+
+
+        return;
+
+    }
+
+
+
+    window.location.href =
+    "tel:"+numero;
+
 
 }
 
 
-window.location.href =
-"tel:" + numero;
-
-
-}
 
 
 
@@ -1112,114 +1089,124 @@ window.location.href =
 // =====================
 
 
-function navigaCorsa(partenza, arrivo){
+function navigaCorsa(partenza,arrivo){
 
 
-let percorso =
-encodeURIComponent(partenza)
-+
-"/"
-+
-encodeURIComponent(arrivo);
-
-
-
-let url =
-"https://www.google.com/maps/dir/"
-+
-percorso;
+    let url =
+    "https://www.google.com/maps/dir/"
+    +
+    encodeURIComponent(partenza)
+    +
+    "/"
+    +
+    encodeURIComponent(arrivo);
 
 
 
-window.open(url,"_blank");
+    window.open(url,"_blank");
 
 
 }
 
+
+
+
+
+
+
+
+
 // =====================
-// BACKUP DATI
+// BACKUP
 // =====================
 
 
 function esportaBackup(){
 
 
-let backup = {
-
-versione: "1.0",
-
-dataBackup: new Date(),
-
-autista: autista,
-
-corse: corse
-
-};
+    let backup={
 
 
-
-let contenuto =
-JSON.stringify(
-backup,
-null,
-2
-);
+        versione:"1.0",
 
 
+        dataBackup:new Date(),
 
-let file =
-new Blob(
-[
-contenuto
-],
-{
-type:"application/json"
+
+        autista:autista,
+
+
+        corse:corse,
+
+
+        incassi:incassi
+
+
+    };
+
+
+
+
+
+    let file =
+    new Blob(
+
+        [
+            JSON.stringify(
+                backup,
+                null,
+                2
+            )
+        ],
+
+        {
+            type:"application/json"
+        }
+
+    );
+
+
+
+
+
+    let link =
+    document.createElement("a");
+
+
+
+    link.href =
+    URL.createObjectURL(file);
+
+
+
+    link.download =
+    "backup-taxi-"
+    +
+    formatoData(new Date())
+    +
+    ".json";
+
+
+
+    link.click();
+
+
+
+
+    localStorage.setItem(
+        "ultimoBackup",
+        new Date()
+    );
+
+
+
+    aggiornaUltimoBackup();
+
+
+
 }
-);
 
 
-
-let link =
-document.createElement("a");
-
-
-
-link.href =
-URL.createObjectURL(file);
-
-
-
-let data =
-new Date()
-.toLocaleDateString("it-IT")
-.replaceAll("/","-");
-
-
-
-link.download =
-"backup-corse-taxi-" + data + ".json";
-
-
-
-link.click();
-
-
-
-localStorage.setItem(
-"ultimoBackup",
-new Date()
-);
-
-
-
-aggiornaUltimoBackup();
-
-
-
-alert("Backup creato correttamente");
-
-
-}
 
 
 
@@ -1230,96 +1217,81 @@ alert("Backup creato correttamente");
 function importaBackup(event){
 
 
-let file =
-event.target.files[0];
-
-
-if(!file){
-
-return;
-
-}
+    let file =
+    event.target.files[0];
 
 
 
-let lettore =
-new FileReader();
+    if(!file)
+    return;
 
 
 
-lettore.onload=function(e){
 
-
-try{
-
-
-let dati =
-JSON.parse(e.target.result);
+    let reader =
+    new FileReader();
 
 
 
-if(!dati.corse){
 
-throw "backup non valido";
-
-}
+    reader.onload=function(e){
 
 
-
-corse =
-dati.corse;
+        try{
 
 
-
-salvaDatabase();
+            let dati =
+            JSON.parse(e.target.result);
 
 
 
-if(dati.autista){
-
-
-autista =
-dati.autista;
+            corse =
+            dati.corse || [];
 
 
 
-localStorage.setItem(
-"nomeTassista",
-autista
-);
-
-
-}
+            incassi =
+            dati.incassi || [];
 
 
 
-aggiornaApp();
+            salvaCorse();
+
+
+            localStorage.setItem(
+                "incassiTaxi",
+                JSON.stringify(incassi)
+            );
 
 
 
-alert("Backup importato correttamente");
+            alert("Backup importato");
 
 
-}
-
-catch(error){
+            aggiornaApp();
 
 
-alert("Errore: backup non valido");
+
+        }
+
+        catch{
+
+
+            alert("Backup non valido");
+
+
+        }
+
+
+    };
+
+
+
+    reader.readAsText(file);
 
 
 }
 
-
-
-};
-
-
-
-lettore.readAsText(file);
-
-
-}
 
 
 
@@ -1331,28 +1303,27 @@ lettore.readAsText(file);
 function aggiornaUltimoBackup(){
 
 
-let box =
-document.getElementById("lastBackup");
+    let box =
+    document.getElementById("lastBackup");
 
 
 
-let ultimo =
-localStorage.getItem(
-"ultimoBackup"
-);
+    let ultimo =
+    localStorage.getItem("ultimoBackup");
 
 
 
-if(box && ultimo){
+    if(box && ultimo){
 
 
-box.innerText =
-"Ultimo backup: " +
-new Date(ultimo)
-.toLocaleString("it-IT");
+        box.innerText =
+        "Ultimo backup: "
+        +
+        new Date(ultimo)
+        .toLocaleString("it-IT");
 
 
-}
+    }
 
 
 }
@@ -1364,52 +1335,47 @@ new Date(ultimo)
 
 function apriUtility(){
 
-document.getElementById("utilityOverlay")
-.style.display="block";
+
+    let overlay =
+    document.getElementById("utilityOverlay");
 
 
-document.getElementById("utilityPanel")
-.style.display="block";
+    let panel =
+    document.getElementById("utilityPanel");
+
+
+
+    if(overlay)
+    overlay.style.display="block";
+
+
+    if(panel)
+    panel.style.display="block";
 
 
 }
+
 
 
 
 function chiudiUtility(){
 
-document.getElementById("utilityOverlay")
-.style.display="none";
+
+    let overlay =
+    document.getElementById("utilityOverlay");
 
 
-document.getElementById("utilityPanel")
-.style.display="none";
-
-
-}
-
+    let panel =
+    document.getElementById("utilityPanel");
 
 
 
-
-function apriIncassi(){
-
-chiudiUtility();
+    if(overlay)
+    overlay.style.display="none";
 
 
-document.querySelectorAll(".page")
-.forEach(p=>{
-
-p.classList.remove("active");
-
-});
-
-
-document.getElementById("incassi")
-.classList.add("active");
-
-
-aggiornaIncassi();
+    if(panel)
+    panel.style.display="none";
 
 
 }
@@ -1418,24 +1384,47 @@ aggiornaIncassi();
 
 
 
-function apriResto(){
-
-chiudiUtility();
 
 
-document.querySelectorAll(".page")
-.forEach(p=>{
-
-p.classList.remove("active");
-
-});
+// =====================
+// PAGINA INCASSI
+// =====================
 
 
-document.getElementById("resto")
-.classList.add("active");
+function apriElencoIncassi(){
+
+
+    chiudiUtility();
+
+
+
+    document.querySelectorAll(".page")
+    .forEach(p=>{
+
+        p.classList.remove("active");
+
+    });
+
+
+
+    let pagina =
+    document.getElementById("elencoIncassi");
+
+
+
+    if(pagina){
+
+        pagina.classList.add("active");
+
+    }
+
+
+
+    aggiornaIncassi();
 
 
 }
+
 
 
 
@@ -1445,581 +1434,138 @@ document.getElementById("resto")
 
 
 // =====================
-// GESTIONE INCASSI
+// SALVA INCASSO
 // =====================
-
-
-let incassi =
-JSON.parse(localStorage.getItem("incassiTaxi")) || [];
-
-
-let giornoIncassi =
-new Date();
-
-
-
-let modificaIncassoId = null;
-
-
-
 
 
 function salvaIncasso(){
 
 
-let importo =
-Number(
-document.getElementById("importoIncasso").value
-);
+    let importo =
+    Number(
+        document.getElementById("importoIncasso")?.value
+    );
 
 
 
-let nota =
-document.getElementById("notaIncasso").value;
+    let nota =
+    document.getElementById("notaIncasso")?.value || "";
 
 
 
-if(!importo || importo<=0){
 
-alert("Inserisci un importo valido");
+    if(!importo || importo<=0){
 
-return;
 
-}
+        alert("Inserisci un importo valido");
 
 
+        return;
 
+    }
 
 
-let dataInserita =
-document.getElementById("dataIncasso")
-?
-document.getElementById("dataIncasso").value
-:
-formatoData(giornoIncassi);
-let titolo =
-document.getElementById("giornoIncassiSelezionato");
 
 
-if(titolo){
+    let nuovoIncasso={
 
 
-let oggi =
-formatoData(new Date());
+        id:
+        modificaIncassoId || Date.now(),
 
 
-if(data===oggi){
+        importo:
+        importo,
 
 
-titolo.innerText="Oggi";
+        nota:
+        nota,
 
 
-}else{
+        data:
+        formatoData(giornoIncassi),
 
 
-titolo.innerText =
-giornoIncassi.toLocaleDateString(
-"it-IT",
-{
-weekday:"long",
-day:"numeric",
-month:"long",
-year:"numeric"
-}
-);
+        ora:
+        new Date()
+        .toLocaleTimeString(
+            "it-IT",
+            {
+                hour:"2-digit",
+                minute:"2-digit"
+            }
+        )
 
 
-}
+    };
 
 
-}
 
 
 
 
-let oraInserita =
-document.getElementById("oraIncasso")
-?
-document.getElementById("oraIncasso").value
-:
-new Date().toLocaleTimeString(
-"it-IT",
-{
-hour:"2-digit",
-minute:"2-digit"
-}
-);
 
+    if(modificaIncassoId){
 
 
+        incassi =
+        incassi.map(i=>{
 
 
+            return i.id===modificaIncassoId
+            ?
+            nuovoIncasso
+            :
+            i;
 
-let nuovoIncasso = {
 
+        });
 
-id:
-modificaIncassoId || Date.now(),
 
+        modificaIncassoId=null;
 
-importo:
-importo,
 
 
-nota:
-nota,
+    }else{
 
 
-data:
-dataInserita,
+        incassi.push(nuovoIncasso);
 
 
-ora:
-oraInserita
+    }
 
 
-};
 
 
 
 
+    localStorage.setItem(
+        "incassiTaxi",
+        JSON.stringify(incassi)
+    );
 
 
 
-if(modificaIncassoId){
 
+    if(document.getElementById("importoIncasso"))
 
-incassi =
-incassi.map(i=>{
+    document.getElementById("importoIncasso").value="";
 
 
-return i.id===modificaIncassoId
-?
-nuovoIncasso
-:
-i;
 
+    if(document.getElementById("notaIncasso"))
 
-});
+    document.getElementById("notaIncasso").value="";
 
 
-modificaIncassoId=null;
 
 
-
-}else{
-
-
-incassi.push(nuovoIncasso);
+    aggiornaIncassi();
 
 
 }
 
 
-
-
-
-
-localStorage.setItem(
-"incassiTaxi",
-JSON.stringify(incassi)
-);
-
-
-
-
-
-document.getElementById("importoIncasso").value="";
-
-
-document.getElementById("notaIncasso").value="";
-
-
-
-
-aggiornaIncassi();
-
-
-
-}
-
-
-
-
-
-
-
-
-
-function cambiaGiornoIncassi(numero){
-
-
-giornoIncassi.setDate(
-
-giornoIncassi.getDate()+numero
-
-);
-
-
-
-aggiornaIncassi();
-
-
-}
-
-
-
-
-
-
-
-
-function aggiornaIncassi(){
-
-
-
-let data =
-formatoData(giornoIncassi);
-
-
-
-
-let lista =
-incassi.filter(i=>
-
-i.data===data
-
-);
-
-
-
-
-let box =
-document.getElementById("incassiOggi");
-
-
-
-let totaleBox =
-document.getElementById("totaleOggi");
-
-
-
-
-if(!box)return;
-
-
-
-
-box.innerHTML="";
-
-
-
-let totale=0;
-
-
-
-
-
-if(lista.length===0){
-
-
-box.innerHTML =
-"Nessun incasso";
-
-
-
-}else{
-
-
-
-lista.forEach(i=>{
-
-
-totale += i.importo;
-
-
-
-box.innerHTML += `
-
-
-<div class="card">
-
-
-<div>
-
-<strong>
-${i.ora}
-</strong>
-
-</div>
-
-
-<div>
-
-${i.nota || "Incasso"}
-
-</div>
-
-
-
-<h3>
-
-€ ${i.importo.toFixed(2)}
-
-</h3>
-
-
-
-
-<button onclick="modificaIncasso(${i.id})">
-
-Modifica
-
-</button>
-
-
-
-<button onclick="eliminaIncasso(${i.id})">
-
-Elimina
-
-</button>
-
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-}
-
-
-
-
-
-if(totaleBox){
-
-
-totaleBox.innerHTML =
-"€ " + totale.toFixed(2);
-
-
-}
-
-
-
-
-aggiornaStoricoMesi();
-
-
-
-}
-
-
-
-
-
-
-
-
-
-function modificaIncasso(id){
-
-
-
-let incasso =
-incassi.find(i=>
-
-i.id===id
-
-);
-
-
-
-if(!incasso)return;
-
-
-
-modificaIncassoId=id;
-
-
-
-
-document.getElementById("importoIncasso").value =
-incasso.importo;
-
-
-
-document.getElementById("notaIncasso").value =
-incasso.nota || "";
-
-
-
-
-if(document.getElementById("dataIncasso")){
-
-
-document.getElementById("dataIncasso").value =
-incasso.data;
-
-
-}
-
-
-
-
-if(document.getElementById("oraIncasso")){
-
-
-document.getElementById("oraIncasso").value =
-incasso.ora;
-
-
-}
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-function eliminaIncasso(id){
-
-
-if(confirm("Eliminare questo incasso?")){
-
-
-incassi =
-incassi.filter(i=>
-
-i.id!==id
-
-);
-
-
-
-localStorage.setItem(
-"incassiTaxi",
-JSON.stringify(incassi)
-);
-
-
-
-aggiornaIncassi();
-
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-
-function aggiornaStoricoMesi(){
-
-
-
-let storico =
-document.getElementById("storicoIncassi");
-
-
-
-if(!storico)return;
-
-
-
-let mesi={};
-
-
-
-incassi.forEach(i=>{
-
-
-let mese =
-i.data.substring(0,7);
-
-
-
-if(!mesi[mese]){
-
-mesi[mese]=0;
-
-}
-
-
-
-mesi[mese]+=i.importo;
-
-
-
-});
-
-
-
-
-storico.innerHTML="";
-
-
-
-
-Object.keys(mesi)
-
-.sort()
-
-.reverse()
-
-.forEach(m=>{
-
-
-storico.innerHTML += `
-
-
-<div class="card">
-
-<h3>
-
-${m}
-
-</h3>
-
-
-Totale:
-
-€ ${mesi[m].toFixed(2)}
-
-
-</div>
-
-
-`;
-
-
-
-});
-
-
-
-}
 
 
 
@@ -2028,35 +1574,335 @@ Totale:
 
 
 // =====================
-// CALCOLO RESTO
+// CAMBIO GIORNO INCASSI
+// =====================
+
+
+function cambiaGiornoIncassi(numero){
+
+
+    giornoIncassi.setDate(
+
+        giornoIncassi.getDate()+numero
+
+    );
+
+
+    aggiornaIncassi();
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// VISUALIZZA INCASSI
+// =====================
+
+
+function aggiornaIncassi(){
+
+
+    let listaBox =
+    document.getElementById("listaIncassi");
+
+
+    let totaleBox =
+    document.getElementById("totaleElenco");
+
+
+
+    let giornoBox =
+    document.getElementById("giornoIncassiSelezionato");
+
+
+
+    if(!listaBox)
+    return;
+
+
+
+
+    let data =
+    formatoData(giornoIncassi);
+
+
+
+
+    if(giornoBox){
+
+
+        let oggi =
+        formatoData(new Date());
+
+
+        giornoBox.innerText =
+        data===oggi
+        ?
+        "Oggi"
+        :
+        giornoIncassi.toLocaleDateString(
+            "it-IT",
+            {
+                weekday:"long",
+                day:"numeric",
+                month:"long"
+            }
+        );
+
+
+    }
+
+
+
+
+
+
+    let lista =
+    incassi.filter(i=>
+
+        i.data===data
+
+    );
+
+
+
+
+    listaBox.innerHTML="";
+
+
+
+    let totale=0;
+
+
+
+
+
+    if(lista.length===0){
+
+
+        listaBox.innerHTML=
+        `
+        <div class="card">
+        Nessun incasso registrato
+        </div>
+        `;
+
+
+    }
+
+
+
+
+    lista.forEach(i=>{
+
+
+        totale += i.importo;
+
+
+
+        listaBox.innerHTML +=
+        `
+
+        <div class="card">
+
+
+        <h2>
+        + € ${i.importo.toFixed(2)}
+        </h2>
+
+
+
+        <p>
+        ${i.nota || "Incasso"}
+        </p>
+
+
+
+        <small>
+        ${i.ora}
+        </small>
+
+
+
+        <br><br>
+
+
+
+        <button onclick="modificaIncasso(${i.id})">
+
+        Modifica
+
+        </button>
+
+
+
+        <button onclick="eliminaIncasso(${i.id})">
+
+        Elimina
+
+        </button>
+
+
+
+        </div>
+
+        `;
+
+
+
+    });
+
+
+
+
+
+
+
+    if(totaleBox){
+
+
+        totaleBox.innerText =
+        "€ " + totale.toFixed(2);
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// MODIFICA INCASSO
+// =====================
+
+
+function modificaIncasso(id){
+
+
+    let i =
+    incassi.find(x=>x.id===id);
+
+
+
+    if(!i)
+    return;
+
+
+
+    modificaIncassoId=id;
+
+
+
+    if(document.getElementById("importoIncasso"))
+
+    document.getElementById("importoIncasso").value =
+    i.importo;
+
+
+
+    if(document.getElementById("notaIncasso"))
+
+    document.getElementById("notaIncasso").value =
+    i.nota || "";
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// ELIMINA INCASSO
+// =====================
+
+
+function eliminaIncasso(id){
+
+
+    if(confirm("Eliminare questo incasso?")){
+
+
+        incassi =
+        incassi.filter(i=>
+
+            i.id!==id
+
+        );
+
+
+
+        localStorage.setItem(
+            "incassiTaxi",
+            JSON.stringify(incassi)
+        );
+
+
+
+        aggiornaIncassi();
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+// =====================
+// CALCOLA RESTO
 // =====================
 
 
 function calcolaResto(){
 
 
-let prezzo =
-Number(
-document.getElementById("prezzoCorsa").value
-);
+    let prezzo =
+    Number(
+        document.getElementById("prezzoCorsa").value
+    );
 
 
 
-let pagato =
-Number(
-document.getElementById("pagamentoCliente").value
-);
+    let pagato =
+    Number(
+        document.getElementById("pagamentoCliente").value
+    );
 
 
 
-let risultato =
-pagato-prezzo;
+    let risultato =
+    pagato-prezzo;
 
 
 
-document.getElementById("risultatoResto")
-.innerHTML =
-"€ " + risultato.toFixed(2);
+    document.getElementById("risultatoResto")
+    .innerText =
+    "€ " + risultato.toFixed(2);
 
 
 
