@@ -541,117 +541,110 @@ Salva corsa
 <!-- GESTIONE INCASSI -->
 
 
-<section id="incassi" class="page utility-page">
+function apriElencoIncassi(){
 
 
-<h1>
-Gestione incassi
-</h1>
-<div class="day-selector">
+document.querySelectorAll(".page")
+.forEach(p=>{
 
+p.classList.remove("active");
 
-<button onclick="cambiaGiornoIncassi(-1)">
-‹
-</button>
+});
 
 
 
-<div id="giornoIncassiSelezionato">
-Oggi
-</div>
-
-
-<div id="importoIncasso"></div>
-
-
-<div id="notaIncasso"></div>
-
-
-<div id="incassiOggi"></div>
-
-
-<div id="totaleOggi"></div>
-
-
-<div id="storicoIncassi"></div>
+document.getElementById("elencoIncassi")
+.classList.add("active");
 
 
 
-<button onclick="cambiaGiornoIncassi(1)">
-›
-</button>
+caricaElencoIncassi();
 
 
-</div>
-
-
-<div class="card">
-
-
-<h2>
-Nuovo incasso
-</h2>
-
-
-
-<input
-id="importoIncasso"
-type="number"
-placeholder="Importo €">
-
-
-
-<textarea
-id="notaIncasso"
-placeholder="Nota">
-</textarea>
-
-
-
-<button onclick="salvaIncasso()">
-
-Salva incasso
-
-</button>
-
-
-</div>
+}
 
 
 
 
-
-<div class="card">
-
-
-<h2>
-Totale oggi
-</h2>
+function caricaElencoIncassi(){
 
 
-<div id="totaleOggi">
-
-€ 0,00
-
-</div>
-
-
-</div>
+let data =
+formatoData(giornoIncassi);
 
 
 
+let lista =
+incassi.filter(i=>
+
+i.data===data
+
+);
+
+
+
+
+// ultimo incasso sopra
+
+lista.sort((a,b)=>
+
+b.id-a.id
+
+);
+
+
+
+let box =
+document.getElementById(
+"listaIncassi"
+);
+
+
+
+box.innerHTML="";
+
+
+
+let totale=0;
+
+
+
+lista.forEach(i=>{
+
+
+totale += i.importo;
+
+
+
+box.innerHTML += `
 
 
 <div class="card">
 
 
-<h2>
-Storico incassi
+<div style="display:flex;justify-content:space-between">
 
+
+<div>
+
+
+<h2>
++ € ${i.importo.toFixed(2)}
 </h2>
 
 
-<div id="storicoIncassi">
+<p>
+${i.nota || "Incasso"}
+</p>
+
+
+</div>
+
+
+
+<div>
+
+${i.ora || ""}
 
 </div>
 
@@ -660,10 +653,40 @@ Storico incassi
 
 
 
-</section>
+<button onclick="modificaIncasso(${i.id})">
+
+Modifica
+
+</button>
 
 
 
+<button onclick="eliminaIncasso(${i.id})">
+
+Elimina
+
+</button>
+
+
+</div>
+
+
+`;
+
+
+});
+
+
+
+document.getElementById(
+"totaleElenco"
+)
+.innerHTML =
+"€ "+totale.toFixed(2);
+
+
+
+}
 
 
 
