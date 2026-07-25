@@ -1135,3 +1135,224 @@ window.open(url,"_blank");
 
 
 }
+
+// =====================
+// BACKUP DATI
+// =====================
+
+
+function esportaBackup(){
+
+
+let backup = {
+
+versione: "1.0",
+
+dataBackup: new Date(),
+
+autista: autista,
+
+corse: corse
+
+};
+
+
+
+let contenuto =
+JSON.stringify(
+backup,
+null,
+2
+);
+
+
+
+let file =
+new Blob(
+[
+contenuto
+],
+{
+type:"application/json"
+}
+);
+
+
+
+let link =
+document.createElement("a");
+
+
+
+link.href =
+URL.createObjectURL(file);
+
+
+
+let data =
+new Date()
+.toLocaleDateString("it-IT")
+.replaceAll("/","-");
+
+
+
+link.download =
+"backup-corse-taxi-" + data + ".json";
+
+
+
+link.click();
+
+
+
+localStorage.setItem(
+"ultimoBackup",
+new Date()
+);
+
+
+
+aggiornaUltimoBackup();
+
+
+
+alert("Backup creato correttamente");
+
+
+}
+
+
+
+
+
+
+
+function importaBackup(event){
+
+
+let file =
+event.target.files[0];
+
+
+if(!file){
+
+return;
+
+}
+
+
+
+let lettore =
+new FileReader();
+
+
+
+lettore.onload=function(e){
+
+
+try{
+
+
+let dati =
+JSON.parse(e.target.result);
+
+
+
+if(!dati.corse){
+
+throw "backup non valido";
+
+}
+
+
+
+corse =
+dati.corse;
+
+
+
+salvaDatabase();
+
+
+
+if(dati.autista){
+
+
+autista =
+dati.autista;
+
+
+
+localStorage.setItem(
+"nomeTassista",
+autista
+);
+
+
+}
+
+
+
+aggiornaApp();
+
+
+
+alert("Backup importato correttamente");
+
+
+}
+
+catch(error){
+
+
+alert("Errore: backup non valido");
+
+
+}
+
+
+
+};
+
+
+
+lettore.readAsText(file);
+
+
+}
+
+
+
+
+
+
+
+
+function aggiornaUltimoBackup(){
+
+
+let box =
+document.getElementById("lastBackup");
+
+
+
+let ultimo =
+localStorage.getItem(
+"ultimoBackup"
+);
+
+
+
+if(box && ultimo){
+
+
+box.innerText =
+"Ultimo backup: " +
+new Date(ultimo)
+.toLocaleString("it-IT");
+
+
+}
+
+
+}
